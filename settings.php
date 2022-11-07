@@ -48,7 +48,7 @@ return [
                 'driver' => 'pdo_mysql',
                 'host' => 'mariadb',
                 'port' => 3306,
-                'dbname' => 'Galery',
+                'dbname' => 'Gallery',
                 'user' => 'test',
                 'password' => 'test',
                 // 'charset' => 'UTF-8'
