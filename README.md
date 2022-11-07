@@ -29,4 +29,4 @@
 docker-compose up --build
 ```
 
-then go to [localhost:8080](localhost:8080)
+then go to [localhost:8080](http://localhost:8080)
