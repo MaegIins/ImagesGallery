@@ -1,4 +1,5 @@
-<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
+<?php
+
 namespace App\Domain;
 
 use Doctrine\ORM\Mapping\Column;
@@ -10,11 +11,17 @@ use Doctrine\ORM\Mapping\Table;
 #[Entity, Table(name: 'user')]
 final class User
 {
-    #[Id, Column(name: 'id', type: 'integer'), GeneratedValue(strategy: 'AUTO')]
-    private int $id;
+    #[Id, Column(name: 'id_user', type: 'integer'), GeneratedValue(strategy: 'AUTO')]
+    private int $id_user;
 
-    #[Column(name: 'username', type: 'string', unique: true, nullable: false)]
-    private string $username;
+    #[Column(name: 'name', type: 'string', unique: false, nullable: false)]
+    private string $name;
+
+    #[Column(name: 'first_name', type: 'string', unique: false, nullable: false)]
+    private string $first_name;
+
+    #[Column(name: 'email', type: 'string', unique: false, nullable: false)]
+    private string $email;
 
     #[Column(name: 'password', type: 'string', unique: false, nullable: false)]
     private string $password;
@@ -22,21 +29,32 @@ final class User
 
 
 
-    public function __construct(string $username, string $password)
+    public function __construct(string $id_user, string $name, string $first_name, string $email, string $password)
     {
-        $this->username = $username;
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
-
+        $this->id_user = $id_user;
+        $this->name = $name;
+        $this->first_name = $first_name;
+        $this->email = $email;
+        $this->password = $password;
     }
-    public function getId() : int{
-        return $this->id;
+    public function getId_user(): int
+    {
+        return $this->id_user;
     }
-    public function getUsername() : string{
-        return $this->username;
+    public function getName(): string
+    {
+        return $this->name;
     }
-
-    public function checkPassword($pass) : bool {
-        return password_verify($pass, $this->password);
+    public function getFirstName(): string
+    {
+        return $this->first_name;
     }
-
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
 }
