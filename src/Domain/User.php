@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity, Table(name: 'user')]
@@ -13,6 +14,8 @@ final class User
 {
     #[Id, Column(name: 'id_user', type: 'integer'), GeneratedValue(strategy: 'AUTO')]
     private int $id_user;
+
+    #[OneToMany(targetEntity: Galery::class, mappedBy:'user')]
 
     #[Column(name: 'name', type: 'string', unique: false, nullable: false)]
     private string $name;
