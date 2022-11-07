@@ -2,7 +2,7 @@ version: '3'
 services:
     php:
       build:
-        context: ./.docker/php
+        context: ./
       command: php -S 0.0.0.0:8080
       working_dir: /app/public
       ports:
