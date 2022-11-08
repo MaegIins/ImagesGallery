@@ -1,7 +1,7 @@
 <?php
 
-// bootstrap.php
-
+use App\Controller\UserController;
+use App\Service\UserService;
 use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -9,19 +9,16 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use UMA\DIC\Container;
-use App\UserService;
-use App\UserController;
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Psr\Log\LoggerInterface;
 use Slim\Views\Twig;
 
+
 require_once __DIR__ . '/vendor/autoload.php';
 
-
 $container = new Container(require __DIR__ . '/settings.php');
-
 
 $container->set(LoggerInterface::class, function (ContainerInterface $c) {
     $settings = $c->get('settings')['logger'];
@@ -52,7 +49,7 @@ $container->set(EntityManager::class, static function (Container $c): EntityMana
 
 $container->set('view', function () {
     return Twig::create(
-        __DIR__ . '/templates',
+        __DIR__ . '/public/view',
         ['cache' => __DIR__ . '/cache']
     );
 });

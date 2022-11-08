@@ -49,8 +49,8 @@ return [
                 'host' => 'mariadb',
                 'port' => 3306,
                 'dbname' => 'Gallery',
-                'user' => 'test',
-                'password' => 'test',
+                'user' => 'root',
+                'password' => 'root',
                 // 'charset' => 'UTF-8'
             ]
         ]
