@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="../data/style/sass/gallery.css">
+</head>
+<body>
+
+<div id="menu">
+    <p id="title">Image Gallery</p>
+
+    <a id="myGal" href="/myGal">My gallery</a>
+
+    <div id="login">
+
+            <a id ="newGal" href="/newGal">New Gallery</a>
+            <input id="searchbar" type="text">
+            <p>Hello {{ conn.username }}</p>
+            <a id="logout" href="/logout">Logout</a>
+
+    </div>
+</div>
+
+<div id="content">
+    <p id="titlge">My Gallery</p>
+    
+
+</div>
+<div id="footer">
+    <p>Image Gallery</p>
+</div>
+
+    <form action="" method="post" enctype="multipart/form-data">
+
+        <input type="text" name="title" id="title" placeholder="Titre de la galerie">
+        <input type="text" name="tag" id="tag" placeholder="Mots clef de la galerie">
+        <label for="prive">Privé</label> <input type="radio" name="groupe-radio" id="prive">
+        <label for="public">Public</label> <input type="radio" name="groupe-radio" id="public" checked>
+        <input type="file" name="img" id="image" accept="application/png">
+
+        <input type="submit" value="Créer une galerie">
+    </form>
+</body>
+</html>
