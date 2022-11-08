@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
-
     <link rel="stylesheet" href="../data/style/sass/log.css">
 </head>
 <body>
@@ -14,13 +13,12 @@
         <input class = "txt" type="text" placeholder="Username" name="username"/>
         <input class = "txt" type="password" placeholder="Password" name="password"/>
         <input class = "txt" type="password" placeholder="Repeat Password" name="password_confirm"/>
-        <input type="submit" class="sub" value="Create an Account"/>
+        <input type="submit" class="sub" value="Create an account"/>
     </form>
     {% if error != "" %}
-    <div class="error">{{ error }}</div>
+        <div class="error">{{ error }}</div>
     {% endif %}
 </div>
-
 
 </body>
 </html>
