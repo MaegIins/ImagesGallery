@@ -99,5 +99,5 @@ class UserController
         unset($_SESSION["username"]);
         $response = $response->withStatus(302);
         return $response->withHeader('Location', '/');
-    }
+    }//helloo aled
 }
