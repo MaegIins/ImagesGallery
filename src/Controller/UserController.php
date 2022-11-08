@@ -31,7 +31,7 @@ class UserController
 
     public function start(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
     {
-        return $this->view->render($response, 'index.twig', [
+        return $this->view->render($response, 'gallery.twig', [
             'conn' => isset($_SESSION['user_id']),
             'name' => $_SESSION["username"] ?? "",
             'error' => ""
