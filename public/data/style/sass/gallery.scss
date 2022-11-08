@@ -39,7 +39,7 @@ body {
     text-decoration: none;
     color: #000000;
 
-    :hover {
+    &:hover {
       text-decoration: underline #000000;
 
     }
@@ -52,7 +52,7 @@ body {
     padding-left: 25px;
     color: black;
 
-    :hover {
+    &:hover {
       text-decoration: underline #000000;
 
     }
@@ -77,8 +77,8 @@ body {
       text-decoration: none;
       padding-right: 20px;
 
-      :hover {
-        text-shadow: black 1px 1px 1px;
+      &:hover {
+        text-decoration: underline;
       }
     }
 

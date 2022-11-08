@@ -32,7 +32,7 @@ body {
   text-decoration: none;
   color: #000000;
 }
-#menu #newGal :hover {
+#menu #newGal:hover {
   text-decoration: underline #000000;
 }
 #menu #myGal {
@@ -42,7 +42,7 @@ body {
   padding-left: 25px;
   color: black;
 }
-#menu #myGal :hover {
+#menu #myGal:hover {
   text-decoration: underline #000000;
 }
 #menu #login {
@@ -62,8 +62,8 @@ body {
   text-decoration: none;
   padding-right: 20px;
 }
-#menu #login #signup :hover, #menu #login #logout :hover {
-  text-shadow: black 1px 1px 1px;
+#menu #login #signup:hover, #menu #login #logout:hover {
+  text-decoration: underline;
 }
 
 #footer {
