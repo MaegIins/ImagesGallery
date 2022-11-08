@@ -4,14 +4,10 @@ namespace App\Domain;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
-
-use Doctrine\ORM\Mapping\Table;
-
 use Doctrine\ORM\Mapping\InverseJoinColumn;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -19,8 +15,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 
-
-#[Entity, Table(name: 'galery')]
+#[Entity, Table(name: 'Gallery')]
 final class Galery
 {
     #[Id, Column(name: 'id_gal', type: 'integer'), GeneratedValue(strategy: 'AUTO')]
@@ -39,21 +34,21 @@ final class Galery
     private string $visibility;
 
 
-    #[Column(name: 'user_creator', type: 'integer', unique: false, nullable: false)]
-    private string $user_creator;
-
-
-
     #[ManyToOne(targetEntity: User::class, inversedBy: 'galery')]
     #[JoinColumn(name: 'user_creator', referencedColumnName: 'id_user')]
     private string $user_creator;
 
-    #[JoinTable(name: 'userToGalery')]
+    #[JoinTable(name: 'UserToGalery')]
     #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
     #[InverseJoinColumn(name: 'id_user', referencedColumnName: 'id_user')]
     #[ManyToMany(targetEntity: User::class)]
-    private Collection $groups;
+    private Collection $groups1;
 
+    #[JoinTable(name: 'ImageToGalery')]
+    #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
+    #[InverseJoinColumn(name: 'id_img', referencedColumnName: 'id_img')]
+    #[ManyToMany(targetEntity: Image::class)]
+    private Collection $groups2;
 
 
 
@@ -65,8 +60,8 @@ final class Galery
         $this->email = $tag;
         $this->password = $visibility;
         $this->user_creator = $user_creator;
-
-        $this->groups = new ArrayCollection();
+        $this->groups1 = new ArrayCollection();
+        $this->groups2 = new ArrayCollection();
 
     }
     public function getId_gal(): int

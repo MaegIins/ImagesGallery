@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
-#[Entity, Table(name: 'image')]
+#[Entity, Table(name: 'Image')]
 final class Image
 {
     #[Id, Column(name: 'id_img', type: 'integer'), GeneratedValue(strategy: 'AUTO')]
