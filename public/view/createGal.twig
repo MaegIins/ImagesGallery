@@ -7,17 +7,27 @@
 </head>
 <body>
 
-
 {% if conn %}
-    <!-- contenu de la page de création de gallerie si connecté -->
+<!-- contenu de la page de création de gallerie si connecté -->
+<div id="container">
+    <div id="header">
+        <h1>Create a new Gallery</h1>
+        <form action="#" method="post">
+            <input type="text" id="name" placeholder="Name">
+            <input type="radio" name="privPub" value="public" checked>Public
+            <input type="radio" name="privPub" value="private">Private
+            <input type="text" id="tags" placeholder="Tags">
+            <input type="submit" value="Create">
+        </form>
+
+    </div>
 
 
+    {% else %}
+        <!-- contenu de la page si non connecté -->
+        <p>Vous devez être connecté pour accéder à cette page</p>
 
-{% else %}
-    <!-- contenu de la page si non connecté -->
-    <p>Vous devez être connecté pour accéder à cette page</p>
-
-{% endif %}
+    {% endif %}
 
 </body>
 </html>
