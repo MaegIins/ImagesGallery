@@ -30,8 +30,8 @@ final class Galery
     #[Column(name: 'tag', type: 'string', unique: false, nullable: false)]
     private string $tag;
 
-    #[Column(name: 'visibility', type: 'boolean', unique: false, nullable: false)]
-    private string $visibility;
+    #[Column(name: 'private', type: 'boolean', unique: false, nullable: false)]
+    private string $private;
 
 
     #[ManyToOne(targetEntity: User::class, inversedBy: 'galery')]
@@ -51,7 +51,6 @@ final class Galery
     private Collection $groups2;
 
 
-
     public function __construct(string $id_gal, string $title, string $date_create, string $tag, string $visibility, string $user_creator)
     {
         $this->id_user = $id_gal;
@@ -64,28 +63,45 @@ final class Galery
         $this->groups2 = new ArrayCollection();
 
     }
+
     public function getId_gal(): int
     {
         return $this->id_gal;
     }
+
     public function getTitle(): string
     {
         return $this->title;
     }
+
     public function getDate_Create(): string
     {
         return $this->date_create;
     }
+
     public function getTag(): string
     {
         return $this->tag;
     }
-    public function getVisibility(): string
+
+    public function getPrivate(): string
     {
-        return $this->visibility;
+        return $this->private;
     }
+
     public function getUser_Creator(): string
     {
         return $this->user_creator;
     }
+
+    public function getGroups1(): Collection
+    {
+        return $this->groups1;
+    }
+
+    public function getGroups2(): Collection
+    {
+        return $this->groups2;
+    }
+
 }
