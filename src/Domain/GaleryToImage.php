@@ -8,8 +8,12 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
+#[Entity, Table(name: 'galerytoimage')]
+final class GaleryToImage
+
 #[Entity, Table(name: 'g1')]
 final class GaleryToImage2
+
 {
     #[Id, Column(name: 'id_img', type: 'integer')]
     private int $id_img;

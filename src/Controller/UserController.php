@@ -28,6 +28,17 @@ class UserController
      * @throws RuntimeError
      * @throws LoaderError
      */
+
+    public function start(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
+    {
+        return $this->view->render($response, 'index.twig', [
+            'conn' => isset($_SESSION['user_id']),
+            'name' => $_SESSION["username"] ?? "",
+            'error' => ""
+        ]);
+    }
+
+
     public function login(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $args = $request->getParsedBody();
@@ -88,5 +99,5 @@ class UserController
         unset($_SESSION["username"]);
         $response = $response->withStatus(302);
         return $response->withHeader('Location', '/');
-    }
+    }//helloo aled
 }

@@ -4,16 +4,21 @@ namespace App\Domain;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+
+use Doctrine\ORM\Mapping\Table;
+
 use Doctrine\ORM\Mapping\InverseJoinColumn;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+
 
 #[Entity, Table(name: 'galery')]
 final class Galery
@@ -34,6 +39,11 @@ final class Galery
     private string $visibility;
 
 
+    #[Column(name: 'user_creator', type: 'integer', unique: false, nullable: false)]
+    private string $user_creator;
+
+
+
     #[ManyToOne(targetEntity: User::class, inversedBy: 'galery')]
     #[JoinColumn(name: 'user_creator', referencedColumnName: 'id_user')]
     private string $user_creator;
@@ -46,6 +56,7 @@ final class Galery
 
 
 
+
     public function __construct(string $id_gal, string $title, string $date_create, string $tag, string $visibility, string $user_creator)
     {
         $this->id_user = $id_gal;
@@ -54,7 +65,9 @@ final class Galery
         $this->email = $tag;
         $this->password = $visibility;
         $this->user_creator = $user_creator;
+
         $this->groups = new ArrayCollection();
+
     }
     public function getId_gal(): int
     {

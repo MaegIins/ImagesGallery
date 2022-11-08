@@ -1,6 +1,4 @@
-# ImagesGallery
-
-  
+# Images Gallery
 
 ## Project from 07/11/2022 to 14/11/2022 consisting in the creation of an interactive image gallery in HTML, CSS, PHP and JS.
 
@@ -29,4 +27,4 @@
 docker-compose up --build
 ```
 
-then go to [localhost:8080](http://localhost:8080)
+then go to [localhost:8080](localhost:8080)
