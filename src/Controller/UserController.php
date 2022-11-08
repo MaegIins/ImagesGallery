@@ -28,7 +28,7 @@ class UserController
      * @throws RuntimeError
      * @throws LoaderError
      */
-        //oke
+        //okes
     public function start(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
     {
         return $this->view->render($response, 'index.twig', [
