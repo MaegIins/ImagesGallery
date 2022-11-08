@@ -11,10 +11,15 @@
     <h1>Log In</h1>
 
     <form id="login" method="post" action="/login">
-        <input  class="txt" placeholder="Username" name="username"/>
-        <input  class="txt" placeholder="Password" name="password"/>
+        <input type="text" class="txt" placeholder="Username" name="username"/>
+        <input type="password" class="txt" placeholder="Password" name="password"/>
+
+
         <input type="submit" class="sub" value="Log In"/>
     </form>
+    {% if error != "" %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
 </div>
 
 </body>

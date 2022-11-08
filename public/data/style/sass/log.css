@@ -42,5 +42,8 @@
 #log #login :last-of-type {
   margin-top: 100%;
 }
+#log .error {
+  color: red;
+}
 
 /*# sourceMappingURL=log.css.map */
