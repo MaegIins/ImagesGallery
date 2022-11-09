@@ -18,19 +18,19 @@ class UserService
         $this->logger = $logger;
     }
 
-    public function login(string $username, string $password) : bool|int
+    public function login(string $name, string $password) : bool|int
     {
-        $req = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $username]);
-        $this->logger->info("UserService::get($username)");
+        $req = $this->em->getRepository(\App\Domain\User::class)->findBy(['name' => $name]);
+        $this->logger->info("UserService::get($name)");
         if ($req == null) {
-            $this->logger->info("UserService::get($username) : user not found");
+            $this->logger->info("UserService::get($name) : user not found");
             return false;
         } else {
             if ($req[0]->checkPassword($password)) {
-                $this->logger->info("UserService::get($username) : user found");
+                $this->logger->info("UserService::get($name) : user found");
                 return $req[0]->getId();
             } else {
-                $this->logger->info("UserService::get($username) : wrong password");
+                $this->logger->info("UserService::get($name) : wrong password");
                 return false;
             }
         }
@@ -40,16 +40,16 @@ class UserService
      * @throws OptimisticLockException
      * @throws ORMException
      */
-    public function signup(string $username, string $password, string $password_confirm): bool|int
+    public function signup(string $name, string $password, string $password_confirm): bool|int
     {
-        if (strlen($username)>2 && ($password == $password_confirm) && strlen($password)>3) {
-            $newUser = new \App\Domain\User($username, $password);
+        if (strlen($name)>2 && ($password == $password_confirm) && strlen($password)>3) {
+            $newUser = new \App\Domain\User($name, $password);
             $this->em->persist($newUser);
             $this->em->flush();
-            $this->logger->info("UserService::signup($username)");
+            $this->logger->info("UserService::signup($name)");
             return $newUser->getId();
         } else {
-            $this->logger->info("UserService::signup($username) : error");
+            $this->logger->info("UserService::signup($name) : error");
             return false;
         }
     }

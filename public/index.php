@@ -2,6 +2,7 @@
 namespace ImagesGallery;
 session_start();
 use App\Controller\UserController;
+use App\Controller\GalleryController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
@@ -22,11 +23,11 @@ $app->add(TwigMiddleware::createFromContainer($app));
 
 
 $app->get('/', UserController::class . ':start');
-$app->get('/test', UserController::class . ':test');
 $app->post('/login', UserController::class . ':login');
 $app->post('/signup', UserController::class . ':signup');
 $app->get('/logout', UserController::class . ':logout');
 $app->get('/gallery/create', GalleryController::class . ':createGallery');
+$app->post('/gallery/submit', GalleryController::class . ':createGalleryPOST');
 
 
 //Clear session

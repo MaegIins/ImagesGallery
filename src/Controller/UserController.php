@@ -32,8 +32,8 @@ class UserController
     public function start(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
     {
         return $this->view->render($response, 'gallery.twig', [
-            'conn' => isset($_SESSION['user_id']),
-            'name' => $_SESSION["username"] ?? "",
+            'conn' => isset($_SESSION['id_user']),
+            'name' => $_SESSION["name"] ?? "",
             'error' => ""
         ]);
     }
@@ -48,19 +48,19 @@ class UserController
     {
         $args = $request->getParsedBody();
         $error = "";
-        if (isset($args["username"]) && isset($args["password"])) {
-            $login = $this->userService->login($args["username"], $args["password"]);
+        if (isset($args["name"]) && isset($args["password"])) {
+            $login = $this->userService->login($args["name"], $args["password"]);
             if ($login === false) {
                 $error = "Identifiants incorrects";
             } else {
-                $_SESSION["user_id"] = $login;
-                $_SESSION["username"] = $args["username"];
+                $_SESSION["id_user"] = $login;
+                $_SESSION["name"] = $args["name"];
             }
         }
 
-        return $this->view->render($response, 'index.twig', [
-            'conn' => isset($_SESSION['user_id']),
-            'name' => $_SESSION["username"] ?? "",
+        return $this->view->render($response, 'gallery.twig', [
+            'conn' => isset($_SESSION['id_user']),
+            'name' => $_SESSION["name"] ?? "",
             'error' => $error
         ]);
     }
@@ -75,8 +75,8 @@ class UserController
     public function signup(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $args = $request->getParsedBody();
-        if (isset($args["username"]) && isset($args["password"]) && isset($args["password_confirm"])) {
-            $signup = $this->userService->signup($args["username"], $args["password"], $args["password_confirm"]);
+        if (isset($args["name"]) && isset($args["password"]) && isset($args["password_confirm"])) {
+            $signup = $this->userService->signup($args["name"], $args["password"], $args["password_confirm"]);
             if ($signup === false) {
                 if ($args["password"] != $args["password_confirm"]) {
                     $error = "Les mots de passe ne correspondent pas / Ne sont pas assez longs";
@@ -84,24 +84,24 @@ class UserController
                     $error = "Le nom d'utilisateur est déjà utilisé";
                 }
             } else {
-                $_SESSION["user_id"] = $signup;
-                $_SESSION["username"] = $args["username"];
+                $_SESSION["id_user"] = $signup;
+                $_SESSION["name"] = $args["name"];
                 $error = "Inscription réussie";
             }
         } else {
             $error = "Veuillez remplir tous les champs";
         }
-        return $this->view->render($response, 'index.twig', [
-            'conn' => isset($_SESSION['user_id']),
-            'name' => $_SESSION["username"] ?? "",
+        return $this->view->render($response, 'gallery.twig', [
+            'conn' => isset($_SESSION['id_user']),
+            'name' => $_SESSION["name"] ?? "",
             'error' => $error
         ]);
     }
 
     public function logout(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
-        unset($_SESSION["user_id"]);
-        unset($_SESSION["username"]);
+        unset($_SESSION["id_user"]);
+        unset($_SESSION["name"]);
         $response = $response->withStatus(302);
         return $response->withHeader('Location', '/');
     }//helloo aled
