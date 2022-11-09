@@ -31,6 +31,19 @@ class GalleryService
         $this->em->persist($gallery);
         $this->em->flush();
     }
+
+
+
+    public function getImageByGallery(int $id_gal)
+    {
+        $gallery = $this->em->getRepository(Gallery::class)->find($id_gal);
+
+        return $gallery->getImages();
+    }
+
+    
+    
+
     public function getListGallery(int $gal): Paginator
     {
         $dql = "SELECT g FROM App\Domain\Gallery g";
