@@ -2,6 +2,7 @@
 
 use App\Controller\UserController;
 use App\Controller\GalleryController;
+use App\Domain\Gallery;
 use App\Service\GalleryService;
 use App\Service\UserService;
 use Doctrine\Common\Cache\Psr6\DoctrineProvider;

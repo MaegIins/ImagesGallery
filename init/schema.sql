@@ -39,7 +39,7 @@ create or replace table Gallery
 create or replace index IDX_889641A6E40BF469
     on Gallery (user_creator);
 
-create or replace table ImageToGalery
+create or replace table ImageToGallery
 (
     id_gal int not null,
     id_img int not null,
@@ -52,12 +52,12 @@ create or replace table ImageToGalery
     collate = utf8mb3_unicode_ci;
 
 create or replace index IDX_26A514B8149F9B78
-    on ImageToGalery (id_gal);
+    on ImageToGallery (id_gal);
 
 create or replace index IDX_26A514B8256620F6
-    on ImageToGalery (id_img);
+    on ImageToGallery (id_img);
 
-create or replace table UserToGalery
+create or replace table UserToGallery
 (
     id_gal  int not null,
     id_user int not null,
@@ -70,8 +70,8 @@ create or replace table UserToGalery
     collate = utf8mb3_unicode_ci;
 
 create or replace index IDX_40F7CD63149F9B78
-    on UserToGalery (id_gal);
+    on UserToGallery (id_gal);
 
 create or replace index IDX_40F7CD636B3CA4B
-    on UserToGalery (id_user);
+    on UserToGallery (id_user);
 

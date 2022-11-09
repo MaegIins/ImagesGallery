@@ -51,7 +51,7 @@ class GalleryController
             $user_creator = $this->userService->findUserById(2);
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $tag, $private, $user_creator);
 
-            $username = $args["username"];
+            $username = $args["user"];
             $this->galleryService->addUserPrivate($username);
        // }
 

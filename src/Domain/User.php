@@ -15,7 +15,7 @@ final class User
     #[Id, Column(name: 'id_user', type: 'integer'), GeneratedValue(strategy: 'AUTO')]
     private int $id_user;
 
-    #[OneToMany(targetEntity: Galery::class, mappedBy:'user')]
+    #[OneToMany(targetEntity: Gallery::class, mappedBy:'user')]
 
     #[Column(name: 'name', type: 'string', unique: false, nullable: false)]
     private string $name;

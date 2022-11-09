@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 
 #[Entity, Table(name: 'Gallery')]
-final class Galery
+final class Gallery
 {
     #[Id, Column(name: 'id_gal', type: 'integer'), GeneratedValue(strategy: 'AUTO')]
     private int $id_gal;
@@ -24,7 +24,7 @@ final class Galery
     #[Column(name: 'title', type: 'string', unique: false, nullable: false)]
     private string $title;
 
-    #[Column(name: 'date_creation', type: 'date', unique: false, nullable: false)]
+    #[Column(name: 'date_creation', type: 'string', unique: false, nullable: false)]
     private string $date_create;
 
     #[Column(name: 'tag', type: 'string', unique: false, nullable: false)]
@@ -34,17 +34,17 @@ final class Galery
     private string $private;
 
 
-    #[ManyToOne(targetEntity: User::class, inversedBy: 'galery')]
+    #[ManyToOne(targetEntity: User::class, inversedBy: 'Gallery')]
     #[JoinColumn(name: 'user_creator', referencedColumnName: 'id_user')]
     private User $user_creator;
 
-    #[JoinTable(name: 'UserToGalery')]
+    #[JoinTable(name: 'UserToGallery')]
     #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
     #[InverseJoinColumn(name: 'id_user', referencedColumnName: 'id_user')]
     #[ManyToMany(targetEntity: User::class)]
     private Collection $groups1;
 
-    #[JoinTable(name: 'ImageToGalery')]
+    #[JoinTable(name: 'ImageToGallery')]
     #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
     #[InverseJoinColumn(name: 'id_img', referencedColumnName: 'id_img')]
     #[ManyToMany(targetEntity: Image::class)]
@@ -54,10 +54,10 @@ final class Galery
 
     public function __construct(string $title, string $date_create, string $tag, string $private, User $user_creator)
     {
-        $this->name = $title;
-        $this->first_name = $date_create;
-        $this->email = $tag;
-        $this->password = $private;
+        $this->title = $title;
+        $this->date_create = $date_create;
+        $this->tag = $tag;
+        $this->private = $private;
         $this->user_creator = $user_creator;
         $this->groups1 = new ArrayCollection();
         $this->groups2 = new ArrayCollection();
@@ -87,11 +87,11 @@ final class Galery
     {
         return $this->user_creator;
     }
-    public function getUserToGalery(): Collection
+    public function getUserToGallery(): Collection
     {
         return $this->groups1;
     }
-    public function getImageTogalery(): Collection
+    public function getImageToGallery(): Collection
     {
         return $this->groups2;
     }
