@@ -12,7 +12,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class UserController
+class GalleryController
 {
     private $view;
     private GalleryService $galleryService;
@@ -34,4 +34,17 @@ class UserController
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $tag, $private, $user_creator);
         }
     }
+
+
+    public function getListGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $args = $request->getQueryParams();
+        if (isset($args["id_gal"])) {
+            $nbgal = filter_var($args['id_gal'], FILTER_SANITIZE_NUMBER_INT);
+            $maxgallery = $this->galleryService->getListGallery($nbgal);
+            return $this->view->render($response, 'gallery.twig', ['gallery' => $maxgallery]);
+        }
+    }
+    
+
 }

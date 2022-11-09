@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 
 #[Entity, Table(name: 'Gallery')]
-final class Galery
+final class Gallery
 {
     #[Id, Column(name: 'id_gal', type: 'integer'), GeneratedValue(strategy: 'AUTO')]
     private int $id_gal;
@@ -34,17 +34,17 @@ final class Galery
     private string $private;
 
 
-    #[ManyToOne(targetEntity: User::class, inversedBy: 'galery')]
+    #[ManyToOne(targetEntity: User::class, inversedBy: 'gallery')]
     #[JoinColumn(name: 'user_creator', referencedColumnName: 'id_user')]
     private string $user_creator;
 
-    #[JoinTable(name: 'UserToGalery')]
+    #[JoinTable(name: 'UserToGallery')]
     #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
     #[InverseJoinColumn(name: 'id_user', referencedColumnName: 'id_user')]
     #[ManyToMany(targetEntity: User::class)]
     private Collection $groups1;
 
-    #[JoinTable(name: 'ImageToGalery')]
+    #[JoinTable(name: 'ImageToGallery')]
     #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
     #[InverseJoinColumn(name: 'id_img', referencedColumnName: 'id_img')]
     #[ManyToMany(targetEntity: Image::class)]
@@ -87,11 +87,11 @@ final class Galery
     {
         return $this->user_creator;
     }
-    public function getUserToGalery(): Collection
+    public function getUserToGallery(): Collection
     {
         return $this->groups1;
     }
-    public function getImageTogalery(): Collection
+    public function getImageTogallery(): Collection
     {
         return $this->groups2;
     }
