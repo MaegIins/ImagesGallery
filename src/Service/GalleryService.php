@@ -53,7 +53,7 @@ class GalleryService
 
     public function addUserPrivate($username)
     {
-        $collection = $this->gallery->getUserToGalery();
+        $collection = $this->gallery->getUserToGallery();
         $id_gal = $collection->last();
         $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $username]);
         $collection->set($id_gal, $id_user);
