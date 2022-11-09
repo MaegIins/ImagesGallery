@@ -3,71 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
-    <link rel="stylesheet" href="../data/style/normalizer.css">
-    <link rel="stylesheet" href="../data/style/sass/gallery.css">
-    <link rel="stylesheet" href="../data/style/sass/log.css">
-    <link rel="stylesheet" href="../data/style/sass/sign.css">
-
-
+    <link rel="stylesheet" href="../data/style/sass/newGall.css">
 </head>
 <body>
 
-<div id="menu">
-    <p id="title">Image Gallery</p>
 
-    <div id="login">
-
-        <a id="loginBut">Login</a>
-
-        <a id="signup">Register</a>
-
-    </div>
-</div>
-
-<div id="content">
-</div>
-<div id="footer">
-    <p id="txtFooter">Image Gallery</p>
-</div>
-
-{% if !conn %}
-<div id="popup" class="popup" hidden>
-    <div id="Llog">
-        <h1>Log In</h1>
-
-        <form id="Llogin" method="post" action="/login">
-            <input type="text" class="Ltxt" placeholder="Username" name="username"/>
-            <input type="password" class="Ltxt" placeholder="Password" name="password"/>
-
-
-            <input type="submit" id="Lsubmit" class="Lsub" value="Log In"/>
-            <input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
+<!-- contenu de la page de création de gallerie si connecté -->
+<div id="container">
+    <div id="header">
+        <h1>Create a new Gallery</h1>
+        <form id="addImg" action="#" method="post">
+            <label for="name">Name of the gallery : </label>
+            <input type="text" id="name" placeholder="Name">
+            <div id="radio">
+            <input type="radio" class="radio" name="privPub" value="public" checked>Public
+            <input type="radio" class="radio" name="privPub" value="private">Private
+            </div>
+            <label for="Tags">Tags (separated by a coma) : </label>
+            <input type="text" id="tags" placeholder="Tags">
+            <input type="submit" id="submit" value="Create">
+            <input type="button" id="cancel" value="Cancel">
         </form>
-        {% if error != "" %}
-        <div class="Lerror">{{ error }}</div>
-        {% endif %}
-    </div>
-</div>
-{% endif %}
 
-{% if !conn %}
-<div id="popup2" class="popup" hidden>
-    <div id="Slog">
-        <h1>Create an account</h1>
-        <form id="Slogin" method="post" action="/signup">
-            <input class="Stxt" type="text" placeholder="Username" name="username"/>
-            <input class="Stxt" type="password" placeholder="Password" name="password"/>
-            <input class="Stxt" type="password" placeholder="Repeat Password" name="password_confirm"/>
-            <input type="submit" id="Ssubmit" class="Ssub" value="Create an account"/>
-            <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
-        </form>
-        {% if error != "" %}
-        <div class="Serror">{{ error }}</div>
-        {% endif %}
     </div>
-</div>
-{% endif %}
 
-<script src="../data/scripts/popup.js"></script>
+
+
+
 </body>
 </html>
