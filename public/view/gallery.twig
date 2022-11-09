@@ -52,8 +52,8 @@
             <input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
         </form>
 
-        {% if error != "" %}
-        <div class="Lerror" id="errorLog">{{ error }}</div>
+        {% if errorLogin != "" %}
+        <div class="Lerror" id="errorLog">{{ errorLogin }}</div>
         {% endif %}
     </div>
 </div>
@@ -70,8 +70,8 @@
             <input type="submit" id="Ssubmit" class="Ssub" value="Create an account"/>
             <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
         </form>
-        {% if error != "" %}
-        <div class="Serror" id="errorSign">{{ error }}</div>
+        {% if errorSignup != "" %}
+        <div class="Serror" id="errorSign">{{ errorSignup }}</div>
         {% endif %}
     </div>
 </div>
