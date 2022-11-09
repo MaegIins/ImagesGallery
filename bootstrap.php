@@ -52,6 +52,8 @@ $container->set(EntityManager::class, static function (Container $c): EntityMana
 $container->set('view', function () {
     return Twig::create(
         __DIR__ . '/public/view'
+
+    );
 });
 
 $container->set(UserService::class, static function (Container $c) {
