@@ -45,6 +45,15 @@ class GalleryController
             return $this->view->render($response, 'gallery.twig', ['gallery' => $maxgallery]);
         }
     }
-    
+
+    public function getListImage(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $args = $request->getQueryParams();
+        if (isset($args["id_img"])) {
+            $nbimg = filter_var($args['id_img'], FILTER_SANITIZE_NUMBER_INT);
+            $maximage = $this->galleryService->getListImage($nbimg);
+            return $this->view->render($response, 'gallery.twig', ['image' => $maximage]);
+        }
+    }
 
 }

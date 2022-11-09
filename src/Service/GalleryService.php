@@ -68,4 +68,20 @@ class GalleryService
         return $gallery;
     }
 
+    public function deleteGallery(int $id)
+    {
+        $gallery = $this->getGalleryById($id);
+        $this->em->remove($gallery);
+        $this->em->flush();
+    }
+
+    public function getListImage(int $img): Paginator
+    {
+        $dql = "SELECT i FROM App\Domain\Image i";
+        $query = $this->em->createQuery($dql)
+            ->setFirstResult(5 * ($img - 1))
+            ->setMaxResults(5);
+
+        return new Paginator($query, $fetchJoinCollection = true);
+    }
 }
