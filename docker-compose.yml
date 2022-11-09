@@ -24,4 +24,4 @@ services:
         - MARIADB_USER=test
         - MARIADB_PASSWORD=test
       volumes:
-        - ./.docker/mariadb:/var/lib/mysql
+        - "./init/schema.sql:/docker-entrypoint-initdb.d/1.sql"

@@ -22,6 +22,7 @@ $app->add(TwigMiddleware::createFromContainer($app));
 
 
 $app->get('/', UserController::class . ':start');
+$app->get('/test', UserController::class . ':test');
 $app->post('/login', UserController::class . ':login');
 $app->post('/signup', UserController::class . ':signup');
 $app->get('/logout', UserController::class . ':logout');

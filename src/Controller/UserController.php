@@ -31,13 +31,18 @@ class UserController
         //okesc
     public function start(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
     {
-        return $this->view->render($response, 'index.twig', [
+        return $this->view->render($response, 'gallery.twig', [
             'conn' => isset($_SESSION['user_id']),
             'name' => $_SESSION["username"] ?? "",
             'error' => ""
         ]);
     }
 
+    public function test(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
+    {
+        return $this->view->render($response, 'login.twig');
+
+    }
 
     public function login(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
