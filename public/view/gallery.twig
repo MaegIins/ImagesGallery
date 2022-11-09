@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Image Gallery</title>
     <link rel="stylesheet" href="../data/style/sass/gallery.css">
+    <link rel="stylesheet" href="../data/style/sass/log.css">
+
 </head>
 <body>
 
@@ -17,9 +19,13 @@
             <a id="newGal" href="/newGal">New Gallery</a>
             <input id="searchbar" type="text">
             <p>Hello {{ conn.username }}</p>
+
             <a id="logout" href="/logout">Logout</a>
         {% else %}
-            <a id="loginBut" href="/test">Login</a>
+
+            <a id="loginBut">Login</a>
+
+
             <a id="signup" href="/signup">Register</a>
         {% endif %}
     </div>
@@ -31,5 +37,27 @@
     <p>Image Gallery</p>
 </div>
 
+{% if conn %}
+    <div id="popup" class="popup" hidden>
+        <div id="Llog">
+            <h1>Log In</h1>
+
+            <form id="Llogin" method="post" action="/login">
+                <input type="text" class="Ltxt" placeholder="Username" name="username"/>
+                <input type="password" class="Ltxt" placeholder="Password" name="password"/>
+
+
+                <input type="submit" id="Lsubmit" class="Lsub" value="Log In"/>
+                <input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
+            </form>
+            {% if error != "" %}
+                <div class="Lerror">{{ error }}</div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+
+<script src="../data/scripts/popup.js"></script>
 </body>
 </html>

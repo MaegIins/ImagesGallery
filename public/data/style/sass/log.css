@@ -1,4 +1,4 @@
-#log {
+#Llog {
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -12,37 +12,37 @@
   text-align: center;
   align-items: center;
 }
-#log #login {
+#Llog #Llogin {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 75%;
   height: 100%;
 }
-#log #login .sub, #log #login .txt {
+#Llog #Llogin .Lsub, #Llog #Llogin .Ltxt {
   margin: 5px;
   border-radius: 5px;
   width: 100%;
   height: 20px;
   padding: 5px;
 }
-#log #login .txt {
+#Llog #Llogin .Ltxt {
   border: #595959 1px solid;
   background: #ffffff;
 }
-#log #login .sub {
+#Llog #Llogin .Lsub {
   border: #424242 1px solid;
   background: #b4b4b4;
   color: white;
   height: 40px;
 }
-#log #login .sub:hover {
+#Llog #Llogin .Lsub:hover {
   background: #424242;
 }
-#log #login :last-of-type {
+#Llog #Llogin #Lsubmit {
   margin-top: 100%;
 }
-#log .error {
+#Llog .Lerror {
   color: red;
 }
 

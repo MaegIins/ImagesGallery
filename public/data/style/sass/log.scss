@@ -1,4 +1,4 @@
-#log {
+#Llog {
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -14,7 +14,7 @@
   align-items: center;
 
 
-  #login {
+  #Llogin {
 
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
     width:75%;
     height: 100%;
 
-    .sub, .txt{
+    .Lsub, .Ltxt{
       margin: 5px;
       border-radius: 5px;
       width: 100%;
@@ -30,13 +30,13 @@
       padding: 5px;
     }
 
-    .txt {
+    .Ltxt {
       border: #595959 1px solid;
       background: #ffffff;
 
     }
 
-    .sub {
+    .Lsub {
       border: #424242 1px solid;
       background: #b4b4b4;
       color: white;
@@ -49,12 +49,12 @@
       }
     }
 
-    :last-of-type {
+    #Lsubmit {
       margin-top: 100%;
     }
   }
 
-  .error {
+  .Lerror {
     color: red;
 
   }

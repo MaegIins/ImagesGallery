@@ -26,6 +26,8 @@ $app->get('/test', UserController::class . ':test');
 $app->post('/login', UserController::class . ':login');
 $app->post('/signup', UserController::class . ':signup');
 $app->get('/logout', UserController::class . ':logout');
+$app->get('/gallery/create', GalleryController::class . ':createGallery');
+
 
 //Clear session
 $app->get('/deleteCache', function (Request $rq, Response $rs): Response {

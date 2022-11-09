@@ -7,18 +7,18 @@
 </head>
 <body>
 
-<div id="log">
+<div id="Llog">
     <h1>Log In</h1>
 
-    <form id="login" method="post" action="/login">
-        <input type="text" class="txt" placeholder="Username" name="username"/>
-        <input type="password" class="txt" placeholder="Password" name="password"/>
+    <form id="Llogin" method="post" action="/login">
+        <input type="text" class="Ltxt" placeholder="Username" name="username"/>
+        <input type="password" class="Ltxt" placeholder="Password" name="password"/>
 
 
-        <input type="submit" class="sub" value="Log In"/>
+        <input type="submit" class="Lsub" value="Log In"/>
     </form>
     {% if error != "" %}
-        <div class="error">{{ error }}</div>
+        <div class="Lerror">{{ error }}</div>
     {% endif %}
 </div>
 
