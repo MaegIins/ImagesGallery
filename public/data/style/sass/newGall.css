@@ -4,13 +4,14 @@
   display: flex;
   flex-direction: column;
   width: 600px;
-  height: 500px;
+  height: 550px;
   margin: 0 auto;
   margin-top: 150px;
   border: #595959 1px solid;
   border-radius: 5px;
   background: #ececec;
   padding: 10px;
+  font-size: 25px;
   align-items: center;
 }
 #container #header {
@@ -35,11 +36,12 @@
   padding: 5px;
 }
 #container #header #addImg #radio .radio {
-  margin-top: -3px;
+  margin-top: 9px;
   margin-left: 5px;
 }
 #container #header #addImg > label, #container #header #addImg > input {
   margin-top: 5px;
+  font-family: "Poor Story", cursive;
 }
 #container #header #submit, #container #header #cancel {
   border: #424242 1px solid;
@@ -50,6 +52,24 @@
 }
 #container #header #submit:hover, #container #header #cancel:hover {
   background: #424242;
+}
+#container #divimg, #container #divuser {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  font-family: "Poor Story", cursive;
+}
+#container #divimg #img, #container #divimg #newuser, #container #divuser #img, #container #divuser #newuser {
+  width: 100%;
+  font-family: "Poor Story", cursive;
+}
+#container #divimg :last-of-type, #container #divuser :last-of-type {
+  font-family: "Poor Story", cursive;
+  margin-left: auto;
+}
+
+input {
+  font-size: 20px;
 }
 
 /*# sourceMappingURL=newGall.css.map */

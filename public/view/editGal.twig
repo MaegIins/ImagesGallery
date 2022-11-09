@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="../data/style/sass/log.css">
+</head>
+<body>
+
+{# {% if conn %} #}
+   <form action="/gallery/submit" method="post" enctype="multipart/form-data">
+        <label for ="title">Titre de la galerie<label>
+        <input type="text" name="title" id="title" placeholder="ex. Animaux, Voyage en Ireland, ..." value={% title %}>
+        <br>
+        <label for ="tag">Mots clefs<label>
+        <input type="text" name="tag" id="tag" placeholder="ex. Paysage, Chien, Chat, ..." value={% tag %}>
+        <br>
+        <label for="prive">Privé</label> <input type="radio" name="groupe-radio" id="prive" value="prive" {% if private %}checked{% endif %}>
+        <br>
+        <label for="public">Public</label> <input type="radio" name="groupe-radio" id="public" value="public" {% if private == false %}checked{% endif %}>
+        <br>
+        <label for ="img">Ajouter une image à la galerie<label>
+        <input type="file" name="img" id="image" accept="application/png">
+        <br>
+        <input type="button" name"img" id "add_img" value = "Ajouter une autre image">
+        <br>
+        <label for ="username">Ajouter un utilisateur à la galerie<label>
+        <input type="text" name="user" id="username" placeholder="ex. toto57">
+        <br>
+        <p>Utilisateurs avec accès : {% groups1 %}</p>
+        <input type="button" name"add_username" id "add_user" value = "Ajouter un autre utilisateur">
+        <br>
+        <input type="submit" value="Modifier la galerie">
+    </form>
+    </form>
+    <form action="/gallery/delete" method="post">
+        <input type="submit" value="Supprimer la galerie">
+    </form>
+
+{# {% else %} #}
+    
+{# {% endif %} #}
+
+</body>
+</html>

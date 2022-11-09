@@ -39,8 +39,6 @@ class UserController
         ]);
     }
 
-
-
     public function login(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $args = $request->getParsedBody();

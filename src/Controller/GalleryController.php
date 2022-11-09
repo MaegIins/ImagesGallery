@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Domain\User;
 use App\Service\GalleryService;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
@@ -48,7 +47,7 @@ class GalleryController
                 $private = false;
             }
 
-
+            
             $user_creator = $_SESSION['user_id'];
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $tag, $private, $user_creator);
         }
@@ -86,4 +85,28 @@ class GalleryController
         }
     }
 
+
+
+    public function getListGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $args = $request->getQueryParams();
+        if (isset($args["id_gal"])) {
+            $nbgal = filter_var($args['id_gal'], FILTER_SANITIZE_NUMBER_INT);
+            $maxgallery = $this->galleryService->getListGallery($nbgal);
+            return $this->view->render($response, 'gallery.twig', ['gallery' => $maxgallery]);
+        }
+    }
+
+    public function getListImageAtGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $args = $request->getQueryParams();
+        if (isset($args["id_img"])) {
+            $id_gal = filter_var($args['id_img'], FILTER_SANITIZE_NUMBER_INT);
+            $maximg = $this->galleryService->getGalleryWithPosition($id_gal);
+            return $this->view->render($response, 'gallery.twig', ['image' => $maximg]);
+        }
+    }
 }
+
+
+
