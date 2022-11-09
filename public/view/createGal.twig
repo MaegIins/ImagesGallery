@@ -7,27 +7,34 @@
 </head>
 <body>
 
-{% if conn %}
-<!-- contenu de la page de création de gallerie si connecté -->
-<div id="container">
-    <div id="header">
-        <h1>Create a new Gallery</h1>
-        <form action="#" method="post">
-            <input type="text" id="name" placeholder="Name">
-            <input type="radio" name="privPub" value="public" checked>Public
-            <input type="radio" name="privPub" value="private">Private
-            <input type="text" id="tags" placeholder="Tags">
-            <input type="submit" value="Create">
-        </form>
+{# {% if conn %} #}
+   <form action="http://localhost:8080/gallery/submit" method="post" enctype="multipart/form-data">
+        <label for ="title">Titre de la galerie<label>
+        <input type="text" name="title" id="title" placeholder="ex. Animaux, Voyage en Ireland, ...">
+        <br>
+        <label for ="tag">Mots clefs<label>
+        <input type="text" name="tag" id="tag" placeholder="ex. Paysage, Chien, Chat, ...">
+        <br>
+        <label for="prive">Privé</label> <input type="radio" name="groupe-radio" id="prive" value="prive">
+        <br>
+        <label for="public">Public</label> <input type="radio" name="groupe-radio" id="public" value="public" checked>
+        <br>
+        <label for ="img">Ajouter une image à la galerie<label>
+        <input type="file" name="img" id="image" accept="application/png">
+        <br>
+        <input type="button" name"img" id "add_img" value = "Ajouter une autre image">
+        <br>
+        <label for ="username">Ajouter un utilisateur à la galerie<label>
+        <input type="text" name="user" id="username" placeholder="ex. toto57">
+        <br>
+        <input type="button" name"add_username" id "add_user" value = "Ajouter un autre utilisateur">
+        <br>
+        <input type="submit" value="Créer une galerie">
+    </form>
 
-    </div>
-
-
-    {% else %}
-        <!-- contenu de la page si non connecté -->
-        <p>Vous devez être connecté pour accéder à cette page</p>
-
-    {% endif %}
+{# {% else %} #}
+    
+{# {% endif %} #}
 
 </body>
 </html>
