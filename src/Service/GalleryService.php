@@ -24,11 +24,12 @@ class GalleryService
 
     public function getGalleryPrivate(): array
     {
+        $galleryPrivate[] = "";
         $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => true]);
         foreach ($req as $gallery) {
             $users = $gallery->getGroups1();
-            if($users->contains($_SESSION["user_id"])){
-                $galleryPrivate[] = $gallery;
+            if ($users->contains($_SESSION["user_id"])) {
+                arraypush($galleryPrivate[], $gallery);
             }
         }
 
@@ -40,13 +41,27 @@ class GalleryService
         if (isset($_SESSION["user_id"])) {
             $game = $this->getByUser($_SESSION["user_id"]);
             if ($game !== null) {
-                $_SESSION["user_penality"] = json_decode($game->getUserPenality(), true);
-                $_SESSION["starting_timer"] = json_decode($game->getStartingTimer(), true);
-                $_SESSION["currents_cards"] = json_decode($game->getCurrentsCards(), true);
-                unset($_SESSION["user_time"]);
                 return true;
             }
+        } else {
+            return false;
         }
-        return false;
+
+    }
+
+
+    public function getByTag(string $tag): array
+    {
+        $galleryTag[] = "";
+        $req = $this->em->getRepository(\App\Domain\Galery::class)->findAll();
+        foreach ($req as $gallery) {
+            $tags = $gallery->getTags();
+            $tagstab[] = $tags->explode(",");
+            if ($tagstab->contains($tag)) {
+                arraypush($galleryTag, $gallery);
+            }
+        }
+        $this->logger->info("GalleryService::getByTag()");
+        return $galleryTag;
     }
 }
