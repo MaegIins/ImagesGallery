@@ -33,6 +33,24 @@
 </div>
 
 <div id="content">
+    {% if conn %}
+        <div id="myGal">
+            <div id="myGalContent">
+                {% for gal in gals %}
+                    <div class="gal">
+                        <a href="/gal/{{ gal.id }}">
+                            {# <img src="{{ gal.image }}" alt="gallery image"> #}
+                            <p>{{ gal.name }}</p>
+                        </a>
+                        <p>{{ gal.name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    {% else %}
+
+    {% endif %}
 </div>
 <div id="footer">
     <p id="txtFooter">Image Gallery</p>
@@ -53,11 +71,10 @@
         </form>
 
         {% if errorLogin != "" %}
-        <div class="Lerror" id="errorLog">{{ errorLogin }}</div>
+            <div class="Lerror" id="errorLog">{{ errorLogin }}</div>
         {% endif %}
     </div>
 </div>
-
 
 
 <div id="popup2" class="popup" hidden>
@@ -71,7 +88,7 @@
             <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
         </form>
         {% if errorSignup != "" %}
-        <div class="Serror" id="errorSign">{{ errorSignup }}</div>
+            <div class="Serror" id="errorSign">{{ errorSignup }}</div>
         {% endif %}
     </div>
 </div>

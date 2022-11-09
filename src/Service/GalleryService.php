@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Psr\Log\LoggerInterface;
+
 class GalleryService
 {
     private EntityManager $em;
@@ -42,6 +43,41 @@ class GalleryService
         $collection = $this->gallery->getImageTogalery();
 
         $collection->set($id_gal, $id_img);
+    }
+
+
+    public function getGalleryPublic(): array
+    {
+        $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => false]);
+        $this->logger->info("GalleryService::getGalleryPublic()");
+        return $req;
+    }
+
+
+    public function getGalleryPrivate(): array
+    {
+        $galleryPrivate[] = "";
+        $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => true]);
+        foreach ($req as $gallery) {
+            $users = $gallery->getGroups1();
+            if ($users->contains($_SESSION["user_id"])) {
+                arraypush($galleryPrivate[], $gallery);
+            }
+        }
+
+        return $galleryPrivate;
+    }
+
+    public function connection()
+    {
+        if (isset($_SESSION["user_id"])) {
+            $game = $this->getByUser($_SESSION["user_id"]);
+            if ($game !== null) {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
 
