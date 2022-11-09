@@ -32,18 +32,6 @@ class GalleryController
         ]);
     }
 
-    public function editGallery(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
-    {
-        $id = $args['id'];
-        $gallery = $this->galleryService->getGalleryById($id);
-        return $this->view->render($response, 'editGal.twig', [
-            'conn' => isset($_SESSION['user_id']),
-            'name' => $_SESSION["username"] ?? "",
-            'error' => "",
-            'gallery' => $gallery
-        ]);
-    }
-
     public function createGalleryPOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getParsedBody();
@@ -72,6 +60,33 @@ class GalleryController
     }
 
 
+    public function affichage(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+
+        if ($this->connection() === false) {
+            $gallery = $this->galleryService->getGalleryPublic();
+
+            return $this->view->render($response, 'gallery.twig', [
+                'conn' => isset($_SESSION['user_id']),
+                'name' => $_SESSION["username"] ?? "",
+                'gallery' => $gallery
+            ]);
+        } else {
+            $galleryPublic = $this->galleryService->getGallery();
+            $galleryPrivate = $this->galleryService->getGalleryPrivate();
+            $gallery = array_merge($galleryPublic, $galleryPrivate);
+
+            return $this->view->render($response, 'gallery.twig', [
+                'conn' => isset($_SESSION['user_id']),
+                'name' => $_SESSION["username"] ?? "",
+                'gallery' => $gallery
+            ]);
+
+        }
+    }
+
+
+
     public function getListGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getQueryParams();
@@ -92,3 +107,6 @@ class GalleryController
         }
     }
 }
+
+
+

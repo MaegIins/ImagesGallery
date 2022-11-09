@@ -1,0 +1,28 @@
+
+#content{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 40px;
+
+}
+
+.minGallery{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: #595959 1px solid;
+  min-width: 200px;
+  min-height: 200px;
+
+  padding:5px;
+  margin: 10px;
+  background: #ECECECFF;
+
+  img{
+    max-width: 100%;
+    border: #595959 1px solid;
+    max-height: 400px;
+  }
+} 
