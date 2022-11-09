@@ -1,6 +1,8 @@
 <?php
 
 use App\Controller\UserController;
+use App\Controller\GalleryController;
+use App\Service\GalleryService;
 use App\Service\UserService;
 use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use Doctrine\ORM\EntityManager;
@@ -49,9 +51,8 @@ $container->set(EntityManager::class, static function (Container $c): EntityMana
 
 $container->set('view', function () {
     return Twig::create(
-        __DIR__ . '/public/view',
-        ['cache' => __DIR__ . '/cache']
-    );
+        __DIR__ . '/public/view'
+        );
 });
 
 $container->set(UserService::class, static function (Container $c) {
@@ -61,6 +62,15 @@ $container->set(UserService::class, static function (Container $c) {
 $container->set(UserController::class, static function (ContainerInterface $container) {
     $view = $container->get('view');
     return new UserController($view, $container->get(UserService::class));
+});
+
+$container->set(GalleryService::class, static function (Container $c) {
+    return new GalleryService($c->get(EntityManager::class), $c->get(LoggerInterface::class));
+});
+
+$container->set(GalleryController::class, static function (ContainerInterface $container) {
+    $view = $container->get('view');
+    return new GalleryController($view, $container->get(GalleryService::class));
 });
 
 return $container;
