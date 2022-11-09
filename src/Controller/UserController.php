@@ -28,7 +28,7 @@ class UserController
      * @throws RuntimeError
      * @throws LoaderError
      */
-
+        //okesc
     public function start(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
     {
         return $this->view->render($response, 'gallery.twig', [
@@ -38,6 +38,11 @@ class UserController
         ]);
     }
 
+    public function test(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
+    {
+        return $this->view->render($response, 'login.twig');
+
+    }
 
     public function login(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
