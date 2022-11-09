@@ -37,6 +37,7 @@ class UserService
         }
     }
 
+
     /**
      * @throws OptimisticLockException
      * @throws ORMException
