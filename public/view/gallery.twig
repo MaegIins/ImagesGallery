@@ -36,22 +36,13 @@
 
 <div id="content">
 
-    {% if conn %}
+    <a href="/gal/{{ gal.id }}">
+        <div class="minGallery">
+            {# <img src="{{ gal.image }}" alt="gallery image"> #}
+            <p>{{ gal.name }}</p>
+        </div>
+    </a>
 
-                {% for gal in gals %}
-                    <div class="minGallery">
-                        <a href="/gal/{{ gal.id }}">
-                            {# <img src="{{ gal.image }}" alt="gallery image"> #}
-                            <p>{{ gal.name }}</p>
-                        </a>
-
-                    </div>
-                {% endfor %}
-
-
-    {% else %}
-
-    {% endif %}
 
 </div>
 <div id="footer">
@@ -77,6 +68,7 @@
         {% endif %}
     </div>
 </div>
+
 
 
 <div id="popup2" class="popup" hidden>
