@@ -61,4 +61,9 @@ class UserService
         $this->em->persist($user);
         $this->em->flush();
     }
+
+    public function findUserById($id_user):mixed{
+        $user_creator = $this->em->getRepository(\App\Domain\User::class)->findBy(['id_user' => 2]);
+        return $user_creator[0];
+    }
 }

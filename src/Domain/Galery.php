@@ -36,7 +36,7 @@ final class Galery
 
     #[ManyToOne(targetEntity: User::class, inversedBy: 'galery')]
     #[JoinColumn(name: 'user_creator', referencedColumnName: 'id_user')]
-    private string $user_creator;
+    private User $user_creator;
 
     #[JoinTable(name: 'UserToGalery')]
     #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
@@ -52,7 +52,7 @@ final class Galery
 
 
 
-    public function __construct(string $title, string $date_create, string $tag, string $private, string $user_creator)
+    public function __construct(string $title, string $date_create, string $tag, string $private, User $user_creator)
     {
         $this->name = $title;
         $this->first_name = $date_create;
@@ -83,7 +83,7 @@ final class Galery
     {
         return $this->private;
     }
-    public function getUser_Creator(): string
+    public function getUser_Creator(): User
     {
         return $this->user_creator;
     }
