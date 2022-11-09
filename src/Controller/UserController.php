@@ -49,11 +49,12 @@ class UserController
         $args = $request->getParsedBody();
         $error = "";
         if (isset($args["name"]) && isset($args["password"])) {
-            $args["password"] = password_hash($args["password"], PASSWORD_DEFAULT);
+
 
             $login = $this->userService->login($args["name"], $args["password"]);
             if ($login === false) {
                 $error = "Identifiants incorrects";
+                print_r($args)  ;
             } else {
                 $_SESSION["id_user"] = $login;
                 $_SESSION["name"] = $args["name"];
