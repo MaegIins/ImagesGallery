@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Psr\Log\LoggerInterface;
+
 class GalleryService
 {
     private EntityManager $em;
@@ -22,7 +23,7 @@ class GalleryService
     }
 
     public function createGallery(string $title, string $date, string $tag, bool $private, User $user_creator)
-    {   
+    {
         $gallery = new Gallery($title, $date, $tag, $private, $user_creator);
         $this->em->persist($gallery);
         $this->em->flush();
@@ -30,7 +31,7 @@ class GalleryService
 
     public function addUserPrivate($username)
     {
-        $id_gal = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(array(), ['id_gal' => 'DESC'],1,0);
+        $id_gal = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(array(), ['id_gal' => 'DESC'], 1, 0);
         $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $username]);
         $collection = $id_gal[0]->getUserToGallery();
         $collection->set($id_gal[0]->getId_gal(), $id_user[0]);
@@ -42,8 +43,6 @@ class GalleryService
     {
         //$collection = $this->gallery->getImageToGallery();
 
-        //$collection->set($id_gal, $id_img);
+        //$collection->set($id_gal, $id_img);s
     }
-
-
 }
