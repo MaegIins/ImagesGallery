@@ -25,14 +25,38 @@ class GalleryController
 
     public function createGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        return $this->view->render($response, 'createGal.twig', [
+            'conn' => isset($_SESSION['user_id']),
+            'name' => $_SESSION["username"] ?? "",
+            'error' => ""
+        ]);
+    }
+
+    public function createGalleryPOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
         $args = $request->getParsedBody();
-        if (isset($args["title"]) && isset($args["tag"]) && isset($args["radio-group"])) {
+        var_dump($args);
+        var_dump($_FILES);
+        if (isset($args["title"]) && isset($args["tag"]) && isset($args["radio-group"]) && isset($_FILES)) {
             $title = filter_var($args['title'], FILTER_UNSAFE_RAW);
             $tag = filter_var($args['tag'], FILTER_UNSAFE_RAW);
-            $private = $args['radio-group'];
-            $user_creator = $_SESSION[''];
+
+            if ($args['radio-group'] == "prive") {
+                $private = true;
+            } else {
+                $private = false;
+            }
+
+            
+            $user_creator = $_SESSION['user_id'];
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $tag, $private, $user_creator);
         }
+
+        return $this->view->render($response, 'createGal.twig', [
+            'conn' => isset($_SESSION['user_id']),
+            'name' => $_SESSION["username"] ?? "",
+            'error' => ""
+        ]);
     }
 
 

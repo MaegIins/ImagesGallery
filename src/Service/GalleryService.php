@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Domain\Gallery;
+use App\Domain\User;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
@@ -14,6 +15,8 @@ class GalleryService
     private EntityManager $em;
     private LoggerInterface $logger;
     private Gallery $gallery;
+    private User $user;
+
 
     public function __construct(EntityManager $em, LoggerInterface $logger)
     {
@@ -28,7 +31,6 @@ class GalleryService
         $this->em->persist($gallery);
         $this->em->flush();
     }
-
     public function getListGallery(int $gal): Paginator
     {
         $dql = "SELECT g FROM App\Domain\Gallery g";
@@ -48,10 +50,12 @@ class GalleryService
         return $query->getSingleResult();
     }
 
-    public function addUserPrivate($id_gal, $id_user)
-    {
-        $collection = $this->gallery->getUserToGallery();
 
+    public function addUserPrivate($username)
+    {
+        $collection = $this->gallery->getUserToGalery();
+        $id_gal = $collection->last();
+        $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $username]);
         $collection->set($id_gal, $id_user);
     }
 
@@ -84,4 +88,5 @@ class GalleryService
 
         return new Paginator($query, $fetchJoinCollection = true);
     }
+
 }

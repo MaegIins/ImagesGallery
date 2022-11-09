@@ -20,11 +20,11 @@ final class User
     #[Column(name: 'name', type: 'string', unique: false, nullable: false)]
     private string $name;
 
-    #[Column(name: 'first_name', type: 'string', unique: false, nullable: false)]
+    #[Column(name: 'first_name', type: 'string', unique: false, nullable: true)]
     private string $first_name;
 
 
-    #[Column(name: 'email', type: 'string', unique: false, nullable: false)]
+    #[Column(name: 'email', type: 'string', unique: false, nullable: true)]
     private string $email;
 
     #[Column(name: 'password', type: 'string', unique: false, nullable: false)]
@@ -33,15 +33,12 @@ final class User
 
 
 
-    public function __construct(string $id_user, string $name, string $first_name, string $email, string $password)
+    public function __construct( string $name,  string $password)
     {
-        $this->id_user = $id_user;
         $this->name = $name;
-        $this->first_name = $first_name;
-        $this->email = $email;
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
-    public function getId_user(): int
+    public function getId(): int
     {
         return $this->id_user;
     }

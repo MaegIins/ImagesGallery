@@ -3,22 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
+    <link rel="stylesheet" href="../data/style/normalizer.css">
+    <link rel="stylesheet" href="../data/style/sass/gallery.css">
     <link rel="stylesheet" href="../data/style/sass/log.css">
+    <link rel="stylesheet" href="../data/style/sass/sign.css">
+
+
 </head>
 <body>
 
-<div id="log">
-    <h1>Create an account</h1>
-    <form id="login"  method="post" action="/signup">
-        <input class = "txt" type="text" placeholder="Username" name="username"/>
-        <input class = "txt" type="password" placeholder="Password" name="password"/>
-        <input class = "txt" type="password" placeholder="Repeat Password" name="password_confirm"/>
-        <input type="submit" class="sub" value="S'inscrire"/>
-    </form>
-    {% if error != "" %}
-    <div class="error">{{ error }}</div>
-    {% endif %}
+<div id="menu">
+    <p id="title">Image Gallery</p>
+
+    <div id="login">
+
+        <a id="loginBut">Login</a>
+
+        <a id="signup">Register</a>
+
+    </div>
 </div>
 
+<div id="content">
+</div>
+<div id="footer">
+    <p id="txtFooter">Image Gallery</p>
+</div>
+
+{% if !conn %}
+<div id="popup" class="popup" hidden>
+    <div id="Llog">
+        <h1>Log In</h1>
+
+        <form id="Llogin" method="post" action="/login">
+            <input type="text" class="Ltxt" placeholder="Username" name="username"/>
+            <input type="password" class="Ltxt" placeholder="Password" name="password"/>
+
+
+            <input type="submit" id="Lsubmit" class="Lsub" value="Log In"/>
+            <input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
+        </form>
+        {% if error != "" %}
+        <div class="Lerror">{{ error }}</div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+{% if !conn %}
+<div id="popup2" class="popup" hidden>
+    <div id="Slog">
+        <h1>Create an account</h1>
+        <form id="Slogin" method="post" action="/signup">
+            <input class="Stxt" type="text" placeholder="Username" name="username"/>
+            <input class="Stxt" type="password" placeholder="Password" name="password"/>
+            <input class="Stxt" type="password" placeholder="Repeat Password" name="password_confirm"/>
+            <input type="submit" id="Ssubmit" class="Ssub" value="Create an account"/>
+            <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
+        </form>
+        {% if error != "" %}
+        <div class="Serror">{{ error }}</div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<script src="../data/scripts/popup.js"></script>
 </body>
 </html>

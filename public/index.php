@@ -2,6 +2,7 @@
 namespace ImagesGallery;
 session_start();
 use App\Controller\UserController;
+use App\Controller\GalleryController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
@@ -28,6 +29,7 @@ $app->get('/logout', UserController::class . ':logout');
 $app->get('/gallery/create', GalleryController::class . ':createGallery');
 $app->get('/gallery/{id:[0-9]+}', GalleryController::class. ':getListGallery')->setName('maxgal');
 $app->get('/gallery/{id:[0-9]+}/image/{id_img:[0-9]+}', GalleryController::class. ':getListImage')->setName('maximg');
+$app->post('/gallery/submit', GalleryController::class . ':createGalleryPOST');
 
 
 
