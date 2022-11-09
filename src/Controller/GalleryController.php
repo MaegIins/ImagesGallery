@@ -46,14 +46,13 @@ class GalleryController
         }
     }
 
-    public function getListImage(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function getListImageAtGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getQueryParams();
         if (isset($args["id_img"])) {
-            $nbimg = filter_var($args['id_img'], FILTER_SANITIZE_NUMBER_INT);
-            $maximage = $this->galleryService->getListImage($nbimg);
-            return $this->view->render($response, 'gallery.twig', ['image' => $maximage]);
+            $id_gal = filter_var($args['id_img'], FILTER_SANITIZE_NUMBER_INT);
+            $maximg = $this->galleryService->getGalleryWithPosition($id_gal);
+            return $this->view->render($response, 'gallery.twig', ['image' => $maximg]);
         }
     }
-
 }
