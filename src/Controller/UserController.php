@@ -79,7 +79,7 @@ class UserController
                 if ($args["password"] != $args["password_confirm"]) {
                     $errorSignup = "Les mots de passe ne correspondent pas / Ne sont pas assez longs";
                 } else {
-                    $errorSignup = "Le nom d'utilisateur est déjà utilisé Les mots de passe ne correspondent pas / Ne sont pas assez longs ";
+                    $errorSignup = "Le nom d'utilisateur est déjà utilisé";
                 }
             } else {
                 $_SESSION["id_user"] = $signup;
