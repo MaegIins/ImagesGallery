@@ -12,6 +12,7 @@ class UserService
     private EntityManager $em;
     private LoggerInterface $logger;
 
+
     public function __construct(EntityManager $em, LoggerInterface $logger)
     {
         $this->em = $em;
@@ -37,13 +38,23 @@ class UserService
         }
     }
 
+    public function controleMdpAndName(string $name, string $password, string $password_confirm):bool
+    {
+        $test = false;
+        if (strlen($name) > 2 && ($password == $password_confirm) && strlen($password) > 3) {
+            $test = true;
+        }
+        return $test;
+    }
+
     /**
      * @throws OptimisticLockException
      * @throws ORMException
      */
     public function signup(string $name, string $password, string $password_confirm): bool|int
     {
-        if (strlen($name) > 2 && ($password == $password_confirm) && strlen($password) > 3) {
+        //if (strlen($name) > 2 && ($password == $password_confirm) && strlen($password) > 3) {
+        $checkMdpAndName = $this->controleMdpAndName($name,$password,$password_confirm);
             $req = $this->em->getRepository(\App\Domain\User::class)->findBy(['name' => $name]);
             if ($req == null) {
                 $newUser = new \App\Domain\User($name, $password);
@@ -51,12 +62,10 @@ class UserService
                 $this->em->flush();
                 $this->logger->info("UserService::signup($name)");
                 return $newUser->getId();
-            } else {
+            } elseif ($checkMdpAndName === false ) {
                 $this->logger->info("UserService::signup($name) : errorSignup");
-                return false;
             }
-
+        return $checkMdpAndName;
         }
-    }
 }
 
