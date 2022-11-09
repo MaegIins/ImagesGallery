@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Domain\Galery;
+use App\Domain\Gallery;
 use App\Domain\User;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
@@ -15,7 +15,7 @@ class GalleryService
 {
     private EntityManager $em;
     private LoggerInterface $logger;
-    private Galery $gallery;
+    private Gallery $gallery;
     private User $user;
 
     public function __construct(EntityManager $em, LoggerInterface $logger)
@@ -26,7 +26,7 @@ class GalleryService
 
     public function createGallery(string $title, string $date, string $tag, bool $private, int $user_creator)
     {
-        $gallery = new Galery($title, $date, $tag, $private, $user_creator);
+        $gallery = new Gallery($title, $date, $tag, $private, $user_creator);
 
         $this->em->persist($gallery);
         $this->em->flush();
@@ -66,7 +66,7 @@ class GalleryService
 
     public function addUserPrivate($username)
     {
-        $collection = $this->gallery->getUserToGalery();
+        $collection = $this->gallery->getUserToGallery();
         $id_gal = $collection->last();
         $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $username]);
         $collection->set($id_gal, $id_user);
@@ -74,7 +74,7 @@ class GalleryService
 
     public function addImageGalerie($id_gal, $id_img)
     {
-        $collection = $this->gallery->getImageTogalery();
+        $collection = $this->gallery->getImageTogallery();
 
         $collection->set($id_gal, $id_img);
     }
@@ -117,7 +117,7 @@ class GalleryService
         foreach ($req as $gallery) {
             $users = $gallery->getGroups1();
             if ($users->contains($_SESSION["user_id"])) {
-                arraypush($galleryPrivate[], $gallery);
+                array_push($galleryPrivate, $gallery);
             }
         }
 
@@ -127,7 +127,8 @@ class GalleryService
     public function connection()
     {
         if (isset($_SESSION["user_id"])) {
-            $game = $this->getByUser($_SESSION["user_id"]);
+            //$game = $this->getByUser($_SESSION["user_id"]);
+            $game = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['id_user' => $_SESSION["user_id"]]);
             if ($game !== null) {
                 return true;
             }
