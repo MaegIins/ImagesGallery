@@ -21,7 +21,7 @@
         {% if conn %}
             <a id="newGal" href="/newGal">New Gallery</a>
             <input id="searchbar" type="text">
-            <p>Hello {{ conn.name }}</p>
+            <p>Hello {{ name }}</p>
 
             <a id="logout" href="/logout">Logout</a>
         {% else %}
@@ -44,7 +44,7 @@
         <h1>Log In</h1>
 
         <form id="Llogin" method="post" action="/login">
-            <input type="text" class="Ltxt" placeholder="Username" name="username"/>
+            <input type="text" class="Ltxt" placeholder="Name" name="name"/>
             <input type="password" class="Ltxt" placeholder="Password" name="password"/>
 
 
