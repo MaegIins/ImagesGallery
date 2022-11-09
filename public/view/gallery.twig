@@ -53,7 +53,7 @@
         </form>
 
         {% if error != "" %}
-        <div class="Lerror">{{ error }}</div>
+        <div class="Lerror" id="errorLog">{{ error }}</div>
         {% endif %}
     </div>
 </div>
@@ -71,7 +71,7 @@
             <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
         </form>
         {% if error != "" %}
-        <div class="Serror">{{ error }}</div>
+        <div class="Serror" id="errorSign">{{ error }}</div>
         {% endif %}
     </div>
 </div>

@@ -3,16 +3,17 @@
 namespace App\Service;
 
 use App\Domain\Galery;
+use App\Domain\User;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Psr\Log\LoggerInterface;
-
 class GalleryService
 {
     private EntityManager $em;
     private LoggerInterface $logger;
     private Galery $gallery;
+    private User $user;
 
     public function __construct(EntityManager $em, LoggerInterface $logger)
     {
@@ -28,10 +29,11 @@ class GalleryService
         $this->em->flush();
     }
 
-    public function addUserPrivate($id_gal, $id_user)
+    public function addUserPrivate($username)
     {
         $collection = $this->gallery->getUserToGalery();
-
+        $id_gal = $collection->last();
+        $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $username]);
         $collection->set($id_gal, $id_user);
     }
 
@@ -41,4 +43,6 @@ class GalleryService
 
         $collection->set($id_gal, $id_img);
     }
+
+
 }
