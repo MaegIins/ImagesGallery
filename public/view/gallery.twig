@@ -35,28 +35,24 @@
 </div>
 
 <div id="content">
-<<<<<<< Updated upstream
+
     {% if conn %}
-        <div id="myGal">
-            <div id="myGalContent">
+
                 {% for gal in gals %}
-                    <div class="gal">
+                    <div class="minGallery">
                         <a href="/gal/{{ gal.id }}">
                             {# <img src="{{ gal.image }}" alt="gallery image"> #}
                             <p>{{ gal.name }}</p>
                         </a>
-                        <p>{{ gal.name }}</p>
+
                     </div>
                 {% endfor %}
-            </div>
-        </div>
+
 
     {% else %}
 
     {% endif %}
-=======
-    
->>>>>>> Stashed changes
+
 </div>
 <div id="footer">
     <p id="txtFooter">Image Gallery</p>
