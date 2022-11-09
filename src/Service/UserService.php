@@ -29,6 +29,7 @@ class UserService
             if ($req[0]->checkPassword($password)) {
                 $this->logger->info("UserService::get($name) : user found");
                 return $req[0]->getId();
+
             } else {
                 $this->logger->info("UserService::get($name) : wrong password");
                 return false;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
-    <link rel="stylesheet" href="../data/style/sass/log.css">
+     <link rel="stylesheet" href="../data/style/sass/newGall.css">
 </head>
 <body>
 
@@ -31,6 +31,27 @@
         <br>
         <input type="submit" value="Créer une galerie">
     </form>
+
+
+
+<!-- contenu de la page de création de gallerie si connecté -->
+<div id="container">
+     <div id="header">
+          <h1>Create a new Gallery</h1>
+          <form id="addImg" action="#" method="post">
+               <label for="name">Name of the gallery : </label>
+               <input type="text" id="name" placeholder="Name">
+               <div id="radio">
+                    <input type="radio" class="radio" name="privPub" value="public" checked>Public
+                    <input type="radio" class="radio" name="privPub" value="private">Private
+               </div>
+               <label for="Tags">Tags (separated by a coma) : </label>
+               <input type="text" id="tags" placeholder="Tags">
+               <input type="submit" id="submit" value="Create">
+               <input type="button" id="cancel" value="Cancel">
+          </form>
+
+     </div>
 
 {# {% else %} #}
     

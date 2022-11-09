@@ -19,7 +19,7 @@ final class Version20221108132154 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE TABLE toto ( id   INT AUTO_INCREMENT NOT NULL , PRIMARY KEY(id))');
 
     }
 
