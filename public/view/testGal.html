@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
+    <link rel="stylesheet" href="../data/style/normalizer.css">
     <link rel="stylesheet" href="../data/style/sass/gallery.css">
     <link rel="stylesheet" href="../data/style/sass/log.css">
     <link rel="stylesheet" href="../data/style/sass/sign.css">
@@ -12,29 +13,21 @@
 <body>
 
 <div id="menu">
-    <p>Image Gallery</p>
-    {% if conn %}
-    <a id="myGal" href="/myGal">My gallery</a>
-    {% endif %}
-    <div id="login">
-        {% if conn %}
-        <a id="newGal" href="/newGal">New Gallery</a>
-        <input id="searchbar" type="text">
-        <p>Hello {{ conn.username }}</p>
+    <p id="title">Image Gallery</p>
 
-        <a id="logout" href="/logout">Logout</a>
-        {% else %}
+    <div id="login">
+
         <a id="loginBut">Login</a>
 
         <a id="signup">Register</a>
-        {% endif %}
+
     </div>
 </div>
 
 <div id="content">
 </div>
 <div id="footer">
-    <p>Image Gallery</p>
+    <p id="txtFooter">Image Gallery</p>
 </div>
 
 {% if !conn %}
