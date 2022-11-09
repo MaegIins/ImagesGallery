@@ -1,4 +1,4 @@
-#log {
+#Slog {
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -14,7 +14,7 @@
   align-items: center;
 
 
-  #login {
+  #Slogin {
 
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
     width:75%;
     height: 100%;
 
-    .sub, .txt{
+    .Ssub, .Stxt{
       margin: 5px;
       border-radius: 5px;
       width: 100%;
@@ -30,13 +30,13 @@
       padding: 5px;
     }
 
-    .txt {
+    .Stxt {
       border: #595959 1px solid;
       background: #ffffff;
 
     }
 
-    .sub {
+    .Ssub {
       border: #424242 1px solid;
       background: #b4b4b4;
       color: white;
@@ -49,10 +49,14 @@
       }
     }
 
+    #Ssubmit {
+      margin-top: 90%;
+    }
+
 
   }
 
-  .error {
+  .Serror {
     color: red;
 
   }
