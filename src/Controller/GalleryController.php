@@ -32,6 +32,18 @@ class GalleryController
         ]);
     }
 
+    public function editGallery(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $id = $args['id'];
+        $gallery = $this->galleryService->getGalleryById($id);
+        return $this->view->render($response, 'editGal.twig', [
+            'conn' => isset($_SESSION['user_id']),
+            'name' => $_SESSION["username"] ?? "",
+            'error' => "",
+            'gallery' => $gallery
+        ]);
+    }
+
     public function createGalleryPOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getParsedBody();
@@ -57,5 +69,26 @@ class GalleryController
             'name' => $_SESSION["username"] ?? "",
             'error' => ""
         ]);
+    }
+
+
+    public function getListGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $args = $request->getQueryParams();
+        if (isset($args["id_gal"])) {
+            $nbgal = filter_var($args['id_gal'], FILTER_SANITIZE_NUMBER_INT);
+            $maxgallery = $this->galleryService->getListGallery($nbgal);
+            return $this->view->render($response, 'gallery.twig', ['gallery' => $maxgallery]);
+        }
+    }
+
+    public function getListImageAtGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $args = $request->getQueryParams();
+        if (isset($args["id_img"])) {
+            $id_gal = filter_var($args['id_img'], FILTER_SANITIZE_NUMBER_INT);
+            $maximg = $this->galleryService->getGalleryWithPosition($id_gal);
+            return $this->view->render($response, 'gallery.twig', ['image' => $maximg]);
+        }
     }
 }
