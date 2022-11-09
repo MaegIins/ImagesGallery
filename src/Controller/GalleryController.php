@@ -36,21 +36,25 @@ class GalleryController
     {
         $args = $request->getParsedBody();
         var_dump($args);
-        var_dump($_FILES);
-        if (isset($args["title"]) && isset($args["tag"]) && isset($args["radio-group"]) && isset($_FILES)) {
+//if (isset($args["title"]) && isset($args["tag"]) && isset($args["radio-group"]) && isset($_FILES) && isset($args["username"])) {
             $title = filter_var($args['title'], FILTER_UNSAFE_RAW);
             $tag = filter_var($args['tag'], FILTER_UNSAFE_RAW);
 
-            if ($args['radio-group'] == "prive") {
+            if ($args['groupe-radio'] == "prive") {
                 $private = true;
             } else {
                 $private = false;
             }
-
-            
-            $user_creator = $_SESSION['user_id'];
+        echo "sss";
+            //$user_creator = $_SESSION['user_id'];
+            $user_creator = 2;
+            echo "test";
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $tag, $private, $user_creator);
-        }
+
+            $username = $args["username"];
+            $this->galleryService->addUserPrivate($username);
+            var_dump($this->galleryService->addUserPrivate($username));
+       // }
 
         return $this->view->render($response, 'createGal.twig', [
             'conn' => isset($_SESSION['user_id']),

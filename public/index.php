@@ -28,6 +28,8 @@ $app->post('/signup', UserController::class . ':signup');
 $app->get('/logout', UserController::class . ':logout');
 $app->get('/gallery/create', GalleryController::class . ':createGallery');
 $app->post('/gallery/submit', GalleryController::class . ':createGalleryPOST');
+$app->get('/user/create', UserController::class . ':Adduser');
+
 
 
 //Clear session

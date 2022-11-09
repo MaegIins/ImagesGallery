@@ -24,7 +24,7 @@ class GalleryService
     public function createGallery(string $title, string $date, string $tag, bool $private, int $user_creator)
     {
         $gallery = new Galery($title, $date, $tag, $private, $user_creator);
-
+        var_dump($gallery);
         $this->em->persist($gallery);
         $this->em->flush();
     }

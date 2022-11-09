@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Domain\User;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
@@ -52,5 +53,12 @@ class UserService
             $this->logger->info("UserService::signup($name) : error");
             return false;
         }
+    }
+
+
+    public function forTestAddUSer(string $name, string $username, string $password){
+        $user = new User($name, $username, $password);
+        $this->em->persist($user);
+        $this->em->flush();
     }
 }
