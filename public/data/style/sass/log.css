@@ -1,4 +1,7 @@
 #Llog {
+  position: fixed;
+  top: 0;
+  left: calc(50% - 200px);
   display: flex;
   flex-direction: column;
   width: 400px;
