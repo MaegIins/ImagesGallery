@@ -18,7 +18,7 @@ class UserService
         $this->logger = $logger;
     }
 
-    public function login(string $name, string $password) : bool|int
+    public function login(string $name, string $password): bool|int
     {
         $req = $this->em->getRepository(\App\Domain\User::class)->findBy(['name' => $name]);
         $this->logger->info("UserService::get($name)");
@@ -43,15 +43,20 @@ class UserService
      */
     public function signup(string $name, string $password, string $password_confirm): bool|int
     {
-        if (strlen($name)>2 && ($password == $password_confirm) && strlen($password)>3) {
-            $newUser = new \App\Domain\User($name, $password);
-            $this->em->persist($newUser);
-            $this->em->flush();
-            $this->logger->info("UserService::signup($name)");
-            return $newUser->getId();
-        } else {
-            $this->logger->info("UserService::signup($name) : error");
-            return false;
+        if (strlen($name) > 2 && ($password == $password_confirm) && strlen($password) > 3) {
+            $req = $this->em->getRepository(\App\Domain\User::class)->findBy(['name' => $name]);
+            if ($req == null) {
+                $newUser = new \App\Domain\User($name, $password);
+                $this->em->persist($newUser);
+                $this->em->flush();
+                $this->logger->info("UserService::signup($name)");
+                return $newUser->getId();
+            } else {
+                $this->logger->info("UserService::signup($name) : errorSignup");
+                return false;
+            }
+
         }
     }
 }
+
