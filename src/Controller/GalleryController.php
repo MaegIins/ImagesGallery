@@ -29,9 +29,21 @@ class GalleryController
     public function createGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         return $this->view->render($response, 'createGal.twig', [
-            'conn' => isset($_SESSION['user_id']),
-            'name' => $_SESSION["username"] ?? "",
+            'conn' => isset($_SESSION['id_user']),
+            'name' => $_SESSION["name"] ?? "",
             'error' => ""
+        ]);
+    }
+
+    public function editGallery(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $id = $args['id'];
+        $gallery = $this->galleryService->getGalleryById($id);
+        return $this->view->render($response, 'editGal.twig', [
+            'conn' => isset($_SESSION['user_id']),
+            'name' => $_SESSION["name"] ?? "",
+            'error' => "",
+            'gallery' => $gallery
         ]);
     }
 
@@ -47,7 +59,7 @@ class GalleryController
             } else {
                 $private = false;
             }
-            //$user_creator = $_SESSION['user_id'];
+            //$user_creator = $_SESSION['id_user'];
             $user_creator = $this->userService->findUserById(2);
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $tag, $private, $user_creator);
 
@@ -61,8 +73,8 @@ class GalleryController
         }
 
         return $this->view->render($response, 'createGal.twig', [
-            'conn' => isset($_SESSION['user_id']),
-            'name' => $_SESSION["username"] ?? "",
+            'conn' => isset($_SESSION['id_user']),
+            'name' => $_SESSION["name"] ?? "",
             'error' => ""
         ]);
     }
@@ -71,21 +83,21 @@ class GalleryController
     public function affichage(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
 
-        if ($this->connection() === false) {
+        if ($this->galleryService->connection() === false) {
             $gallery = $this->galleryService->getGalleryPublic();
 
             return $this->view->render($response, 'gallery.twig', [
-                'conn' => isset($_SESSION['user_id']),
-                'name' => $_SESSION["username"] ?? "",
+                'conn' => isset($_SESSION['id_user']),
+                'name' => $_SESSION["name"] ?? "",
                 'galleryPublic' => $gallery
             ]);
         } else {
-            $galleryPublic = $this->galleryService->getGallery();
+            $galleryPublic = $this->galleryService->getGalleryPublic();
             $galleryPrivate = $this->galleryService->getGalleryPrivate();
 
             return $this->view->render($response, 'gallery.twig', [
-                'conn' => isset($_SESSION['user_id']),
-                'name' => $_SESSION["username"] ?? "",
+                'conn' => isset($_SESSION['id_user']),
+                'name' => $_SESSION["name"] ?? "",
                 'galleryPr' => $galleryPrivate,
                 'galleryPu' => $galleryPublic,
             ]);

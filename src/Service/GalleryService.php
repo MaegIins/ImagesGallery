@@ -31,6 +31,15 @@ class GalleryService
         $this->em->flush();
     }
 
+    public function editGallery(int $id, string $title, string $tag, bool $private)
+    {
+        $gallery = $this->em->getRepository(Gallery::class)->find($id);
+        $gallery->setTitle($title);
+        $gallery->setTag($tag);
+        $gallery->setPrivate($private);
+        $this->em->persist($gallery);
+        $this->em->flush();
+    }
 
 
     public function getImageByGallery(int $id_gal)
@@ -39,8 +48,6 @@ class GalleryService
 
         return $gallery->getImages();
     }
-
-
 
 
     public function getListGallery(int $gal): Paginator
@@ -118,7 +125,7 @@ class GalleryService
         $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => true]);
         foreach ($req as $gallery) {
             $users = $gallery->getGroups1();
-            if ($users->contains($_SESSION["user_id"])) {
+            if ($users->contains($_SESSION["id_user"])) {
                 array_push($galleryPrivate, $gallery);
             }
         }
@@ -128,9 +135,9 @@ class GalleryService
 
     public function connection()
     {
-        if (isset($_SESSION["user_id"])) {
+        if (isset($_SESSION["id_user"])) {
             //$game = $this->getByUser($_SESSION["user_id"]);
-            $game = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['id_user' => $_SESSION["user_id"]]);
+            $game = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['id_user' => $_SESSION["id_user"]]);
             if ($game !== null) {
                 return true;
             }
