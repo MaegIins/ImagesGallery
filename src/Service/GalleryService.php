@@ -4,19 +4,19 @@ namespace App\Service;
 
 use App\Domain\Gallery;
 use App\Domain\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Types\IntegerType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Psr\Log\LoggerInterface;
-
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class GalleryService
 {
     private EntityManager $em;
     private LoggerInterface $logger;
-    private Gallery $gallery;
-    private User $user;
+
 
     public function __construct(EntityManager $em, LoggerInterface $logger)
     {
@@ -24,10 +24,9 @@ class GalleryService
         $this->logger = $logger;
     }
 
-    public function createGallery(string $title, string $date, string $tag, bool $private, int $user_creator)
+    public function createGallery(string $title, string $date, string $tag, bool $private, User $user_creator)
     {
         $gallery = new Gallery($title, $date, $tag, $private, $user_creator);
-
         $this->em->persist($gallery);
         $this->em->flush();
     }
@@ -66,18 +65,21 @@ class GalleryService
 
     public function addUserPrivate($username)
     {
-        $collection = $this->gallery->getUserToGallery();
-        $id_gal = $collection->last();
+        $id_gal = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(array(), ['id_gal' => 'DESC'], 1, 0);
         $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $username]);
-        $collection->set($id_gal, $id_user);
+        $collection = $id_gal[0]->getUserToGallery();
+        $collection->set($id_gal[0]->getId_gal(), $id_user[0]);
+        $this->em->persist($id_gal[0]);
+        $this->em->flush();
     }
 
     public function addImageGalerie($id_gal, $id_img)
     {
-        $collection = $this->gallery->getImageTogallery();
+        //$collection = $this->gallery->getImageToGallery();
 
-        $collection->set($id_gal, $id_img);
+        //$collection->set($id_gal, $id_img);s
     }
+
 
     public function getGalleryById(int $id): Gallery
     {
@@ -136,6 +138,4 @@ class GalleryService
             return false;
         }
     }
-
-
 }
