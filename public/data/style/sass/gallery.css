@@ -55,6 +55,9 @@ body {
   text-decoration: none;
   color: black;
 }
+#menu #login #loginBut:hover {
+  text-decoration: underline;
+}
 #menu #login #signup, #menu #login #logout {
   margin-left: 8px;
   border-left: #595959 1px solid;
