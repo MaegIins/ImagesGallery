@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="../data/style/sass/miniGal.css">
 
 
-
 </head>
 <body>
 
@@ -35,13 +34,33 @@
 </div>
 
 <div id="content">
-
-    <a href="/gal/{{ gal.id }}">
-        <div class="minGallery">
-            {# <img src="{{ gal.image }}" alt="gallery image"> #}
-            <p>{{ gal.name }}</p>
-        </div>
-    </a>
+    {% if conn %}
+        {% for galleryPublic in gal %}
+            <a href="/gal/{{ gal.id }}">
+                <div class="puGallery">
+                    {# <img src="{{ gal.image }}" alt="gallery image"> #}
+                    <p>{{ gal.name }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        {% for galleryPr in gal %}
+            <a href="/gal/{{ gal.id }}">
+                <div class="prGallery">
+                    {# <img src="{{ gal.image }}" alt="gallery image"> #}
+                    <p>{{ gal.name }}</p>
+                </div>
+            </a>
+        {% endfor %}
+        {% for galleryPu in gal %}
+            <a href="/gal/{{ gal.id }}">
+                <div class="puGallery">
+                    {# <img src="{{ gal.image }}" alt="gallery image"> #}
+                    <p>{{ gal.name }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
 
 
 </div>
@@ -68,7 +87,6 @@
         {% endif %}
     </div>
 </div>
-
 
 
 <div id="popup2" class="popup" hidden>

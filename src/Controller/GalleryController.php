@@ -69,17 +69,17 @@ class GalleryController
             return $this->view->render($response, 'gallery.twig', [
                 'conn' => isset($_SESSION['user_id']),
                 'name' => $_SESSION["username"] ?? "",
-                'gallery' => $gallery
+                'galleryPublic' => $gallery
             ]);
         } else {
             $galleryPublic = $this->galleryService->getGallery();
             $galleryPrivate = $this->galleryService->getGalleryPrivate();
-            $gallery = array_merge($galleryPublic, $galleryPrivate);
 
             return $this->view->render($response, 'gallery.twig', [
                 'conn' => isset($_SESSION['user_id']),
                 'name' => $_SESSION["username"] ?? "",
-                'gallery' => $gallery
+                'galleryPr' => $galleryPrivate,
+                'galleryPu' => $galleryPublic,
             ]);
 
         }
