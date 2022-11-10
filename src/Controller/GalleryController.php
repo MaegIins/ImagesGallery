@@ -38,7 +38,7 @@ class GalleryController
     public function createGalleryPOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getParsedBody();
-//if (isset($args["title"]) && isset($args["tag"]) && isset($args["radio-group"]) && isset($_FILES) && isset($args["username"])) {
+        if (isset($args["title"]) && isset($args["tag"]) && isset($args["groupe-radio"]) && isset($_FILES) && isset($args["user"])) {
             $title = filter_var($args['title'], FILTER_UNSAFE_RAW);
             $tag = filter_var($args['tag'], FILTER_UNSAFE_RAW);
 
@@ -53,7 +53,12 @@ class GalleryController
 
             $username = $args["user"];
             $this->galleryService->addUserPrivate($username);
-       // }
+            // var_dump($_FILES);
+            // foreach ($_FILES["img"] as $img) {
+            //     move_uploaded_file($img['tmp_name'], __DIR__ . '/../../public/data/img/'.$img["name"]);
+            //     echo $img['error'];
+            // }
+        }
 
         return $this->view->render($response, 'createGal.twig', [
             'conn' => isset($_SESSION['user_id']),
