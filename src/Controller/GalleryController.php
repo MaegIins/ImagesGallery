@@ -26,6 +26,12 @@ class GalleryController
         $this->userService = $userService;
     }
 
+    public function test(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        return $this->view->render($response, 'galleryWithPhoto.twig');
+    }
+
+
     public function createGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         return $this->view->render($response, 'createGal.twig', [
