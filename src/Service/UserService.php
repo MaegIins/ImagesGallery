@@ -54,20 +54,22 @@ class UserService
      */
     public function signup(string $name, string $password, string $password_confirm): bool|int
     {
-            //if (strlen($name) > 2 && ($password == $password_confirm) && strlen($password) > 3) {
-            $checkMdpAndName = $this->controleMdpAndName($name, $password, $password_confirm);
-            $req = $this->em->getRepository(\App\Domain\User::class)->findBy(['name' => $name]);
-            if ($req == null) {
-                $newUser = new \App\Domain\User($name, $password);
-                $this->em->persist($newUser);
-                $this->em->flush();
-                $this->logger->info("UserService::signup($name)");
-                return $newUser->getId();
-            } elseif ($checkMdpAndName === false) {
-                $this->logger->info("UserService::signup($name) : errorSignup");
-            }
-        return $checkMdpAndName;
+
+        $checkMdpAndName = $this->controleMdpAndName($name,$password,$password_confirm);
+        $req = $this->em->getRepository(\App\Domain\User::class)->findBy(['name' => $name]);
+        if ($req == null && $checkMdpAndName===true) {
+            $newUser = new \App\Domain\User($name, $password);
+            $this->em->persist($newUser);
+            $this->em->flush();
+            $this->logger->info("UserService::signup($name)");
+            return $newUser->getId();
+        } elseif ($checkMdpAndName === false ) {
+            $this->logger->info("UserService::signup($name) : errorSignup");
+
         }
+        return $checkMdpAndName;
+    }
+
 
 }
 
