@@ -16,8 +16,8 @@ create or replace table User
     id_user    int auto_increment
         primary key,
     name       varchar(255) not null,
-    first_name varchar(255) not null,
-    email      varchar(255) not null,
+    first_name varchar(255) null,
+    email      varchar(255) null,
     password   varchar(255) not null
 )
     collate = utf8mb3_unicode_ci;
@@ -30,7 +30,7 @@ create or replace table Gallery
     title         varchar(255) not null,
     date_creation date         not null,
     tag           varchar(255) not null,
-    visibility    tinyint(1)   not null,
+    private       tinyint(1)   not null,
     constraint FK_889641A6E40BF469
         foreign key (user_creator) references User (id_user)
 )
@@ -57,7 +57,25 @@ create or replace index IDX_26A514B8149F9B78
 create or replace index IDX_26A514B8256620F6
     on ImageToGallery (id_img);
 
-create or replace table UserToGallery
+create or replace table ImageToGallery
+(
+    id_gal int not null,
+    id_img int not null,
+    primary key (id_gal, id_img),
+    constraint FK_B9D29B0B149F9B78
+        foreign key (id_gal) references Gallery (id_gal),
+    constraint FK_B9D29B0B256620F6
+        foreign key (id_img) references Image (id_img)
+)
+    collate = utf8mb3_unicode_ci;
+
+create or replace index IDX_B9D29B0B149F9B78
+    on ImageToGallery (id_gal);
+
+create or replace index IDX_B9D29B0B256620F6
+    on ImageToGallery (id_img);
+
+create or replace table UserToGalery
 (
     id_gal  int not null,
     id_user int not null,
@@ -73,5 +91,23 @@ create or replace index IDX_40F7CD63149F9B78
     on UserToGallery (id_gal);
 
 create or replace index IDX_40F7CD636B3CA4B
+    on UserToGallery (id_user);
+
+create or replace table UserToGallery
+(
+    id_gal  int not null,
+    id_user int not null,
+    primary key (id_gal, id_user),
+    constraint FK_A8B5C28E149F9B78
+        foreign key (id_gal) references Gallery (id_gal),
+    constraint FK_A8B5C28E6B3CA4B
+        foreign key (id_user) references User (id_user)
+)
+    collate = utf8mb3_unicode_ci;
+
+create or replace index IDX_A8B5C28E149F9B78
+    on UserToGallery (id_gal);
+
+create or replace index IDX_A8B5C28E6B3CA4B
     on UserToGallery (id_user);
 

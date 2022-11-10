@@ -10,11 +10,13 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Psr\Log\LoggerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class GalleryService
 {
     private EntityManager $em;
     private LoggerInterface $logger;
+
 
     public function __construct(EntityManager $em, LoggerInterface $logger)
     {
@@ -28,6 +30,38 @@ class GalleryService
         $this->em->persist($gallery);
         $this->em->flush();
     }
+
+
+
+    public function getImageByGallery(int $id_gal)
+    {
+        $gallery = $this->em->getRepository(Gallery::class)->find($id_gal);
+
+        return $gallery->getImages();
+    }
+
+
+
+
+    public function getListGallery(int $gal): Paginator
+    {
+        $dql = "SELECT g FROM App\Domain\Gallery g";
+        $query = $this->em->createQuery($dql)
+            ->setFirstResult(5 * ($gal - 1))
+            ->setMaxResults(5);
+
+        return new Paginator($query, $fetchJoinCollection = true);
+    }
+
+    public function getGalleryWithPosition(int $id): Gallery
+    {
+        $dql = "SELECT g FROM App\Domain\Gallery g WHERE g.id = :id";
+        $query = $this->em->createQuery($dql)
+            ->setParameter('id', $id);
+
+        return $query->getSingleResult();
+    }
+
 
     public function addUserPrivate($username)
     {
@@ -44,5 +78,64 @@ class GalleryService
         //$collection = $this->gallery->getImageToGallery();
 
         //$collection->set($id_gal, $id_img);s
+    }
+
+
+    public function getGalleryById(int $id): Gallery
+    {
+        $gallery = $this->em->getRepository(Gallery::class)->find($id);
+        return $gallery;
+    }
+
+    public function deleteGallery(int $id)
+    {
+        $gallery = $this->getGalleryById($id);
+        $this->em->remove($gallery);
+        $this->em->flush();
+    }
+
+    public function getListImage(int $img): Paginator
+    {
+        $dql = "SELECT i FROM App\Domain\Image i";
+        $query = $this->em->createQuery($dql)
+            ->setFirstResult(5 * ($img - 1))
+            ->setMaxResults(5);
+
+        return new Paginator($query, $fetchJoinCollection = true);
+    }
+
+    public function getGalleryPublic(): array
+    {
+        $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => false]);
+        $this->logger->info("GalleryService::getGalleryPublic()");
+        return $req;
+    }
+
+
+    public function getGalleryPrivate(): array
+    {
+        $galleryPrivate[] = "";
+        $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => true]);
+        foreach ($req as $gallery) {
+            $users = $gallery->getGroups1();
+            if ($users->contains($_SESSION["user_id"])) {
+                array_push($galleryPrivate, $gallery);
+            }
+        }
+
+        return $galleryPrivate;
+    }
+
+    public function connection()
+    {
+        if (isset($_SESSION["user_id"])) {
+            //$game = $this->getByUser($_SESSION["user_id"]);
+            $game = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['id_user' => $_SESSION["user_id"]]);
+            if ($game !== null) {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 }

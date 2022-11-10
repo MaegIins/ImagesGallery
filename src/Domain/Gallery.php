@@ -51,7 +51,6 @@ final class Gallery
     private Collection $groups2;
 
 
-
     public function __construct(string $title, string $date_create, string $tag, string $private, User $user_creator)
     {
         $this->title = $title;

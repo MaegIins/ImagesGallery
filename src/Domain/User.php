@@ -60,4 +60,7 @@ final class User
     {
         return $this->password;
     }
+    public function checkPassword($pass) : bool {
+        return password_verify($pass, $this->password);
+    }
 }

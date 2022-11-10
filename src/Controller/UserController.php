@@ -34,24 +34,22 @@ class UserController
         return $this->view->render($response, 'gallery.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
-            'error' => ""
+            'errorLogin' => "",
+            'errorSignup' => ""
         ]);
-    }
-
-    public function test(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
-    {
-        return $this->view->render($response, 'login.twig');
-
     }
 
     public function login(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $args = $request->getParsedBody();
-        $error = "";
+        $errorLogin = "";
         if (isset($args["name"]) && isset($args["password"])) {
+
+
             $login = $this->userService->login($args["name"], $args["password"]);
             if ($login === false) {
-                $error = "Identifiants incorrects";
+                $errorLogin = "Wrong name or password";
+
             } else {
                 $_SESSION["id_user"] = $login;
                 $_SESSION["name"] = $args["name"];
@@ -61,7 +59,7 @@ class UserController
         return $this->view->render($response, 'gallery.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
-            'error' => $error
+            'errorLogin' => $errorLogin
         ]);
     }
 
@@ -79,22 +77,23 @@ class UserController
             $signup = $this->userService->signup($args["name"], $args["password"], $args["password_confirm"]);
             if ($signup === false) {
                 if ($args["password"] != $args["password_confirm"]) {
-                    $error = "Les mots de passe ne correspondent pas / Ne sont pas assez longs";
+                    $errorSignup = "Les mots de passe ne correspondent pas / Ne sont pas assez longs";
                 } else {
-                    $error = "Le nom d'utilisateur est déjà utilisé";
+
+                    $errorSignup = "Le nom d'utilisateur est déjà utilisé Les mots de passe ne correspondent pas / Ne sont pas assez longs ";
                 }
             } else {
                 $_SESSION["id_user"] = $signup;
                 $_SESSION["name"] = $args["name"];
-                $error = "Inscription réussie";
+                $errorSignup = "Inscription réussie";
             }
         } else {
-            $error = "Veuillez remplir tous les champs";
+            $errorSignup = "Veuillez remplir tous les champs";
         }
         return $this->view->render($response, 'gallery.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
-            'error' => $error
+            'errorSignup' => $errorSignup
         ]);
     }
 

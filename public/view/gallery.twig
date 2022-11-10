@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../data/style/sass/gallery.css">
     <link rel="stylesheet" href="../data/style/sass/log.css">
     <link rel="stylesheet" href="../data/style/sass/sign.css">
+    <link rel="stylesheet" href="../data/style/sass/miniGal.css">
 
 
 </head>
@@ -21,7 +22,7 @@
         {% if conn %}
             <a id="newGal" href="/newGal">New Gallery</a>
             <input id="searchbar" type="text">
-            <p>Hello {{ conn.name }}</p>
+            <p>Hello {{ name }}</p>
 
             <a id="logout" href="/logout">Logout</a>
         {% else %}
@@ -33,6 +34,35 @@
 </div>
 
 <div id="content">
+    {% if conn %}
+        {% for galleryPublic in gal %}
+            <a href="/gal/{{ gal.id }}">
+                <div class="puGallery">
+                    {# <img src="{{ gal.image }}" alt="gallery image"> #}
+                    <p>{{ gal.name }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        {% for galleryPr in gal %}
+            <a href="/gal/{{ gal.id }}">
+                <div class="prGallery">
+                    {# <img src="{{ gal.image }}" alt="gallery image"> #}
+                    <p>{{ gal.name }}</p>
+                </div>
+            </a>
+        {% endfor %}
+        {% for galleryPu in gal %}
+            <a href="/gal/{{ gal.id }}">
+                <div class="puGallery">
+                    {# <img src="{{ gal.image }}" alt="gallery image"> #}
+                    <p>{{ gal.name }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
+
+
 </div>
 <div id="footer">
     <p id="txtFooter">Image Gallery</p>
@@ -44,7 +74,7 @@
         <h1>Log In</h1>
 
         <form id="Llogin" method="post" action="/login">
-            <input type="text" class="Ltxt" placeholder="Username" name="username"/>
+            <input type="text" class="Ltxt" placeholder="Name" name="name"/>
             <input type="password" class="Ltxt" placeholder="Password" name="password"/>
 
 
@@ -52,12 +82,11 @@
             <input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
         </form>
 
-        {% if error != "" %}
-        <div class="Lerror">{{ error }}</div>
+        {% if errorLogin != "" %}
+            <div class="Lerror" id="errorLog">{{ errorLogin }}</div>
         {% endif %}
     </div>
 </div>
-
 
 
 <div id="popup2" class="popup" hidden>
@@ -70,8 +99,8 @@
             <input type="submit" id="Ssubmit" class="Ssub" value="Create an account"/>
             <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
         </form>
-        {% if error != "" %}
-        <div class="Serror">{{ error }}</div>
+        {% if errorSignup != "" %}
+            <div class="Serror" id="errorSign">{{ errorSignup }}</div>
         {% endif %}
     </div>
 </div>
