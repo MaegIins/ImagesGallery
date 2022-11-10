@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\OneToMany;
+
 
 #[Entity, Table(name: 'Gallery')]
 final class Gallery
@@ -44,11 +46,14 @@ final class Gallery
     #[ManyToMany(targetEntity: User::class)]
     private Collection $groups1;
 
-    #[JoinTable(name: 'ImageToGallery')]
-    #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
-    #[InverseJoinColumn(name: 'id_img', referencedColumnName: 'id_img')]
-    #[ManyToMany(targetEntity: Image::class)]
+    #[OneToMany(targetEntity: Gallery::class, mappedBy:'gallery')]
     private Collection $groups2;
+
+
+    // #[JoinTable(name: 'ImageToGallery')]
+    // #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
+    // #[InverseJoinColumn(name: 'id_img', referencedColumnName: 'id_img')]
+    // #[ManyToMany(targetEntity: Image::class)]
 
 
     public function __construct(string $title, string $date_create, string $tag, string $private, User $user_creator)
@@ -90,7 +95,7 @@ final class Gallery
     {
         return $this->groups1;
     }
-    public function getImageToGallery(): Collection
+    public function getImage(): Collection
     {
         return $this->groups2;
     }
