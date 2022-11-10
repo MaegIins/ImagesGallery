@@ -32,15 +32,12 @@ class GalleryService
     }
 
 
-
     public function getImageByGallery(int $id_gal)
     {
         $gallery = $this->em->getRepository(Gallery::class)->find($id_gal);
 
         return $gallery->getImages();
     }
-
-
 
 
     public function getListGallery(int $gal): Paginator
@@ -66,7 +63,7 @@ class GalleryService
     public function addUserPrivate($username)
     {
         $id_gal = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(array(), ['id_gal' => 'DESC'], 1, 0);
-        $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $username]);
+        $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['name' => $username]);
         $collection = $id_gal[0]->getUserToGallery();
         $collection->set($id_gal[0]->getId_gal(), $id_user[0]);
         $this->em->persist($id_gal[0]);
@@ -118,7 +115,7 @@ class GalleryService
         $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => true]);
         foreach ($req as $gallery) {
             $users = $gallery->getGroups1();
-            if ($users->contains($_SESSION["user_id"])) {
+            if ($users->contains($_SESSION["id_user"])) {
                 array_push($galleryPrivate, $gallery);
             }
         }
@@ -128,9 +125,9 @@ class GalleryService
 
     public function connection()
     {
-        if (isset($_SESSION["user_id"])) {
+        if (isset($_SESSION["id_user"])) {
             //$game = $this->getByUser($_SESSION["user_id"]);
-            $game = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['id_user' => $_SESSION["user_id"]]);
+            $game = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['id_user' => $_SESSION["id_user"]]);
             if ($game !== null) {
                 return true;
             }
