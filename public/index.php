@@ -33,7 +33,7 @@ $app->get('/gallery/{id:[0-9]+}', GalleryController::class . ':getListGallery')-
 $app->get('/gallery/{id:[0-9]+}/image/{id_img:[0-9]+}', GalleryController::class . ':getListImage')->setName('maximg');
 $app->post('/gallery/submit', GalleryController::class . ':createGalleryPOST');
 $app->get('/user/create', UserController::class . ':Adduser');
-
+$app->get('/test', GalleryController::class . ':test');
 
 //Clear session
 $app->get('/deleteCache', function (Request $rq, Response $rs): Response {

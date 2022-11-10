@@ -42,21 +42,22 @@
             <label for="name">Name of the gallery : </label>
             <input type="text" id="name" placeholder="Name">
             <div id="radio">
-            <input type="radio" class="radio" name="privPub" value="public" checked>Public
-            <input type="radio" class="radio" name="privPub" value="private">Private
+                <input type="radio" class="radio" name="privPub" value="public" checked>Public
+                <input type="radio" class="radio" name="privPub" value="private">Private
             </div>
-            <label for="Tags">Tags (separated by a coma) : </label>
-            <input type="text" id="tags" placeholder="Tags">
+
             <label for="img">Image Location : </label>
             <div id="divimg">
-            <input type="text" id="img" placeholder="Image Location">
-            <input type="button" value="Browse">
+                <input type="file" id="img" placeholder="Image Location">
+
             </div>
+            <label for="Tags">Tag of the image (only one): </label>
+            <input type="text" id="tags" placeholder="Tag">
 
             <label for="newuser">Add a new user : </label>
             <div id="divuser">
-            <input type="text" id="newuser" placeholder="New User">
-            <input type="button" value="+">
+                <input type="text" id="newuser" placeholder="New User">
+                <input type="button" value="+">
             </div>
             <input type="submit" id="submit" value="Create">
             <input type="button" id="cancel" value="Cancel">
