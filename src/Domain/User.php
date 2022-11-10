@@ -33,11 +33,13 @@ final class User
 
 
 
-    public function __construct( string $name, string $username, string $password)
+    public function __construct( string $name,string $first_name ,string $username, string $password)
     {
         $this->name = $name;
+        $this->first_name = $first_name;
         $this->password = password_hash($password, PASSWORD_DEFAULT);
         $this->username = $username;
+
     }
     public function getId(): int
     {

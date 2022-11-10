@@ -53,13 +53,13 @@ class UserService
      * @throws OptimisticLockException
      * @throws ORMException
      */
-    public function signup(string $name, string $password, string $password_confirm): bool|int
+    public function signup(string $name,string $firstname,string $username, string $password, string $password_confirm): bool|int
     {
 
         $checkMdpAndName = $this->controleMdpAndName($name,$password,$password_confirm);
         $req = $this->em->getRepository(\App\Domain\User::class)->findBy(['name' => $name]);
         if ($req == null && $checkMdpAndName===true) {
-            $newUser = new \App\Domain\User($name, $password);
+            $newUser = new \App\Domain\User($name , $firstname , $username , $password);
             $this->em->persist($newUser);
             $this->em->flush();
             $this->logger->info("UserService::signup($name)");

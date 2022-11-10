@@ -71,6 +71,7 @@ final class Gallery
     {
         return $this->title;
     }
+
     public function getDate_Create(): string
     {
         return $this->date_create;

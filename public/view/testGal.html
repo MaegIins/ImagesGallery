@@ -3,91 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
-    <link rel="stylesheet" href="../data/style/normalizer.css">
-    <link rel="stylesheet" href="../data/style/sass/gallery.css">
-    <link rel="stylesheet" href="../data/style/sass/log.css">
-    <link rel="stylesheet" href="../data/style/sass/sign.css">
-    <link rel="stylesheet" href="../data/style/sass/miniGal.css">
+    <link rel="stylesheet" href="../data/style/sass/newGall.css">
 
 
 
 </head>
 <body>
 
-<div id="menu">
-    <p id="title">Image Gallery</p>
-    {% if conn %}
-    <a id="myGal" href="/myGal">My gallery</a>
-    {% endif %}
-    <div id="login">
-        {% if conn %}
-        <a id="newGal" href="/newGal">New Gallery</a>
-        <input id="searchbar" type="text">
-        <p>Hello {{ name }}</p>
 
-        <a id="logout" href="/logout">Logout</a>
-        {% else %}
-        <a id="loginBut">Login</a>
-
-        <a id="signup">Register</a>
-        {% endif %}
-    </div>
-</div>
-
-<div id="content">
-
-        <a href="/gal/{{ gal.id }}">
-            <div class="minGallery">
-            {# <img src="{{ gal.image }}" alt="gallery image"> #}
-            <p>{{ gal.name }}</p>
-            </div>
-        </a>
-
-
-</div>
-<div id="footer">
-    <p id="txtFooter">Image Gallery</p>
-</div>
-
-
-<div id="popup" class="popup" hidden>
-    <div id="Llog">
-        <h1>Log In</h1>
-
-        <form id="Llogin" method="post" action="/login">
-            <input type="text" class="Ltxt" placeholder="Name" name="name"/>
-            <input type="password" class="Ltxt" placeholder="Password" name="password"/>
-
-
-            <input type="submit" id="Lsubmit" class="Lsub" value="Log In"/>
-            <input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
-        </form>
-
-        {% if errorLogin != "" %}
-        <div class="Lerror" id="errorLog">{{ errorLogin }}</div>
-        {% endif %}
-    </div>
-</div>
-
-
-
-<div id="popup2" class="popup" hidden>
-    <div id="Slog">
-        <h1>Create an account</h1>
-        <form id="Slogin" method="post" action="/signup">
-            <input class="Stxt" type="text" placeholder="Username" name="name"/>
-            <input class="Stxt" type="password" placeholder="Password" name="password"/>
-            <input class="Stxt" type="password" placeholder="Repeat Password" name="password_confirm"/>
-            <input type="submit" id="Ssubmit" class="Ssub" value="Create an account"/>
-            <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
-        </form>
-        {% if errorSignup != "" %}
-        <div class="Serror" id="errorSign">{{ errorSignup }}</div>
-        {% endif %}
-    </div>
-</div>
-
-
-<script src="../data/scripts/popup.js"></script>
 </body>
 </html>

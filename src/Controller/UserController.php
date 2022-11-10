@@ -73,8 +73,8 @@ class UserController
     public function signup(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $args = $request->getParsedBody();
-        if (isset($args["name"]) && isset($args["password"]) && isset($args["password_confirm"])) {
-            $signup = $this->userService->signup($args["name"], $args["password"], $args["password_confirm"]);
+        if (isset($args["name"]) && isset($args["password"]) && isset($args["password_confirm"]) && isset($args["username"]) && isset($args["firstname"])) {
+            $signup = $this->userService->signup($args["name"],$args["firstname"],$args["username"], $args["password"], $args["password_confirm"]);
             if ($signup === false) {
                 if ($args["password"] != $args["password_confirm"]) {
                     $errorSignup = "Les mots de passe ne correspondent pas / Ne sont pas assez longs";
