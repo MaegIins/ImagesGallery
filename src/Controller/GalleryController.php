@@ -71,8 +71,8 @@ class GalleryController
             } else {
                 $private = false;
             }
-            //$user_creator = $_SESSION['id_user'];
-            $user_creator = $this->userService->findUserById(2);
+            $user = $_SESSION['id_user'];
+            $user_creator = $this->userService->findUserById($user);
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $private, $user_creator);
 
             $username = $args["user"];
@@ -87,7 +87,7 @@ class GalleryController
 
         }
 
-        return $this->view->render($response, 'createGal.twig', [
+        return $this->view->render($response, 'galleryWithPhoto.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'error' => ""
