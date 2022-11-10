@@ -29,9 +29,6 @@ final class Gallery
     #[Column(name: 'date_creation', type: 'string', unique: false, nullable: false)]
     private string $date_create;
 
-    #[Column(name: 'tag', type: 'string', unique: false, nullable: false)]
-    private string $tag;
-
     #[Column(name: 'private', type: 'boolean', unique: false, nullable: false)]
     private string $private;
 
@@ -56,11 +53,10 @@ final class Gallery
     // #[ManyToMany(targetEntity: Image::class)]
 
 
-    public function __construct(string $title, string $date_create, string $tag, string $private, User $user_creator)
+    public function __construct(string $title, string $date_create, string $private, User $user_creator)
     {
         $this->title = $title;
         $this->date_create = $date_create;
-        $this->tag = $tag;
         $this->private = $private;
         $this->user_creator = $user_creator;
         $this->groups1 = new ArrayCollection();
@@ -78,10 +74,6 @@ final class Gallery
     public function getDate_Create(): string
     {
         return $this->date_create;
-    }
-    public function getTag(): string
-    {
-        return $this->tag;
     }
     public function getVisibility(): string
     {

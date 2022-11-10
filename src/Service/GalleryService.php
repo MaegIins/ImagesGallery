@@ -24,9 +24,9 @@ class GalleryService
         $this->logger = $logger;
     }
 
-    public function createGallery(string $title, string $date, string $tag, bool $private, User $user_creator)
+    public function createGallery(string $title, string $date, bool $private, User $user_creator)
     {
-        $gallery = new Gallery($title, $date, $tag, $private, $user_creator);
+        $gallery = new Gallery($title, $date,$private, $user_creator);
         $this->em->persist($gallery);
         $this->em->flush();
     }

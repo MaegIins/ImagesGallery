@@ -27,9 +27,8 @@ final class Image
     private string $path;
 
 
-    public function __construct(string $id_img, string $tag, string $path)
+    public function __construct(string $tag, string $path)
     {
-        $this->id_img = $id_img;
         $this->tag = $tag;
         $this->path = $path;
         $this->groups = new ArrayCollection();
@@ -46,7 +45,8 @@ final class Image
     {
         return $this->path;
     }
-    public function getGallery(){
-        return $this->groups; 
+    public function getGallery(): Collection
+    {
+        return $this->groups;
     }
 }
