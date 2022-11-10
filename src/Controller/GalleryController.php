@@ -53,11 +53,12 @@ class GalleryController
 
             $username = $args["user"];
             $this->galleryService->addUserPrivate($username);
-            // var_dump($_FILES);
-            // foreach ($_FILES["img"] as $img) {
-            //     move_uploaded_file($img['tmp_name'], __DIR__ . '/../../public/data/img/'.$img["name"]);
-            //     echo $img['error'];
-            // }
+            foreach ($_FILES as $img) {
+                $id = rand(0,2000);
+                move_uploaded_file($img['tmp_name'],'../public/data/img/'.$id.$img["name"]);
+            }
+
+            
         }
 
         return $this->view->render($response, 'createGal.twig', [

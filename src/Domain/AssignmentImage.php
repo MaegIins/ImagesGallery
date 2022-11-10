@@ -44,6 +44,6 @@ final class AssignmentImage
     }
     public function getDate_add(): string
     {
-        return $this->date;
+        return $this->date_add;
     }
 }
