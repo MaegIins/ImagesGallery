@@ -22,25 +22,31 @@
             <a id="newGal" href="/newGal">New Gallery</a>
             <input id="searchbar" type="text">
             <p>Hello {{ name }}</p>
+            <a id="loginBut">add User</a>
 
+            <a id="signup">add Image</a>
             <a id="logout" href="/logout">Logout</a>
         {% else %}
-            <a id="loginBut">Login</a>
-
-            <a id="signup">Register</a>
+            <a id="loginBut">add User</a>
+            <a id="signup">add Image</a>
+            <a id="setPrivate">set Private</a>
+            <a id="logout" href="/logout">Logout</a>
         {% endif %}
     </div>
+</div>
+<div id="tagGallery">
+    <div id="tag image"> name tag etc</div>
 </div>
 
 <div id="content">
     {% if conn %}
-        {% for image in gal %}
+        {% for image in galPublic %}
 
                 <div class="puGallery">
                     {# <img src="{{ gal.image }}" alt="gallery image"> #}
-                    <p>{{ gal.name }}</p>
+                    <p>{{ galPublic.image }}</p>
                 </div>
-            </a>
+
         {% endfor %}
     {% else %}
         {% for galleryPr in gal %}
@@ -70,14 +76,11 @@
 
 <div id="popup" class="popup" hidden>
     <div id="Llog">
-        <h1>Log In</h1>
+        <h1>autorize user</h1>
 
-        <form id="Llogin" method="post" action="/login">
-            <input type="text" class="Ltxt" placeholder="Name" name="name"/>
-            <input type="password" class="Ltxt" placeholder="Password" name="password"/>
-
-
-            <input type="submit" id="Lsubmit" class="Lsub" value="Log In"/>
+        <form id="authUser" method="post" action="/addUserGallery<">
+            <input type="text" class="Ltxt" placeholder="userName" name="username"/>
+            <input type="submit" id="Lsubmit" class="Lsub" value="add User"/>
             <input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
         </form>
 
@@ -87,15 +90,13 @@
     </div>
 </div>
 
-
 <div id="popup2" class="popup" hidden>
     <div id="Slog">
-        <h1>Create an account</h1>
-        <form id="Slogin" method="post" action="/signup">
-            <input class="Stxt" type="text" placeholder="Username" name="name"/>
-            <input class="Stxt" type="password" placeholder="Password" name="password"/>
-            <input class="Stxt" type="password" placeholder="Repeat Password" name="password_confirm"/>
-            <input type="submit" id="Ssubmit" class="Ssub" value="Create an account"/>
+        <h1>add image</h1>
+        <form id="addImage" method="post" action="/addImage">
+            <input class="Stxt" type="text" placeholder="tag" name="tag"/>
+            <input class="Stxt" type="password" placeholder="path" name="path"/>
+            <input type="submit" id="Ssubmit" class="Ssub" value="add an image"/>
             <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
         </form>
         {% if errorSignup != "" %}
