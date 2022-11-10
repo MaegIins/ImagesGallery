@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\GalleryService;
+use App\Service\UserService;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Psr\Http\Message\ResponseInterface;
@@ -16,17 +17,19 @@ class GalleryController
 {
     private $view;
     private GalleryService $galleryService;
+    private UserService $userService;
 
-    public function __construct(Twig $view, GalleryService $galleryService)
+    public function __construct(Twig $view, GalleryService $galleryService, UserService $userService)
     {
         $this->view = $view;
         $this->galleryService = $galleryService;
+        $this->userService = $userService;
     }
 
     public function createGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         return $this->view->render($response, 'createGal.twig', [
-            'conn' => isset($_SESSION['user_id']),
+            'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'error' => ""
         ]);
@@ -47,25 +50,30 @@ class GalleryController
     public function createGalleryPOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getParsedBody();
-        var_dump($args);
-        var_dump($_FILES);
-        if (isset($args["title"]) && isset($args["tag"]) && isset($args["radio-group"]) && isset($_FILES)) {
+        if (isset($args["title"]) && isset($args["tag"]) && isset($args["groupe-radio"]) && isset($_FILES) && isset($args["user"])) {
             $title = filter_var($args['title'], FILTER_UNSAFE_RAW);
             $tag = filter_var($args['tag'], FILTER_UNSAFE_RAW);
 
-            if ($args['radio-group'] == "prive") {
+            if ($args['groupe-radio'] == "prive") {
                 $private = true;
             } else {
                 $private = false;
             }
-
-            
-            $user_creator = $_SESSION['user_id'];
+            //$user_creator = $_SESSION['id_user'];
+            $user_creator = $this->userService->findUserById(2);
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $tag, $private, $user_creator);
+
+            $username = $args["user"];
+            $this->galleryService->addUserPrivate($username);
+            // var_dump($_FILES);
+            // foreach ($_FILES["img"] as $img) {
+            //     move_uploaded_file($img['tmp_name'], __DIR__ . '/../../public/data/img/'.$img["name"]);
+            //     echo $img['error'];
+            // }
         }
 
         return $this->view->render($response, 'createGal.twig', [
-            'conn' => isset($_SESSION['user_id']),
+            'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'error' => ""
         ]);
@@ -79,7 +87,7 @@ class GalleryController
             $gallery = $this->galleryService->getGalleryPublic();
 
             return $this->view->render($response, 'gallery.twig', [
-                'conn' => isset($_SESSION['user_id']),
+                'conn' => isset($_SESSION['id_user']),
                 'name' => $_SESSION["name"] ?? "",
                 'galleryPublic' => $gallery
             ]);
@@ -88,7 +96,7 @@ class GalleryController
             $galleryPrivate = $this->galleryService->getGalleryPrivate();
 
             return $this->view->render($response, 'gallery.twig', [
-                'conn' => isset($_SESSION['user_id']),
+                'conn' => isset($_SESSION['id_user']),
                 'name' => $_SESSION["name"] ?? "",
                 'galleryPr' => $galleryPrivate,
                 'galleryPu' => $galleryPublic,

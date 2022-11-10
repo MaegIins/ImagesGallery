@@ -34,9 +34,9 @@ final class Gallery
     private string $private;
 
 
-    #[ManyToOne(targetEntity: User::class, inversedBy: 'gallery')]
+    #[ManyToOne(targetEntity: User::class, inversedBy: 'Gallery')]
     #[JoinColumn(name: 'user_creator', referencedColumnName: 'id_user')]
-    private string $user_creator;
+    private User $user_creator;
 
     #[JoinTable(name: 'UserToGallery')]
     #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
@@ -51,13 +51,12 @@ final class Gallery
     private Collection $groups2;
 
 
-
-    public function __construct(string $title, string $date_create, string $tag, string $private, string $user_creator)
+    public function __construct(string $title, string $date_create, string $tag, string $private, User $user_creator)
     {
-        $this->name = $title;
-        $this->first_name = $date_create;
-        $this->email = $tag;
-        $this->password = $private;
+        $this->title = $title;
+        $this->date_create = $date_create;
+        $this->tag = $tag;
+        $this->private = $private;
         $this->user_creator = $user_creator;
         $this->groups1 = new ArrayCollection();
         $this->groups2 = new ArrayCollection();
@@ -84,7 +83,7 @@ final class Gallery
     {
         return $this->private;
     }
-    public function getUser_Creator(): string
+    public function getUser_Creator(): User
     {
         return $this->user_creator;
     }
@@ -92,7 +91,7 @@ final class Gallery
     {
         return $this->groups1;
     }
-    public function getImageTogallery(): Collection
+    public function getImageToGallery(): Collection
     {
         return $this->groups2;
     }
