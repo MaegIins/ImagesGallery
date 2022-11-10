@@ -2,113 +2,85 @@ DROP DATABASE IF EXISTS `Gallery`;
 CREATE DATABASE `Gallery`;
 USE `Gallery`;
 
-create or replace table Image
-(
-    id_img int auto_increment
-        primary key,
-    tag    varchar(255) not null,
-    path   varchar(255) not null
-)
-    collate = utf8mb3_unicode_ci;
+CREATE TABLE `Image` (
+                         `id_img` int(11) NOT NULL AUTO_INCREMENT,
+                         `tag` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+                         `path` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+                         PRIMARY KEY (`id_img`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
-create or replace table User
-(
-    id_user    int auto_increment
-        primary key,
-    name       varchar(255) not null,
-    first_name varchar(255) null,
-    username   varchar(255) null,
-    email      varchar(255) null,
-    password   varchar(255) not null
-)
-    collate = utf8mb3_unicode_ci;
 
-create or replace table Gallery
-(
-    id_gal        int auto_increment
-        primary key,
-    user_creator  int          null,
-    title         varchar(255) not null,
-    date_creation date         not null,
-    tag           varchar(255) not null,
-    private       tinyint(1)   not null,
-    constraint FK_889641A6E40BF469
-        foreign key (user_creator) references User (id_user)
-)
-    collate = utf8mb3_unicode_ci;
+-- Gallery.`User` definition
 
-create or replace index IDX_889641A6E40BF469
-    on Gallery (user_creator);
+CREATE TABLE `User` (
+                        `id_user` int(11) NOT NULL AUTO_INCREMENT,
+                        `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+                        `first_name` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+                        `username` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+                        `password` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+                        PRIMARY KEY (`id_user`),
+                        UNIQUE KEY `UNIQ_2DA17977F85E0677` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
-create or replace table ImageToGallery
-(
-    id_gal int not null,
-    id_img int not null,
-    primary key (id_gal, id_img),
-    constraint FK_26A514B8149F9B78
-        foreign key (id_gal) references Gallery (id_gal),
-    constraint FK_26A514B8256620F6
-        foreign key (id_img) references Image (id_img)
-)
-    collate = utf8mb3_unicode_ci;
 
-create or replace index IDX_26A514B8149F9B78
-    on ImageToGallery (id_gal);
+-- Gallery.Gallery definition
 
-create or replace index IDX_26A514B8256620F6
-    on ImageToGallery (id_img);
+CREATE TABLE `Gallery` (
+                           `id_gal` int(11) NOT NULL AUTO_INCREMENT,
+                           `user_creator` int(11) DEFAULT NULL,
+                           `title` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+                           `date_creation` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+                           `private` tinyint(1) NOT NULL,
+                           PRIMARY KEY (`id_gal`),
+                           KEY `IDX_889641A6E40BF469` (`user_creator`),
+                           CONSTRAINT `FK_889641A6E40BF469` FOREIGN KEY (`user_creator`) REFERENCES `User` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
-create or replace table ImageToGallery
-(
-    id_gal int not null,
-    id_img int not null,
-    primary key (id_gal, id_img),
-    constraint FK_B9D29B0B149F9B78
-        foreign key (id_gal) references Gallery (id_gal),
-    constraint FK_B9D29B0B256620F6
-        foreign key (id_img) references Image (id_img)
-)
-    collate = utf8mb3_unicode_ci;
 
-create or replace index IDX_B9D29B0B149F9B78
-    on ImageToGallery (id_gal);
+-- Gallery.UserToGallery definition
 
-create or replace index IDX_B9D29B0B256620F6
-    on ImageToGallery (id_img);
+CREATE TABLE `UserToGallery` (
+                                 `id_gal` int(11) NOT NULL,
+                                 `id_user` int(11) NOT NULL,
+                                 PRIMARY KEY (`id_gal`,`id_user`),
+                                 KEY `IDX_A8B5C28E149F9B78` (`id_gal`),
+                                 KEY `IDX_A8B5C28E6B3CA4B` (`id_user`),
+                                 CONSTRAINT `FK_A8B5C28E149F9B78` FOREIGN KEY (`id_gal`) REFERENCES `Gallery` (`id_gal`),
+                                 CONSTRAINT `FK_A8B5C28E6B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `User` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
-create or replace table UserToGalery
-(
-    id_gal  int not null,
-    id_user int not null,
-    primary key (id_gal, id_user),
-    constraint FK_40F7CD63149F9B78
-        foreign key (id_gal) references Gallery (id_gal),
-    constraint FK_40F7CD636B3CA4B
-        foreign key (id_user) references User (id_user)
-)
-    collate = utf8mb3_unicode_ci;
 
-create or replace index IDX_40F7CD63149F9B78
-    on UserToGallery (id_gal);
+-- Gallery.AssignmentImage definition
 
-create or replace index IDX_40F7CD636B3CA4B
-    on UserToGallery (id_user);
+CREATE TABLE `AssignmentImage` (
+                                   `id_gal` int(11) NOT NULL,
+                                   `id_img` int(11) NOT NULL,
+                                   `date_add` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+                                   PRIMARY KEY (`id_gal`,`id_img`),
+                                   KEY `IDX_8A1AA842149F9B78` (`id_gal`),
+                                   KEY `IDX_8A1AA842256620F6` (`id_img`),
+                                   CONSTRAINT `FK_8A1AA842149F9B78` FOREIGN KEY (`id_gal`) REFERENCES `Gallery` (`id_gal`),
+                                   CONSTRAINT `FK_8A1AA842256620F6` FOREIGN KEY (`id_img`) REFERENCES `Image` (`id_img`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
-create or replace table UserToGallery
-(
-    id_gal  int not null,
-    id_user int not null,
-    primary key (id_gal, id_user),
-    constraint FK_A8B5C28E149F9B78
-        foreign key (id_gal) references Gallery (id_gal),
-    constraint FK_A8B5C28E6B3CA4B
-        foreign key (id_user) references User (id_user)
-)
-    collate = utf8mb3_unicode_ci;
 
-create or replace index IDX_A8B5C28E149F9B78
-    on UserToGallery (id_gal);
 
-create or replace index IDX_A8B5C28E6B3CA4B
-    on UserToGallery (id_user);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
