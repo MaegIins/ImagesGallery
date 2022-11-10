@@ -3,91 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
-    <link rel="stylesheet" href="../data/style/normalizer.css">
-    <link rel="stylesheet" href="../data/style/sass/gallery.css">
-    <link rel="stylesheet" href="../data/style/sass/log.css">
-    <link rel="stylesheet" href="../data/style/sass/sign.css">
-    <link rel="stylesheet" href="../data/style/sass/miniGal.css">
+    <link rel="stylesheet" href="../data/style/sass/newGall.css">
 
 
 
 </head>
 <body>
 
-<div id="menu">
-    <p id="title">Image Gallery</p>
-    {% if conn %}
-    <a id="myGal" href="/myGal">My gallery</a>
-    {% endif %}
-    <div id="login">
-        {% if conn %}
-        <a id="newGal" href="/newGal">New Gallery</a>
-        <input id="searchbar" type="text">
-        <p>Hello {{ name }}</p>
-
-        <a id="logout" href="/logout">Logout</a>
-        {% else %}
-        <a id="loginBut">Login</a>
-
-        <a id="signup">Register</a>
-        {% endif %}
-    </div>
-</div>
-
-<div id="content">
-
-        <a href="/gal/{{ gal.id }}">
-            <div class="minGallery">
-            {# <img src="{{ gal.image }}" alt="gallery image"> #}
-            <p>{{ gal.name }}</p>
+<div id="container">
+    <div id="header">
+        <h1>Create a new Gallery</h1>
+        <form id="addImg" action="#" method="post">
+            <label for="name">Name of the gallery : </label>
+            <input type="text" id="name" placeholder="Name">
+            <div id="radio">
+                <input type="radio" class="radio" name="privPub" value="public" checked>Public
+                <input type="radio" class="radio" name="privPub" value="private">Private
             </div>
-        </a>
 
+            <label for="img">Image Location : </label>
+            <div id="divimg">
+                <input type="file" id="img" placeholder="Image Location">
 
-</div>
-<div id="footer">
-    <p id="txtFooter">© 2022 ALED. All rights reserved. <a href="./about.html">About</a></p>
-</div>
+            </div>
+            <label for="Tags">Tag of the image (only one): </label>
+            <input type="text" id="tags" placeholder="Tag">
 
-
-<div id="popup" class="popup" hidden>
-    <div id="Llog">
-        <h1>Log In</h1>
-
-        <form id="Llogin" method="post" action="/login">
-            <input type="text" class="Ltxt" placeholder="Name" name="name"/>
-            <input type="password" class="Ltxt" placeholder="Password" name="password"/>
-
-
-            <input type="submit" id="Lsubmit" class="Lsub" value="Log In"/>
-            <input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
+            <label for="newuser">Add a new user : </label>
+            <div id="divuser">
+                <input type="text" id="newuser" placeholder="New User">
+                <input type="button" value="+">
+            </div>
+            <input type="submit" id="submit" value="Create">
+            <input type="button" id="cancel" value="Cancel">
         </form>
 
-        {% if errorLogin != "" %}
-        <div class="Lerror" id="errorLog">{{ errorLogin }}</div>
-        {% endif %}
-    </div>
-</div>
-
-
-
-<div id="popup2" class="popup" hidden>
-    <div id="Slog">
-        <h1>Create an account</h1>
-        <form id="Slogin" method="post" action="/signup">
-            <input class="Stxt" type="text" placeholder="Username" name="name"/>
-            <input class="Stxt" type="password" placeholder="Password" name="password"/>
-            <input class="Stxt" type="password" placeholder="Repeat Password" name="password_confirm"/>
-            <input type="submit" id="Ssubmit" class="Ssub" value="Create an account"/>
-            <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
-        </form>
-        {% if errorSignup != "" %}
-        <div class="Serror" id="errorSign">{{ errorSignup }}</div>
-        {% endif %}
-    </div>
-</div>
-
-
-<script src="../data/scripts/popup.js"></script>
-</body>
+    </div></body>
 </html>
