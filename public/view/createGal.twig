@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Image Gallery</title>
      <link rel="stylesheet" href="../data/style/sass/newGall.css">
-     <script src="./data/scripts/createGallery.js"><script>
 </head>
 <body>
 
@@ -27,10 +26,11 @@
             <label for="img">Image Location : </label>
             <div id="divimg">
                 <input type="file" id="img" name="img" placeholder="Image Location">
-                <input type="button" value="+" name="add_img">
+                <input type="button" value="+" name="add_img" id="btAdd">
             </div>
             <label for="Tags">Tag of the image (only one): </label>
             <input type="text" id="tags" name="tag" placeholder="Tag">
+            <div id='moreTags'></div>
 
             <label for="newuser">Add a new user : </label>
             <div id="divuser">
@@ -47,6 +47,9 @@
 {# {% else %} #}
     
 {# {% endif %} #}
+
+
+<script src="../data/scripts/createGallery.js"></script>
 
 </body>
 </html>
