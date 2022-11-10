@@ -2,9 +2,11 @@
 
 use App\Controller\UserController;
 use App\Controller\GalleryController;
-use App\Domain\Gallery;
+use App\Domain\AssignmentImage;
+use App\Service\AssignmentImageService;
 use App\Service\GalleryService;
 use App\Service\UserService;
+use App\Service\ImageService;
 use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -59,6 +61,14 @@ $container->set(UserService::class, static function (Container $c) {
     return new UserService($c->get(EntityManager::class), $c->get(LoggerInterface::class));
 });
 
+$container->set(ImageService::class, static function (Container $c) {
+    return new ImageService($c->get(EntityManager::class), $c->get(LoggerInterface::class));
+});
+
+$container->set(AssignmentImageService::class, static function (Container $c) {
+    return new AssignmentImageService($c->get(EntityManager::class), $c->get(LoggerInterface::class));
+});
+
 $container->set(UserController::class, static function (ContainerInterface $container) {
     $view = $container->get('view');
     return new UserController($view, $container->get(UserService::class));
@@ -70,7 +80,7 @@ $container->set(GalleryService::class, static function (Container $c) {
 
 $container->set(GalleryController::class, static function (ContainerInterface $container) {
     $view = $container->get('view');
-    return new GalleryController($view, $container->get(GalleryService::class), $container->get(UserService::class));
+    return new GalleryController($view, $container->get(GalleryService::class), $container->get(UserService::class),$container->get(ImageService::class),$container->get(AssignmentImageService::class));
 });
 
 return $container;

@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\OneToMany;
+
 
 #[Entity, Table(name: 'Gallery')]
 final class Gallery
@@ -26,9 +28,6 @@ final class Gallery
 
     #[Column(name: 'date_creation', type: 'string', unique: false, nullable: false)]
     private string $date_create;
-
-    #[Column(name: 'tag', type: 'string', unique: false, nullable: false)]
-    private string $tag;
 
     #[Column(name: 'private', type: 'boolean', unique: false, nullable: false)]
     private string $private;
@@ -44,18 +43,20 @@ final class Gallery
     #[ManyToMany(targetEntity: User::class)]
     private Collection $groups1;
 
-    #[JoinTable(name: 'ImageToGallery')]
-    #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
-    #[InverseJoinColumn(name: 'id_img', referencedColumnName: 'id_img')]
-    #[ManyToMany(targetEntity: Image::class)]
+    #[OneToMany(targetEntity: Gallery::class, mappedBy:'gallery')]
     private Collection $groups2;
 
 
-    public function __construct(string $title, string $date_create, string $tag, string $private, User $user_creator)
+    // #[JoinTable(name: 'ImageToGallery')]
+    // #[JoinColumn(name: 'id_gal', referencedColumnName: 'id_gal')]
+    // #[InverseJoinColumn(name: 'id_img', referencedColumnName: 'id_img')]
+    // #[ManyToMany(targetEntity: Image::class)]
+
+
+    public function __construct(string $title, string $date_create, string $private, User $user_creator)
     {
         $this->title = $title;
         $this->date_create = $date_create;
-        $this->tag = $tag;
         $this->private = $private;
         $this->user_creator = $user_creator;
         $this->groups1 = new ArrayCollection();
@@ -75,10 +76,6 @@ final class Gallery
     {
         return $this->date_create;
     }
-    public function getTag(): string
-    {
-        return $this->tag;
-    }
     public function getVisibility(): string
     {
         return $this->private;
@@ -91,7 +88,7 @@ final class Gallery
     {
         return $this->groups1;
     }
-    public function getImageToGallery(): Collection
+    public function getImage(): Collection
     {
         return $this->groups2;
     }

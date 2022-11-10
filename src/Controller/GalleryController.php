@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Service\AssignmentImageService;
 use App\Service\GalleryService;
+use App\Service\ImageService;
 use App\Service\UserService;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
@@ -18,12 +20,16 @@ class GalleryController
     private $view;
     private GalleryService $galleryService;
     private UserService $userService;
+    private ImageService $imageService;
+    private AssignmentImageService $assignmentImageService;
 
-    public function __construct(Twig $view, GalleryService $galleryService, UserService $userService)
+    public function __construct(Twig $view, GalleryService $galleryService, UserService $userService, ImageService $imageService, AssignmentImageService $assignmentImageService)
     {
         $this->view = $view;
         $this->galleryService = $galleryService;
         $this->userService = $userService;
+        $this->imageService = $imageService;
+        $this->assignmentImageService = $assignmentImageService;
     }
 
     public function test(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -65,20 +71,23 @@ class GalleryController
             } else {
                 $private = false;
             }
-            //$user_creator = $_SESSION['id_user'];
-            $user_creator = $this->userService->findUserById(2);
-            $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $tag, $private, $user_creator);
+            $user = $_SESSION['id_user'];
+            $user_creator = $this->userService->findUserById($user);
+            $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $private, $user_creator);
 
             $username = $args["user"];
             $this->galleryService->addUserPrivate($username);
-            // var_dump($_FILES);
-            // foreach ($_FILES["img"] as $img) {
-            //     move_uploaded_file($img['tmp_name'], __DIR__ . '/../../public/data/img/'.$img["name"]);
-            //     echo $img['error'];
-            // }
+            foreach ($_FILES as $img) {
+                $id = rand(0,2000);
+                move_uploaded_file($img['tmp_name'],'../public/data/img/'.$id.$img["name"]);
+            $this->imageService->createImage($args["tag"],'/public/data/img/'.$id.$img["name"]);
+            $this->assignmentImageService->assignmentImage();
+            }
+
+
         }
 
-        return $this->view->render($response, 'createGal.twig', [
+        return $this->view->render($response, 'galleryWithPhoto.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'error' => ""

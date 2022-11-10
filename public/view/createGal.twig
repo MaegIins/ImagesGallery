@@ -4,33 +4,11 @@
     <meta charset="UTF-8">
     <title>Image Gallery</title>
      <link rel="stylesheet" href="../data/style/sass/newGall.css">
+     <script src="./data/scripts/createGallery.js"><script>
 </head>
 <body>
 
 {# {% if conn %} #}
-   <form action="/gallery/submit" method="post" enctype="multipart/form-data">
-        <label for ="title">Titre de la galerie<label>
-        <input type="text" name="title" id="title" placeholder="ex. Animaux, Voyage en Ireland, ...">
-        <br>
-        <label for ="tag">Mots clefs<label>
-        <input type="text" name="tag" id="tag" placeholder="ex. Paysage, Chien, Chat, ...">
-        <br>
-        <label for="prive">Privé</label> <input type="radio" name="groupe-radio" id="prive" value="prive">
-        <br>
-        <label for="public">Public</label> <input type="radio" name="groupe-radio" id="public" value="public" checked>
-        <br>
-        <label for ="img">Ajouter une image à la galerie<label>
-        <input type="file" name="img" id="image" accept="application/png">
-        <br>
-        <input type="button" name"img" id "add_img" value = "Ajouter une autre image">
-        <br>
-        <label for ="username">Ajouter un utilisateur à la galerie<label>
-        <input type="text" name="user" id="username" placeholder="ex. toto57">
-        <br>
-        <input type="button" name"add_username" id "add_user" value = "Ajouter un autre utilisateur">
-        <br>
-        <input type="submit" value="Créer une galerie">
-    </form>
 
 
 
@@ -38,26 +16,26 @@
 <div id="container">
     <div id="header">
         <h1>Create a new Gallery</h1>
-        <form id="addImg" action="#" method="post">
+        <form id="addImg" action="/gallery/submit" method="post">
             <label for="name">Name of the gallery : </label>
-            <input type="text" id="name" placeholder="Name">
+            <input type="text" id="name" name="title" placeholder="Name" required>
             <div id="radio">
-                <input type="radio" class="radio" name="privPub" value="public" checked>Public
-                <input type="radio" class="radio" name="privPub" value="private">Private
+                <input type="radio" class="radio" name="groupe-radio" value="public" checked>Public
+                <input type="radio" class="radio" name="groupe-radio" value="private">Private
             </div>
 
             <label for="img">Image Location : </label>
             <div id="divimg">
-                <input type="file" id="img" placeholder="Image Location">
-
+                <input type="file" id="img" name="img" placeholder="Image Location">
+                <input type="button" value="+" name="add_img">
             </div>
             <label for="Tags">Tag of the image (only one): </label>
-            <input type="text" id="tags" placeholder="Tag">
+            <input type="text" id="tags" name="tag" placeholder="Tag">
 
             <label for="newuser">Add a new user : </label>
             <div id="divuser">
-                <input type="text" id="newuser" placeholder="New User">
-                <input type="button" value="+">
+                <input type="text" id="newuser" name="user" placeholder="New User">
+                <input type="button" value="+" name="add_username">
             </div>
             <input type="submit" id="submit" value="Create">
             <input type="button" id="cancel" value="Cancel">
