@@ -17,6 +17,7 @@ create or replace table User
         primary key,
     name       varchar(255) not null,
     first_name varchar(255) null,
+    username   varchar(255) null,
     email      varchar(255) null,
     password   varchar(255) not null
 )

@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Image Gallery</title>
+    <title>Photo Gallery</title>
     <link rel="stylesheet" href="../data/style/normalizer.css">
     <link rel="stylesheet" href="../data/style/sass/gallery.css">
     <link rel="stylesheet" href="../data/style/sass/log.css">
     <link rel="stylesheet" href="../data/style/sass/sign.css">
     <link rel="stylesheet" href="../data/style/sass/miniGal.css">
-
 
 </head>
 <body>
@@ -35,8 +34,8 @@
 
 <div id="content">
     {% if conn %}
-        {% for galleryPublic in gal %}
-            <a href="/gal/{{ gal.id }}">
+        {% for image in gal %}
+
                 <div class="puGallery">
                     {# <img src="{{ gal.image }}" alt="gallery image"> #}
                     <p>{{ gal.name }}</p>
@@ -93,9 +92,7 @@
     <div id="Slog">
         <h1>Create an account</h1>
         <form id="Slogin" method="post" action="/signup">
-            <input class="Stxt" type="text" placeholder="name" name="name"/>
-            <input class="Stxt" type="text" placeholder="firstname" name="firstname"/>
-            <input class="Stxt" type="text" placeholder="pseudo" name="username"/>
+            <input class="Stxt" type="text" placeholder="Username" name="name"/>
             <input class="Stxt" type="password" placeholder="Password" name="password"/>
             <input class="Stxt" type="password" placeholder="Repeat Password" name="password_confirm"/>
             <input type="submit" id="Ssubmit" class="Ssub" value="Create an account"/>
