@@ -24,9 +24,9 @@ class GalleryService
         $this->logger = $logger;
     }
 
-    public function createGallery(string $title, string $date, string $tag, bool $private, User $user_creator)
+    public function createGallery(string $title, string $date, bool $private, User $user_creator)
     {
-        $gallery = new Gallery($title, $date, $tag, $private, $user_creator);
+        $gallery = new Gallery($title, $date,$private, $user_creator);
         $this->em->persist($gallery);
         $this->em->flush();
     }
@@ -113,16 +113,24 @@ class GalleryService
 
     public function getGalleryPublic(): array
     {
-        $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => false]);
+        var_dump("public");
+        var_dump($_SESSION["id_user"]);
+        var_dump($this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => 0]));
+        $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => 0]);
+        var_dump("la");
         $this->logger->info("GalleryService::getGalleryPublic()");
+
         return $req;
     }
 
 
     public function getGalleryPrivate(): array
     {
+        var_dump("private");
         $galleryPrivate[] = "";
+
         $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => true]);
+        var_dump($req);
         foreach ($req as $gallery) {
             $users = $gallery->getGroups1();
             if ($users->contains($_SESSION["id_user"])) {
@@ -135,9 +143,10 @@ class GalleryService
 
     public function connection()
     {
+        //var_dump($_SESSION["id_user"]);
         if (isset($_SESSION["id_user"])) {
             //$game = $this->getByUser($_SESSION["user_id"]);
-            $game = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['id_user' => $_SESSION["id_user"]]);
+            $game = $this->em->getRepository(\App\Domain\User::class)->findBy(['id_user' => $_SESSION["id_user"]]);
             if ($game !== null) {
                 return true;
             }

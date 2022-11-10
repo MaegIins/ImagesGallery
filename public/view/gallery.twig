@@ -34,6 +34,10 @@
 </div>
 
 <div id="content">
+
+    <div >
+        {{ galleryPublic }}
+    </div>
     {% if conn %}
         {% for galleryPublic in gal %}
             <a href="/gal/{{ gal.id }}">
@@ -44,19 +48,20 @@
             </a>
         {% endfor %}
     {% else %}
-        {% for galleryPr in gal %}
-            <a href="/gal/{{ gal.id }}">
-                <div class="prGallery">
-                    {# <img src="{{ gal.image }}" alt="gallery image"> #}
-                    <p>{{ gal.name }}</p>
-                </div>
-            </a>
-        {% endfor %}
+{#        {% for galleryPr in gal %}#}
+{#            <a href="/gal/{{ gal.id }}">#}
+{#                <div class="prGallery">#}
+{#                    #}{# <img src="{{ gal.image }}" alt="gallery image"> #}
+{#                    <p>{{ gal.title }}</p>#}
+{#                </div>#}
+{#            </a>#}
+{#        {% endfor %}#}
         {% for galleryPu in gal %}
+            console.log(gal);
             <a href="/gal/{{ gal.id }}">
                 <div class="puGallery">
                     {# <img src="{{ gal.image }}" alt="gallery image"> #}
-                    <p>{{ gal.name }}</p>
+                    <p>{{ gal.title }}</p>
                 </div>
             </a>
         {% endfor %}
