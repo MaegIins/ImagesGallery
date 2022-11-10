@@ -24,7 +24,7 @@ final class Gallery
     #[Column(name: 'title', type: 'string', unique: false, nullable: false)]
     private string $title;
 
-    #[Column(name: 'date_creation', type: 'date', unique: false, nullable: false)]
+    #[Column(name: 'date_creation', type: 'string', unique: false, nullable: false)]
     private string $date_create;
 
     #[Column(name: 'tag', type: 'string', unique: false, nullable: false)]
@@ -71,6 +71,7 @@ final class Gallery
     {
         return $this->title;
     }
+
     public function getDate_Create(): string
     {
         return $this->date_create;
