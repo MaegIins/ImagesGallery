@@ -117,4 +117,9 @@ class UserController
         return $response->withHeader('Location', '/');
         
     }
+    public function displayAbout(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
+    {
+        return $this->view->render($response, 'about.twig');
+    }
+
 }
