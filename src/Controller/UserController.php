@@ -62,7 +62,7 @@ class UserController
             'errorLogin' => $errorLogin
         ]);
     }
-
+//test
     /**
      * @throws OptimisticLockException
      * @throws SyntaxError
