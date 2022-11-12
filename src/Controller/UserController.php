@@ -122,4 +122,8 @@ class UserController
         return $this->view->render($response, 'about.twig');
     }
 
+    public function newGallery(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
+    {
+        return $this->view->render($response, 'createGal.twig');
+    }
 }

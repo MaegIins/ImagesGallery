@@ -34,6 +34,7 @@ $app->get('/gallery/{id:[0-9]+}/image/{id_img:[0-9]+}', GalleryController::class
 $app->post('/gallery/submit', GalleryController::class . ':createGalleryPOST');
 $app->get('/user/create', UserController::class . ':Adduser');
 $app->get('/about', UserController::class . ':displayAbout');
+$app->get('/newGallery', UserController::class . ':newGallery');
 
 //Clear session
 $app->get('/deleteCache', function (Request $rq, Response $rs): Response {
