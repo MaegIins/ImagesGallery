@@ -72,9 +72,9 @@ class GalleryController
                 $private = false;
             }
             $user = $_SESSION['id_user'];
-            var_dump($user);
+
             $user_creator = $this->userService->findUserById($user);
-            var_dump($user_creator);
+
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $private, $user_creator);
 
             $username = $args["user"];
