@@ -10,6 +10,7 @@ use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
 use Slim\Views\Twig;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -22,14 +23,16 @@ class GalleryController
     private UserService $userService;
     private ImageService $imageService;
     private AssignmentImageService $assignmentImageService;
+    private LoggerInterface $logger;
 
-    public function __construct(Twig $view, GalleryService $galleryService, UserService $userService, ImageService $imageService, AssignmentImageService $assignmentImageService)
+    public function __construct(Twig $view, GalleryService $galleryService, UserService $userService, ImageService $imageService, AssignmentImageService $assignmentImageService, LoggerInterface $logger)
     {
         $this->view = $view;
         $this->galleryService = $galleryService;
         $this->userService = $userService;
         $this->imageService = $imageService;
         $this->assignmentImageService = $assignmentImageService;
+        $this->logger = $logger;
     }
 
     public function test(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -40,6 +43,7 @@ class GalleryController
 
     public function createGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        $this->logger->info("GalleryService::getGalleryPublic()");
         return $this->view->render($response, 'createGal.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
@@ -102,9 +106,9 @@ class GalleryController
 
         if ($this->galleryService->connection() === false) {
             $gallery = $this->galleryService->getGalleryPublic();
-            var_dump($gallery);
             return $this->view->render($response, 'gallery.twig', [
-                'galleryPublic' => $gallery,
+                'conn' => isset($_SESSION['id_user']),
+                'galleryPublic' => $gallery
             ]);
         } else {
             $galleryPublic = $this->galleryService->getGalleryPublic();
@@ -113,7 +117,7 @@ class GalleryController
                 'conn' => isset($_SESSION['id_user']),
                 'name' => $_SESSION["name"] ?? "",
                 'galleryPr' => $galleryPrivate,
-                'galleryPu' => $galleryPublic,
+                'galleryPu' => $galleryPublic
             ]);
 
         }

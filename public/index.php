@@ -17,6 +17,7 @@ $container = require_once __DIR__ . '/../bootstrap.php';
 
 AppFactory::setContainer($container);
 
+
 $app = AppFactory::create();
 
 $app->add(TwigMiddleware::createFromContainer($app));
@@ -42,6 +43,5 @@ $app->get('/deleteCache', function (Request $rq, Response $rs): Response {
     $rs = $rs->withStatus(302);
     return $rs->withHeader('Location', '/delete');
 });
-
 
 $app->run();
