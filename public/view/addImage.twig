@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Gallery</title>
+     <link rel="stylesheet" href="../data/style/sass/newGall.css">
+</head>
+<body>
+
+{# {% if conn %} #}
+
+
+
+<!-- contenu de la page de création de gallerie si connecté  TRISTAN -->
+<div id="container">
+    <div id="header">
+        <h1>Add an images to this gallery </h1>
+        <form id="addImg" action="/image/submit" method="post">
+            <label for="img">Image Location : </label>
+            <div id="divimg">
+                <input type="file" id="img" name="img" placeholder="Image Location">
+                <input type="button" value="+" name="add_img" id="btAdd">
+            </div>
+            <label for="Tags">Tag of the image (only one): </label>
+            <input type="text" id="tags" name="tag" placeholder="Tag">
+            <div id='moreTags'></div>
+
+            <input type="submit" id="submit" value="Create">
+            <input type="button" id="cancel" value="Cancel">
+        </form>
+
+    </div>
+
+
+{# {% else %} #}
+    
+{# {% endif %} #}
+
+
+
+</body>
+</html>
