@@ -106,9 +106,12 @@ class GalleryController
 
         if ($this->galleryService->connection() === false) {
             $gallery = $this->galleryService->getGalleryPublic();
+
             return $this->view->render($response, 'gallery.twig', [
-                'conn' => isset($_SESSION['id_user']),
-                'galleryPublic' => $gallery
+                //'conn' => isset($_SESSION['id_user']),
+
+                'galleryPublic' => $gallery,
+
             ]);
         } else {
             $galleryPublic = $this->galleryService->getGalleryPublic();

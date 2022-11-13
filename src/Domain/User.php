@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity, Table(name: 'User')]
-final class User
+class User
 {
     #[Id, Column(name: 'id_user', type: 'integer'), GeneratedValue(strategy: 'AUTO')]
     private int $id_user;

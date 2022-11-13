@@ -35,45 +35,16 @@
 
 <div id="content">
 
-    <div>
-        {% for galleryPublic in gal %}
-            <a href="/gal/{{ gal.id }}">
-                <div class="puGallery">
-                    <img src="{{ gal.image }}" alt="gallery image">
-                    <p>{{ gal.title }}</p>
+    {% for GalleryPu in galleryPublic %}
+        <div class="gallery">
 
-                </div>
-            </a>
-        {% endfor %}
-    </div>
-    {% if conn %}
-        {% for galleryPr in gal %}#}
-            <a href="/gal/{{ gal.id }}">
-                <div class="prGallery">
-                    <img src="{{ gal.image }}" alt="gallery image">
-                    <p>{{ gal.title }}</p>
-                </div>
-            </a>
-        {% endfor %}
-        {% for galleryPu in gal %}
-            <a href="/gal/{{ gal.id }}">
-                <div class="puGallery">
-                    {# <img src="{{ gal.image }}" alt="gallery image"> #}
-                    <p>{{ gal.title }}</p>
-                </div>
-            </a>
-        {% endfor %}
-    {% else %}
-        {% for galleryPublic in gal %}
-            <a href="/gal/{{ gal.id }}">
-                <div class="puGallery">
-                    {#<img src="{{ gal.image }}" alt="gallery image"> #}
-                    <p>{{ gal.title }}</p>
 
-                </div>
-            </a>
-        {% endfor %}
-    {% endif %}
+
+
+            <p>{{ GalleryPu.title }}</p>
+        </div>
+    {% endfor %}
+
 
 
 </div>
