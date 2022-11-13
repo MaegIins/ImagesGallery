@@ -85,7 +85,7 @@ class GalleryController
             }
         }
 
-        return $this->view->render($response, 'createGal.twig', [
+        return $this->view->render($response, 'galleryWithPhoto.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'error' => ""
@@ -113,7 +113,7 @@ class GalleryController
             $this->assignmentImageService->assignmentImageWithIdGallery($id_gal);
         }
 
-        return $this->view->render($response, 'createGal.twig', [
+        return $this->view->render($response, 'galleryWithPhoto.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'error' => ""
