@@ -46,6 +46,7 @@ class AssignmentImageService
     public function assignmentImageWithIdGallery($id_gal)
     {
         $img = $this->em->getRepository(\App\Domain\Image::class)->findBy(array(), ['id_img' => 'DESC'], 1, 0);
-        $as = $this->createAssignmentImage($id_gal, $img[0], date('l jS \of F Y h:i:s A'));
+        $id_gallery = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['id_gal' => $id_gal]);
+        $as = $this->createAssignmentImage($id_gallery[0], $img[0], date('l jS \of F Y h:i:s A'));
     }
 }

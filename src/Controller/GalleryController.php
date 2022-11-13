@@ -62,7 +62,6 @@ class GalleryController
     public function createGalleryPOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getParsedBody();
-        var_dump($_FILES);
         if (isset($args["title"]) && isset($args["tag"]) && isset($args["groupe-radio"]) && isset($_FILES) && isset($args["user"])) {
             $title = filter_var($args['title'], FILTER_UNSAFE_RAW);
             $tag = filter_var($args['tag'], FILTER_UNSAFE_RAW);
@@ -78,7 +77,6 @@ class GalleryController
 
             $username = $args["user"];
             $this->galleryService->addUserPrivate($username);
-            var_dump($_FILES);
             foreach ($_FILES as $img) {
                 $id = rand(0, 2000);
                 move_uploaded_file($img['tmp_name'], '../public/data/img/'.$id.$img["name"]);
@@ -105,7 +103,6 @@ class GalleryController
 
     public function addImagePOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        var_dump($_FILES);
         $args = $request->getParsedBody();
         //$id_gal = $_SESSION["id_gal"];
         $id_gal = 9;
@@ -116,7 +113,7 @@ class GalleryController
             $this->assignmentImageService->assignmentImageWithIdGallery($id_gal);
         }
 
-        return $this->view->render($response, 'galleryWithPhoto.twig', [
+        return $this->view->render($response, 'createGal.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'error' => ""

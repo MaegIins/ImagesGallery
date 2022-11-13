@@ -15,13 +15,14 @@
 <div id="container">
     <div id="header">
         <h1>Add an images to this gallery </h1>
-        <form id="addImg" action="/image/submit" method="post">
-            <label for="img">Image Location : </label>
+
+        <form id="addImg" action="/image/submit" method="post" enctype="multipart/form-data">
+            <label for="img2">Image Location : </label>
             <div id="divimg">
-                <input type="file" id="img" name="img" placeholder="Image Location">
+                <input type="file" id="img" name="img2">
                 <input type="button" value="+" name="add_img" id="btAdd">
             </div>
-            <label for="Tags">Tag of the image (only one): </label>
+            <label for="tags">Tag of the image (only one): </label>
             <input type="text" id="tags" name="tag" placeholder="Tag">
             <div id='moreTags'></div>
 
@@ -31,12 +32,9 @@
 
     </div>
 
-
+</div>
 {# {% else %} #}
     
 {# {% endif %} #}
-
-
-
 </body>
 </html>

@@ -15,7 +15,7 @@
 <div id="container">
     <div id="header">
         <h1>Create a new Gallery</h1>
-        <form id="addImg" action="/gallery/submit" method="post">
+        <form id="addImg" action="/gallery/submit" method="post" enctype="multipart/form-data">
             <label for="name">Name of the gallery : </label>
             <input type="text" id="name" name="title" placeholder="Name" required>
             <div id="radio">
@@ -23,12 +23,12 @@
                 <input type="radio" class="radio" name="groupe-radio" value="private">Private
             </div>
 
-            <label for="img">Image Location : </label>
+            <label for="img2">Image Location : </label>
             <div id="divimg">
-                <input type="file" id="img" name="img" placeholder="Image Location">
+                <input type="file" id="img" name="img2">
                 <input type="button" value="+" name="add_img" id="btAdd">
             </div>
-            <label for="Tags">Tag of the image (only one): </label>
+            <label for="tags">Tag of the image (only one): </label>
             <input type="text" id="tags" name="tag" placeholder="Tag">
             <div id='moreTags'></div>
 
@@ -42,7 +42,7 @@
         </form>
 
     </div>
-
+</div>
 
 {# {% else %} #}
     
