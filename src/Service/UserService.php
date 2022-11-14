@@ -78,8 +78,11 @@ class UserService
     }
 
     public function findUserById($id_user):mixed{
-        $user_creator = $this->em->getRepository(\App\Domain\User::class)->findBy(['id_user' => 2]);
-        return $user_creator[0];
+        $user = $this->em->getRepository(User::class)->find($id_user);
+        //$user_creator = $this->em->getRepository(\App\Domain\User::class)->findBy(['id_user' => 2]);
+       // $req = $this->em->getRepository(\App\Domain\User::class)->findBy(['id_user' => $name]);
+
+        return $user;
     }
 }
 

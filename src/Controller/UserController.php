@@ -62,7 +62,7 @@ class UserController
             'errorLogin' => $errorLogin
         ]);
     }
-
+//test
     /**
      * @throws OptimisticLockException
      * @throws SyntaxError
@@ -116,5 +116,14 @@ class UserController
         $response = $response->withStatus(200);
         return $response->withHeader('Location', '/');
         
+    }
+    public function displayAbout(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
+    {
+        return $this->view->render($response, 'about.twig');
+    }
+
+    public function newGallery(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
+    {
+        return $this->view->render($response, 'createGal.twig');
     }
 }

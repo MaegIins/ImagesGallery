@@ -26,7 +26,8 @@ class GalleryService
 
     public function createGallery(string $title, string $date, bool $private, User $user_creator)
     {
-        $gallery = new Gallery($title, $date,$private, $user_creator);
+
+        $gallery = new Gallery($title, $date, $private, $user_creator);
         $this->em->persist($gallery);
         $this->em->flush();
     }
@@ -113,8 +114,9 @@ class GalleryService
 
     public function getGalleryPublic(): array
     {
-        $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => false]);
+        $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => 0]);
         $this->logger->info("GalleryService::getGalleryPublic()");
+
         return $req;
     }
 
@@ -122,7 +124,7 @@ class GalleryService
     public function getGalleryPrivate(): array
     {
         $galleryPrivate[] = "";
-        $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => true]);
+        $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => 1]);
         foreach ($req as $gallery) {
             $users = $gallery->getGroups1();
             if ($users->contains($_SESSION["id_user"])) {
@@ -135,9 +137,10 @@ class GalleryService
 
     public function connection()
     {
+        //var_dump($_SESSION["id_user"]);
         if (isset($_SESSION["id_user"])) {
             //$game = $this->getByUser($_SESSION["user_id"]);
-            $game = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['id_user' => $_SESSION["id_user"]]);
+            $game = $this->em->getRepository(\App\Domain\User::class)->findBy(['id_user' => $_SESSION["id_user"]]);
             if ($game !== null) {
                 return true;
             }

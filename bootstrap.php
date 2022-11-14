@@ -80,7 +80,7 @@ $container->set(GalleryService::class, static function (Container $c) {
 
 $container->set(GalleryController::class, static function (ContainerInterface $container) {
     $view = $container->get('view');
-    return new GalleryController($view, $container->get(GalleryService::class), $container->get(UserService::class),$container->get(ImageService::class),$container->get(AssignmentImageService::class));
+    return new GalleryController($view, $container->get(GalleryService::class), $container->get(UserService::class),$container->get(ImageService::class),$container->get(AssignmentImageService::class),$container->get(LoggerInterface::class));
 });
 
 return $container;

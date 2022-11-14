@@ -10,6 +10,7 @@ use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
 use Slim\Views\Twig;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -22,14 +23,16 @@ class GalleryController
     private UserService $userService;
     private ImageService $imageService;
     private AssignmentImageService $assignmentImageService;
+    private LoggerInterface $logger;
 
-    public function __construct(Twig $view, GalleryService $galleryService, UserService $userService, ImageService $imageService, AssignmentImageService $assignmentImageService)
+    public function __construct(Twig $view, GalleryService $galleryService, UserService $userService, ImageService $imageService, AssignmentImageService $assignmentImageService, LoggerInterface $logger)
     {
         $this->view = $view;
         $this->galleryService = $galleryService;
         $this->userService = $userService;
         $this->imageService = $imageService;
         $this->assignmentImageService = $assignmentImageService;
+        $this->logger = $logger;
     }
 
     public function test(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -40,6 +43,7 @@ class GalleryController
 
     public function createGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        $this->logger->info("GalleryService::getGalleryPublic()");
         return $this->view->render($response, 'createGal.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
@@ -72,7 +76,9 @@ class GalleryController
                 $private = false;
             }
             $user = $_SESSION['id_user'];
+
             $user_creator = $this->userService->findUserById($user);
+
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $private, $user_creator);
             var_dump($private);
             $username = $args["user"];
@@ -127,19 +133,19 @@ class GalleryController
             $gallery = $this->galleryService->getGalleryPublic();
 
             return $this->view->render($response, 'gallery.twig', [
-                'conn' => isset($_SESSION['id_user']),
-                'name' => $_SESSION["name"] ?? "",
-                'galleryPublic' => $gallery
+                //'conn' => isset($_SESSION['id_user']),
+
+                'galleryPublic' => $gallery,
+
             ]);
         } else {
             $galleryPublic = $this->galleryService->getGalleryPublic();
             $galleryPrivate = $this->galleryService->getGalleryPrivate();
-
             return $this->view->render($response, 'gallery.twig', [
                 'conn' => isset($_SESSION['id_user']),
                 'name' => $_SESSION["name"] ?? "",
                 'galleryPr' => $galleryPrivate,
-                'galleryPu' => $galleryPublic,
+                'galleryPu' => $galleryPublic
             ]);
         }
     }
