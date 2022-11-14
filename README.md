@@ -24,6 +24,9 @@
 ## How to use
     
 ```
+composer install
+
+``
 docker-compose up --build
 ```
 
