@@ -2,51 +2,119 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Image Gallery</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
     <link rel="stylesheet" href="../data/style/normalizer.css">
     <link rel="stylesheet" href="../data/style/sass/gallery.css">
     <link rel="stylesheet" href="../data/style/sass/log.css">
     <link rel="stylesheet" href="../data/style/sass/sign.css">
     <link rel="stylesheet" href="../data/style/sass/miniGal.css">
-
+    <link rel="stylesheet" href="../data/style/sass/insideGal.css">
+    <link rel="stylesheet" href="../data/style/sass/newGall.css">
 
 </head>
 <body>
 
 <div id="menu">
     <p id="title">Image Gallery</p>
-
+    {% if conn %}
+    <a id="myGal" href="/myGal">My gallery</a>
+    {% endif %}
     <div id="login">
+        {% if conn %}
+        <a id="newGal" href="/newGal">New Gallery</a>
+        <input id="searchbar" type="text">
+        <p>Hello {{ name }}</p>
 
-        <a id="loginBut">Login</a>
+        <a id="logout" href="/logout">Logout</a>
+        {% else %}
 
-        <a id="signup">Register</a>
+        {% endif %}
+    </div>
+</div>
+<div id="tagGallery">
+    <div id="tag image"> name tag etc</div>
+</div>
+<div id="banner">
+    <h1 id="galName">{{ Gallery Name }}</h1>
 
+    <div id="tagGallery">
+        <div id="tag image"> {{ tags }}</div>
+    </div>
+
+
+    <div id="buttons">
+        <a id="addUserBut">add User</a>
+        <a id="addImgBut">add Image</a>
+        <a id="setPrivateBut">set Private</a>
     </div>
 </div>
 
 <div id="content">
+    {% if conn %}
+    {% for image in galPublic %}
 
-
-    <div class="galleryPr">
-        <a href="https://www.w3schools.com">
-            <img src="{{ Gallery.img }}" alt="1" width="600" height="400">
-            <p>{{ GalleryPr.title }}</p>
-        </a>
+    <div class="puGallery">
+        {# <img src="{{ gal.image }}" alt="gallery image"> #}
+        <p>{{ galPublic.image }}</p>
     </div>
 
-    <div class="galleryPu">
-        <a href="https://www.w3schools.com">
-            <img src="{{ Gallery.img " alt="2" width="600" height="400">
-            <p>{{ GalleryPu.title }}</p>
-        </a>
-    </div>
+    {% endfor %}
+    {% else %}
+    {% for galleryPr in gal %}
+    <a href="/gal/{{ gal.id }}">
+        <div class="prGallery">
+            {# <img src="{{ gal.image }}" alt="gallery image"> #}
+            <p>{{ gal.name }}</p>
+        </div>
+    </a>
+    {% endfor %}
+    {% for galleryPu in gal %}
+    <a href="/gal/{{ gal.id }}">
+        <div class="puGallery">
+            {# <img src="{{ gal.image }}" alt="gallery image"> #}
+            <p>{{ gal.name }}</p>
+        </div>
+    </a>
+    {% endfor %}
+    {% endif %}
 
 
 </div>
 <div id="footer">
-    <p id="txtFooter">© ALED. All Rights Reserved. <a href="/about">About</a></p>
+    <p id="txtFooter">Image Gallery</p>
+</div>
+
+
+<div id="popup" class="popup" hidden>
+    <div id="Llog">
+        <h1>autorize user</h1>
+
+        <form id="authUser" method="post" action="/addUserGallery<">
+            <input type="text" class="Ltxt" placeholder="userName" name="username"/>
+            <input type="submit" id="Lsubmit" class="Lsub" value="add User"/>
+            <input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
+        </form>
+
+        {% if errorLogin != "" %}
+        <div class="Lerror" id="errorLog">{{ errorLogin }}</div>
+        {% endif %}
+    </div>
+</div>
+
+<div id="popup2" class="popup" hidden>
+    <div id="Slog">
+        <h1>add image</h1>
+        <form id="addImage" method="post" action="/addImage">
+            <input class="Stxt" type="text" placeholder="tag" name="tag"/>
+            <input class="Stxt" type="password" placeholder="path" name="path"/>
+            <input type="submit" id="Ssubmit" class="Ssub" value="add an image"/>
+            <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
+        </form>
+        {% if errorSignup != "" %}
+        <div class="Serror" id="errorSign">{{ errorSignup }}</div>
+        {% endif %}
+    </div>
 </div>
 
 
