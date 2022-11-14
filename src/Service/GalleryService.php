@@ -42,6 +42,16 @@ class GalleryService
         $this->em->flush();
     }
 
+    // public function deleteGallery(int $id)
+    // {
+    //     $gallery = $this->em->getRepository(\App\Domain\Gallery::class)->find($id);
+    //     $this->em->remove($gallery);
+    //     $users = $gallery->getUsertoGallery();
+    //     $this->em->remove($users);
+    //     $images = $gallery->getImageToGallery();
+    //     $this->em->remove($images);
+    //     $this->em->flush();
+    // }
 
     public function getImageByGallery(int $id_gal)
     {
@@ -93,13 +103,6 @@ class GalleryService
     {
         $gallery = $this->em->getRepository(\App\Domain\Gallery::class)->find($id);
         return $gallery;
-    }
-
-    public function deleteGallery(int $id)
-    {
-        $gallery = $this->getGalleryById($id);
-        $this->em->remove($gallery);
-        $this->em->flush();
     }
 
     public function getListImage(int $img): Paginator
