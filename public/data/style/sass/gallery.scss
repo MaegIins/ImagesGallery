@@ -1,12 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
 
-
 body {
   width: 100%;
   overflow-x: hidden;
   font-family: 'Poor Story', cursive;
-
-
 }
 
 #menu {
@@ -24,7 +21,6 @@ body {
 
   :last-child {
     margin-left: auto;
-
   }
 
   #title {
@@ -44,7 +40,6 @@ body {
 
     &:hover {
       text-decoration: underline #000000;
-
     }
   }
 
@@ -57,7 +52,6 @@ body {
 
     &:hover {
       text-decoration: underline #000000;
-
     }
   }
 
@@ -73,7 +67,6 @@ body {
       &:hover {
         text-decoration: underline;
       }
-
     }
 
     #signup, #logout {
@@ -88,16 +81,8 @@ body {
         text-decoration: underline;
       }
     }
-
-
   }
 }
-
-#content{
-
-}
-
-
 
 #footer {
   position: fixed;
@@ -109,7 +94,66 @@ body {
   background: #ececec;
   border-top: #595959 1px solid;
 
-  #txtFooter{
+  #txtFooter {
     margin-left: 8px;
   }
 }
+
+
+@media (max-width: 920px) {
+  #menu {
+
+    font-size: 25px;
+    flex-direction: column;
+    height: auto;
+
+    #myGal {
+      margin-left: 0;
+      border-left: none;
+      padding-left: 0;
+      margin-top: 8px;
+    }
+
+    #login {
+      flex-direction: column;
+      margin-left: 0;
+
+      #signup{
+        margin-left: 0;
+        border-left: none;
+        padding: 0;
+        margin-top: 8px;
+      }
+      #loginBut{
+            margin-left: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-top: 8px;
+        }
+
+      p {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      #logout {
+        margin-left: 0;
+        border-left: none;
+        padding-left: 0;
+        margin-top: 0;
+      }
+    }
+
+    #title {
+      font-size: 2em;
+      margin: 0;
+    }
+  }
+}
+
+
+
+
+
+
+
