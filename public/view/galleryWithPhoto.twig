@@ -103,14 +103,28 @@
 </div>
 
 <div id="popup2" class="popup" hidden>
-    <div id="Slog">
-        <h1>add image</h1>
-        <form id="addImage" method="post" action="/addImage">
-            <input class="Stxt" type="text" placeholder="tag" name="tag"/>
-            <input class="Stxt" type="password" placeholder="path" name="path"/>
-            <input type="submit" id="Ssubmit" class="Ssub" value="add an image"/>
-            <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
+<div id="SLog">
+   <div id="container">
+    <div id="header">
+        <h1>Add an images to this gallery </h1>
+
+        <form id="addImg" action="/image/submit" method="post" enctype="multipart/form-data">
+            <label for="img2">Image Location : </label>
+            <div id="divimg">
+                <input type="file" id="img" name="img2" accept=".png, .jpg, .jpeg" required>
+                <input type="button" value="+" name="add_img" id="btAdd">
+            </div>
+            <label for="tags">Tag of the image (only one): </label>
+            <input type="text" id="tags" name="tag" placeholder="Tag" required>
+            <div id='moreTags'></div>
+
+            <input type="submit" id="submit" value="Add">
+            <input type="button" id="cancel" value="Cancel">
         </form>
+
+    </div>
+</div>
+</div>
         {% if errorSignup != "" %}
             <div class="Serror" id="errorSign">{{ errorSignup }}</div>
         {% endif %}
@@ -119,5 +133,7 @@
 
 
 <script src="../data/scripts/popup.js"></script>
+<script src="../data/scripts/createGallery.js"></script>
+
 </body>
 </html>
