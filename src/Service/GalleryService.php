@@ -143,6 +143,9 @@ class GalleryService
 
 
         }
+        if($galleryPrivate === null){
+            $galleryPrivate = [];
+        }
         return $galleryPrivate;
     }
 
