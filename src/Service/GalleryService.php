@@ -127,11 +127,9 @@ class GalleryService
         $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => 1]);
         foreach ($req as $gallery) {
             $users = $gallery->getUserToGallery()->toArray();
-            $trouve = false;
             foreach ($users as $user) {
-                if ($user->getId() === $_SESSION['id_user'] && $trouve === false) {
+                if ($user->getId() === $_SESSION['id_user'] || $gallery->getUser_Creator()->getId() === $_SESSION['id_user']) {
                     array_push($galleryPrivate, $gallery);
-                    $trouve = true;
                 }
             }
 
