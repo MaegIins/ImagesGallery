@@ -153,7 +153,7 @@ class GalleryController
                 ]);
     
             }else {
-                return $this->view->render($response, 'galleryWithPhoto.twig', [
+                return $this->view->render($response->withHeader('Location', '/gallery')->withStatus(302), "galleryWithPhoto.twig",  [
                     'conn' => isset($_SESSION['id_user']),
                     'name' => $_SESSION["name"] ?? "",
                     'error' => "",
