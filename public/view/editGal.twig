@@ -8,16 +8,18 @@
 <body>
 
 {# {% if conn %} #}
+
+
    <form action="/gallery/submit" method="post" enctype="multipart/form-data">
         <label for ="title">Titre de la galerie<label>
-        <input type="text" name="title" id="title" placeholder="ex. Animaux, Voyage en Ireland, ..." value={% title %}>
+        <input type="text" name="title" id="title" placeholder="ex. Animaux, Voyage en Ireland, ..." value={{ gal.title }}>
         <br>
         <label for ="tag">Mots clefs<label>
-        <input type="text" name="tag" id="tag" placeholder="ex. Paysage, Chien, Chat, ..." value={% tag %}>
+        <input type="text" name="tag" id="tag" placeholder="ex. Paysage, Chien, Chat, ..." value={{ gal.tag }}>
         <br>
-        <label for="prive">Privé</label> <input type="radio" name="groupe-radio" id="prive" value="prive" {% if private %}checked{% endif %}>
+        <label for="prive">Privé</label> <input type="radio" name="groupe-radio" id="prive" value="prive" {% if gal.private %}checked{% endif %}>
         <br>
-        <label for="public">Public</label> <input type="radio" name="groupe-radio" id="public" value="public" {% if private == false %}checked{% endif %}>
+        <label for="public">Public</label> <input type="radio" name="groupe-radio" id="public" value="public" {% if gal.private == false %}checked{% endif %}>
         <br>
         <label for ="img">Ajouter une image à la galerie<label>
         <input type="file" name="img" id="image" accept="application/png">
@@ -27,7 +29,7 @@
         <label for ="username">Ajouter un utilisateur à la galerie<label>
         <input type="text" name="user" id="username" placeholder="ex. toto57">
         <br>
-        <p>Utilisateurs avec accès : {% groups1 %}</p>
+        <p>Utilisateurs avec accès : {{ gal.groups1 }}</p>
         <input type="button" name"add_username" id "add_user" value = "Ajouter un autre utilisateur">
         <br>
         <input type="submit" value="Modifier la galerie">
@@ -36,6 +38,8 @@
     <form action="/gallery/delete" method="post">
         <input type="submit" value="Supprimer la galerie">
     </form>
+
+
 
 {# {% else %} #}
 

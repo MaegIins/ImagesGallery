@@ -58,10 +58,10 @@ class GalleryController
 
 
         return $this->view->render($response, 'editGal.twig', [
-            'conn' => isset($_SESSION['user_id']),
+            'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'error' => "",
-            'gallery' => $gallery
+            'gal' => $gallery
         ]);
     }
 
