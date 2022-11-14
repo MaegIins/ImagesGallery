@@ -18,7 +18,7 @@ buttonAddImage.addEventListener("click", function (evt) {
 /**
  * Function that add a new input for the users after pressing the + button
  */
-document.getElementById("btAdd").onclick = function (evt) {
+document.getElementById("btnplus").onclick = function (evt) {
     console.log("click")
     let html = '<label for="newuser" id="labelUser">Add a new user : </label> <div id="divuser"> <input type="text" id="newuser" name="user[]" placeholder="New User" required></div>'
     document.getElementById("moreUser").insertAdjacentHTML("afterend", html)
@@ -26,7 +26,7 @@ document.getElementById("btAdd").onclick = function (evt) {
 
 //ajoute add user quand le bouton radio priavte est select
 document.getElementById("priv").addEventListener("click", function (evt) {
-    document.getElementById("btAdd").hidden = false;
+    document.getElementById("btnplus").hidden = false;
     document.getElementById("newuser").hidden = false;
     document.getElementById("labelUser").hidden = false
 })
@@ -34,7 +34,7 @@ document.getElementById("priv").addEventListener("click", function (evt) {
 document.getElementById("publ").addEventListener("click", function (evt) {
 
     document.getElementById("newuser").hidden = true;
-    document.getElementById("btAdd").hidden = true;
+    document.getElementById("btnplus").hidden = true;
     document.getElementById("labelUser").hidden = true;
 })
 
