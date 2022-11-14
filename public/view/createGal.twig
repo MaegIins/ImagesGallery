@@ -2,54 +2,138 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Image Gallery</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Photo Gallery</title>
+	<link rel="stylesheet" href="../data/style/normalizer.css">
+	<link rel="stylesheet" href="../data/style/sass/gallery.css">
+	<link rel="stylesheet" href="../data/style/sass/log.css">
+	<link rel="stylesheet" href="../data/style/sass/sign.css">
+	<link rel="stylesheet" href="../data/style/sass/miniGal.css">
+	<link rel="stylesheet" href="../data/style/sass/insideGal.css">
 	<link rel="stylesheet" href="../data/style/sass/newGall.css">
+
 </head>
 <body>
 
-<div id="container"> <div id="header">
-		<h1>Create a new Gallery</h1>
-		<form id="addImg" action="/gallery/submit" method="post" enctype="multipart/form-data">
-			<label for="name">Name of the gallery :
-			</label>
-			<input type="text" id="name" name="title" placeholder="Name" required>
-			<div id="radio">
-				<input type="radio" class="radio" name="groupe-radio" id="publ" value="public" checked>Public
-				<input type="radio" class="radio" name="groupe-radio" id="priv" value="private">Private
-			</div>
+<div id="menu">
+	<p id="title">Image Gallery</p>
+	{% if conn %}
+		<a id="myGal" href="/myGal">My gallery</a>
+	{% endif %}
+	<div id="login">
+		{% if conn %}
+			<a id="newGal" href="/newGal">New Gallery</a>
+			<input id="searchbar" type="text">
+			<p>Hello {{ name }}</p>
 
-			<label for="img2">Image Location :
-			</label>
-			<div id="divimg">
-				<input type="file" id="img" name="img2" accept=".png, .jpg, .jpeg" required>
-				<input type="button" value="+" name="add_img" id="btAdd">
-			</div>
-			<label for="tags">Tag of the image (only one):
-			</label>
-			<input type="text" id="tags" name="tag" placeholder="Tag" required>
-			<div id='moreTags'></div>
+			<a id="logout" href="/logout">Logout</a>
+		{% else %}
 
-			<label for="newuser" id="labelUser" hidden>Add a new user :
-			</label>
-			<div id="divuser" hidden>
-				<input type="text" id="newuser" name="user[]" placeholder="New User" hidden>
-				<input type="button" id="btnplus" value="+" name="add_username" hidden>
-			</div>
-			<div id='moreUser'></div>
+		{% endif %}
+	</div>
+</div>
+<div id="tagGallery">
+	<div id="tag image"> name tag etc</div>
+</div>
+<div id="banner">
+	<h1 id="galName">Gallery Name</h1>
+
+	<div id="tagGallery">
+		<div id="tag image"> {{ tags }}</div>
+	</div>
 
 
-			<input type="submit" id="submit" value="Create">
-			<input type="button" id="cancel" value="Cancel">
-		</form>
-
-		        {% if errorConnect != "" %}
-            <div class="Serror" id="errorSign">{{ errorConnect }}</div>
-        {% endif %}
-
+	<div id="buttons">
+		<a id="addUserBut">add User</a>
+		<a id="addImgBut">add Image</a>
+		<a id="setPrivateBut">set Private</a>
 	</div>
 </div>
 
-<script src="../data/scripts/createGallery.js"></script>
-</body>
+<div id="content">
+	{% if conn %}
+		{% for image in galPublic %}
 
+			<div class="puGallery">
+				{# <img src="{{ gal.image }}" alt="gallery image"> #}
+				<p>{{ galPublic.image }}</p>
+			</div>
+
+		{% endfor %}
+	{% else %}
+		{% for galleryPr in gal %}
+			<a href="/gal/{{ gal.id }}">
+				<div class="prGallery">
+					{# <img src="{{ gal.image }}" alt="gallery image"> #}
+					<p>{{ gal.name }}</p>
+				</div>
+			</a>
+		{% endfor %}
+		{% for galleryPu in gal %}
+			<a href="/gal/{{ gal.id }}">
+				<div class="puGallery">
+					{# <img src="{{ gal.image }}" alt="gallery image"> #}
+					<p>{{ gal.name }}</p>
+				</div>
+			</a>
+		{% endfor %}
+	{% endif %}
+
+
+</div>
+<div id="footer">
+	<p id="txtFooter">© ALED. All Rights Reserved. <a href="/about">About</a></p>
+</div>
+
+
+<div id="popup" class="popup" hidden>
+	<div id="Llog">
+		<h1>autorize user</h1>
+
+		<form id="authUser" method="post" action="/addUserGallery<">
+			<input type="text" class="Ltxt" placeholder="userName" name="username"/>
+			<input type="submit" id="Lsubmit" class="Lsub" value="add User"/>
+			<input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
+		</form>
+
+		{% if errorLogin != "" %}
+			<div class="Lerror" id="errorLog">{{ errorLogin }}</div>
+		{% endif %}
+	</div>
+</div>
+
+<div id="popup2" class="popup" hidden>
+	<div id="SLog">
+		<div id="container">
+			<div id="header">
+				<h1>Add an images to this gallery </h1>
+
+				<form id="addImg" action="/image/submit" method="post" enctype="multipart/form-data">
+					<label for="img2">Image Location : </label>
+					<div id="divimg">
+						<input type="file" id="img" name="img2" accept=".png, .jpg, .jpeg" required>
+						<input type="button" value="+" name="add_img" id="btnAdd">
+					</div>
+					<label for="tags">Tag of the image (only one): </label>
+					<input type="text" id="tags" name="tag" placeholder="Tag" required>
+					<div id='moreTags'></div>
+
+					<input type="submit" id="submit" value="Add">
+					<input type="button" id="cancel" value="Cancel">
+				</form>
+
+			</div>
+		</div>
+	</div>
+	{% if errorSignup != "" %}
+		<div class="Serror" id="errorSign">{{ errorSignup }}</div>
+	{% endif %}
+</div>
+</div>
+
+
+<script src="../data/scripts/popupGal.js"></script>
+
+
+</body>
 </html>
