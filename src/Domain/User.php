@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[Entity, Table(name: 'User')]
 class User
@@ -15,8 +17,7 @@ class User
     #[Id, Column(name: 'id_user', type: 'integer'), GeneratedValue(strategy: 'AUTO')]
     private int $id_user;
 
-    #[OneToMany(targetEntity: Gallery::class, mappedBy:'user')]
-
+    #[OneToMany(targetEntity: Gallery::class, mappedBy: 'user')]
     #[Column(name: 'name', type: 'string', unique: false, nullable: false)]
     private string $name;
 
@@ -32,8 +33,7 @@ class User
 
 
 
-
-    public function __construct( string $name,string $first_name ,string $username, string $password)
+    public function __construct(string $name, string $first_name, string $username, string $password)
     {
         $this->name = $name;
         $this->first_name = $first_name;
@@ -41,14 +41,17 @@ class User
         $this->username = $username;
 
     }
+
     public function getId(): int
     {
         return $this->id_user;
     }
+
     public function getName(): string
     {
         return $this->name;
     }
+
     public function getFirstName(): string
     {
         return $this->first_name;
@@ -58,11 +61,14 @@ class User
     {
         return $this->username;
     }
+
     public function getPassword(): string
     {
         return $this->password;
     }
-    public function checkPassword($pass) : bool {
+
+    public function checkPassword($pass): bool
+    {
         return password_verify($pass, $this->password);
     }
 }

@@ -178,6 +178,7 @@ class GalleryController
             ]);
         } else {
             $galleryPublic = $this->galleryService->getGalleryPublic();
+
             $galleryPrivate = $this->galleryService->getGalleryPrivate();
             return $this->view->render($response, 'gallery.twig', [
                 'conn' => isset($_SESSION['id_user']),
