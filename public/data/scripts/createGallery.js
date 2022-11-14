@@ -6,9 +6,9 @@ let privatee = document.getElementById("priv")
 let publice = document.getElementById("publ")
 let adduser = document.getElementById("moreUser")
 let add = document.getElementById("newuser")
-let btnplus = document.getElementById("btnplus")
+let btnplus = document.getElementById("btnAdd")
 let label = document.getElementById("labelUser")
-let buttonAddUser = document.getElementById("btnplus");
+let buttonAddUser = document.getElementById("btnAdd");
 
 
 /**
