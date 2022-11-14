@@ -55,6 +55,8 @@ class GalleryController
     {
         $id = $args['id'];
         $gallery = $this->galleryService->getGalleryById($id);
+
+
         return $this->view->render($response, 'editGal.twig', [
             'conn' => isset($_SESSION['user_id']),
             'name' => $_SESSION["name"] ?? "",
