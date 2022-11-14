@@ -46,16 +46,24 @@
             </div>
         {% endfor %}
         {% for GalleryPu in galleryPu %}
-            <div class="gallery">
-                <p>{{ GalleryPu.title }}</p>
+
+            <div class="galleryPu">
+                <a href="https://www.w3schools.com">
+                    <img src="{{ Gallery.img }}" alt="2" width="600" height="400">
+                    <p>{{ GalleryPu.title }}</p>
+                </a>
             </div>
+
         {% endfor %}
 
 
     {% else %}
         {% for GalleryPu in galleryPublic %}
-            <div class="gallery">
-                <p>{{ GalleryPu.title }}</p>
+            <div class="galleryPu">
+                <a href="https://www.w3schools.com">
+                    <img src="{{ Gallery.img }}" alt="2" width="600" height="400">
+                    <p>{{ GalleryPu.title }}</p>
+                </a>
             </div>
         {% endfor %}
     {% endif %}
