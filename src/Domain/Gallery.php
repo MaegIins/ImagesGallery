@@ -92,4 +92,13 @@ final class Gallery
     {
         return $this->groups2;
     }
+
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+    public function setVisibility(string $private): void
+    {
+        $this->private = $private;
+    }
 }

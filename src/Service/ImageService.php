@@ -31,4 +31,8 @@ class ImageService
         $this->em->persist($gallery);
         $this->em->flush();
     }
+    public function getImageByUser(): array
+    {
+
+    }
 }

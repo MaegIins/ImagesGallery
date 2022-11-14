@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../data/style/normalizer.css">
     <link rel="stylesheet" href="../data/style/sass/gallery.css">
     <link rel="stylesheet" href="../data/style/sass/log.css">
@@ -16,11 +17,11 @@
 <div id="menu">
     <p id="title">Image Gallery</p>
     {% if conn %}
-        <a id="myGal" href="/gallery/submit">My gallery</a>
+        <a id="myGal" href="/gallery">My gallery</a>
     {% endif %}
     <div id="login">
         {% if conn %}
-            <a id="newGal" href="/newGallery">New Gallery</a>
+            <a id="newGal" href="/gallery/create">New Gallery</a>
             <input id="searchbar" type="text">
             <p>Hello {{ name }}</p>
 
@@ -35,16 +36,37 @@
 
 <div id="content">
 
-    {% for GalleryPu in galleryPublic %}
-        <div class="gallery">
+    {% if conn %}
+        {% for GalleryPr in galleryPr %}
+            <div class="galleryPr">
+                <a href="{{ Gallery.title }}">
+                    <img src="{{ Gallery.img }}" alt="1">
+                    <p>{{ GalleryPr.title }}</p>
+                </a>
+            </div>
+        {% endfor %}
+        {% for GalleryPu in galleryPu %}
+
+            <div class="galleryPu">
+                <a href="https://www.w3schools.com">
+                    <img src="{{ Gallery.img }}" alt="2" width="600" height="400">
+                    <p>{{ GalleryPu.title }}</p>
+                </a>
+            </div>
+
+        {% endfor %}
 
 
-
-
-            <p>{{ GalleryPu.title }}</p>
-        </div>
-    {% endfor %}
-
+    {% else %}
+        {% for GalleryPu in galleryPublic %}
+            <div class="galleryPu">
+                <a href="https://www.w3schools.com">
+                    <img src="{{ Gallery.img }}" alt="2" width="600" height="400">
+                    <p>{{ GalleryPu.title }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
 
 
 </div>

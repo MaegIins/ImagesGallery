@@ -31,16 +31,26 @@ class GalleryService
         $this->em->flush();
     }
 
-    public function editGallery(int $id, string $title, string $tag, bool $private)
+
+    public function editGallery(int $id, string $title, bool $private)
     {
-        $gallery = $this->em->getRepository(Gallery::class)->find($id);
+        $gallery = $this->em->getRepository(\App\Domain\Gallery::class)->find($id);;
         $gallery->setTitle($title);
-        $gallery->setTag($tag);
-        $gallery->setPrivate($private);
+        $gallery->setVisibility($private);
         $this->em->persist($gallery);
         $this->em->flush();
     }
 
+    // public function deleteGallery(int $id)
+    // {
+    //     $gallery = $this->em->getRepository(\App\Domain\Gallery::class)->find($id);
+    //     $this->em->remove($gallery);
+    //     $users = $gallery->getUsertoGallery();
+    //     $this->em->remove($users);
+    //     $images = $gallery->getImageToGallery();
+    //     $this->em->remove($images);
+    //     $this->em->flush();
+    // }
 
     public function getImageByGallery(int $id_gal)
     {
@@ -96,15 +106,8 @@ class GalleryService
 
     public function getGalleryById(int $id): Gallery
     {
-        $gallery = $this->em->getRepository(Gallery::class)->find($id);
+        $gallery = $this->em->getRepository(\App\Domain\Gallery::class)->find($id);
         return $gallery;
-    }
-
-    public function deleteGallery(int $id)
-    {
-        $gallery = $this->getGalleryById($id);
-        $this->em->remove($gallery);
-        $this->em->flush();
     }
 
     public function getListImage(int $img): Paginator
@@ -128,15 +131,18 @@ class GalleryService
 
     public function getGalleryPrivate(): array
     {
-        $galleryPrivate[] = "";
+        $galleryPrivate = null;
         $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => 1]);
         foreach ($req as $gallery) {
-            $users = $gallery->getGroups1();
-            if ($users->contains($_SESSION["id_user"])) {
-                array_push($galleryPrivate, $gallery);
+            $users = $gallery->getUserToGallery()->toArray();
+            foreach ($users as $user) {
+                if ($user->getId() === $_SESSION['id_user'] || $gallery->getUser_Creator()->getId() === $_SESSION['id_user']) {
+                    $galleryPrivate[] = $gallery;
+                }
             }
-        }
 
+
+        }
         return $galleryPrivate;
     }
 

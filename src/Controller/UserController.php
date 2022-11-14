@@ -29,15 +29,6 @@ class UserController
      * @throws LoaderError
      */
         //okesc
-    public function start(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
-    {
-        return $this->view->render($response, 'gallery.twig', [
-            'conn' => isset($_SESSION['id_user']),
-            'name' => $_SESSION["name"] ?? "",
-            'errorLogin' => "",
-            'errorSignup' => ""
-        ]);
-    }
 
     public function login(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
@@ -56,7 +47,7 @@ class UserController
             }
         }
 
-        return $this->view->render($response, 'gallery.twig', [
+        return $this->view->render($response->withHeader("Location", "/")->withStatus(302), 'gallery.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'errorLogin' => $errorLogin
