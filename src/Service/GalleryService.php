@@ -126,13 +126,13 @@ class GalleryService
 
     public function getGalleryPrivate(): array
     {
-        $galleryPrivate[] = "";
+        $galleryPrivate = null;
         $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => 1]);
         foreach ($req as $gallery) {
             $users = $gallery->getUserToGallery()->toArray();
             foreach ($users as $user) {
                 if ($user->getId() === $_SESSION['id_user'] || $gallery->getUser_Creator()->getId() === $_SESSION['id_user']) {
-                    array_push($galleryPrivate, $gallery);
+                    $galleryPrivate[] = $gallery;
                 }
             }
 
