@@ -3,47 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
-    <link rel="stylesheet" href="../data/style/sass/log.css">
+    <link rel="stylesheet" href="../../data/style/sass/newGall.css">
 </head>
 <body>
 
 {# {% if conn %} #}
+<div id="container">
+    <div id="header">
+        <h1>Edit Gallery {{gal.title}}</h1>
+        <form id="addImg" action="/gallery/edit" method="post" enctype="multipart/form-data">
+            <label for="name">Name of the gallery: </label>
+            <input type="text" id="name" name="title" placeholder="Name" value="{{ gal.title }}" required>
+            <div id="radio">
+                <input type="radio" class="radio" name="groupe-radio" value="public" {% if gal.private == 0 %}checked{% endif %}>Public
+                <input type="radio" class="radio" name="groupe-radio" value="private" {% if gal.private == 1 %}checked{% endif %}>Private
+            </div>
 
+            <label for="img2">Image Location: </label>
+            <div id="divimg">
+                <input type="file" id="img" name="img2">
+                <input type="button" value="+" name="add_img" id="btAdd">
+            </div>
+            <label for="tags">Tag of the image (only one): </label>
+            <input type="text" id="tags" name="tag" placeholder="Tag">
+            <div id='moreTags'></div>
 
-   <form action="/gallery/submit" method="post" enctype="multipart/form-data">
-        <label for ="title">Titre de la galerie<label>
-        <input type="text" name="title" id="title" placeholder="ex. Animaux, Voyage en Ireland, ..." value={{ gal.title }}>
-        <br>
-        <label for ="tag">Mots clefs<label>
-        <input type="text" name="tag" id="tag" placeholder="ex. Paysage, Chien, Chat, ..." value={{ gal.tag }}>
-        <br>
-        <label for="prive">Privé</label> <input type="radio" name="groupe-radio" id="prive" value="prive" {% if gal.private %}checked{% endif %}>
-        <br>
-        <label for="public">Public</label> <input type="radio" name="groupe-radio" id="public" value="public" {% if gal.private == false %}checked{% endif %}>
-        <br>
-        <label for ="img">Ajouter une image à la galerie<label>
-        <input type="file" name="img" id="image" accept="application/png">
-        <br>
-        <input type="button" name"img" id "add_img" value = "Ajouter une autre image">
-        <br>
-        <label for ="username">Ajouter un utilisateur à la galerie<label>
-        <input type="text" name="user" id="username" placeholder="ex. toto57">
-        <br>
-        <p>Utilisateurs avec accès : {{ gal.groups1 }}</p>
-        <input type="button" name"add_username" id "add_user" value = "Ajouter un autre utilisateur">
-        <br>
-        <input type="submit" value="Modifier la galerie">
-    </form>
-    </form>
-    <form action="/gallery/delete" method="post">
-        <input type="submit" value="Supprimer la galerie">
-    </form>
+            <label for="newuser">Users with access: </label>
+            <div id="divuser">
+                <p>{{ gal.groups1 }}</p>
+                <input type="text" id="newuser" name="user" placeholder="New User">
+                <input type="button" value="+" name="add_username">
+            </div>
+            <input type="submit" id="submit" value="Edit">
+            <input type="button" id="cancel" value="Cancel">
+        </form>
+         <form action="/gallery/delete" method="post">
+         <input type="submit" value="Supprimer la galerie">
+        </form>
+
+    </div>
+</div>
+
 
 
 
 {# {% else %} #}
 
 {# {% endif %} #}
+<script src="../data/scripts/createGallery.js"></script>
 
 </body>
 </html>
