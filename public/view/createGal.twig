@@ -15,16 +15,20 @@
 </head>
 <body>
 
-<div id="menu">
-	<p id="title">Image Gallery</p>
-	{% if conn %}
-		<a id="myGal" href="/myGal">My gallery</a>
-	{% endif %}
-	<div id="login">
-		{% if conn %}
-			<a id="newGal" href="/newGal">New Gallery</a>
-			<input id="searchbar" type="text">
-			<p>Hello {{ name }}</p>
+
+{% if conn %}
+
+<div id="container"> <div id="header">
+		<h1>Create a new Gallery</h1>
+		<form id="addImg" action="/gallery/submit" method="post" enctype="multipart/form-data">
+			<label for="name">Name of the gallery :
+			</label>
+			<input type="text" id="name" name="title" placeholder="Name" required>
+			<div id="radio">
+				<input type="radio" class="radio" name="groupe-radio" id="publ" value="public" checked>Public
+				<input type="radio" class="radio" name="groupe-radio" id="priv" value="private">Private
+			</div>
+
 
 			<a id="logout" href="/logout">Logout</a>
 		{% else %}
@@ -130,6 +134,14 @@
 	{% endif %}
 </div>
 </div>
+{% else %}
+    <div id="container">
+        <div id="header">
+            <h1>Gallery</h1>
+            <p>You must be connected to create a gallery</p>
+        </div>
+    </div>
+{% endif %}
 
 
 <script src="../data/scripts/popupGal.js"></script>
