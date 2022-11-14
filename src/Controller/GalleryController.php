@@ -66,7 +66,7 @@ class GalleryController
             $title = filter_var($args['title'], FILTER_UNSAFE_RAW);
             $tag = filter_var($args['tag'], FILTER_UNSAFE_RAW);
 
-            if ($args['groupe-radio'] == "prive") {
+            if ($args['groupe-radio'] == "private") {
                 $private = true;
             } else {
                 $private = false;
@@ -74,7 +74,7 @@ class GalleryController
             $user = $_SESSION['id_user'];
             $user_creator = $this->userService->findUserById($user);
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $private, $user_creator);
-
+            var_dump($private);
             $username = $args["user"];
             $this->galleryService->addUserPrivate($username);
             foreach ($_FILES as $img) {
