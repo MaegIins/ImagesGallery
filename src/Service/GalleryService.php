@@ -146,6 +146,23 @@ class GalleryService
         return $galleryPrivate;
     }
 
+    public function getPhotoByGallery(int $id)
+    {
+        $tab = [];
+        $gallery = $this->em->getRepository(Gallery::class)->find($id);
+
+        $galleryImages = $gallery->getImage()->toArray();
+
+        foreach ($galleryImages as $image) {
+            var_dump($image);
+            array_push($tab, $image->getPath());
+            //var_dump($tab);
+        }
+
+        return $tab;
+
+    }
+
     public function connection()
     {
         //var_dump($_SESSION["id_user"]);

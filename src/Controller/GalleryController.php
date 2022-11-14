@@ -173,7 +173,7 @@ class GalleryController
             $this->assignmentImageService->assignmentImageWithIdGallery($id_gal);
         }
 
-        return $this->view->render($response, 'galleryWithPhoto.twig', [
+        return $this->view->render($response, 'gallery.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'error' => ""
@@ -192,21 +192,32 @@ class GalleryController
 
             ]);
         } else {
+            //$image = $this->galleryService->getPhotoByGallery();
+            //var_dump($image);
             $galleryPublic = $this->galleryService->getGalleryPublic();
-
             $galleryPrivate = $this->galleryService->getGalleryPrivate();
+
             return $this->view->render($response, 'gallery.twig', [
                 'conn' => isset($_SESSION['id_user']),
                 'name' => $_SESSION["name"] ?? "",
                 'galleryPr' => $galleryPrivate,
-                'galleryPu' => $galleryPublic
+                'galleryPu' => $galleryPublic,
+
             ]);
         }
     }
 
+public function getImageByGallery(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
 
+        $id = $args['id'];
+        $image = $this->galleryService->getPhotoByGallery($id);
+        return $this->view->render($response, 'getImageByGallery.twig', [
+            'image' => $image
+        ]);
+    }
 
-    public function getListGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+   /* public function getListGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getQueryParams();
         if (isset($args["id_gal"])) {
@@ -214,7 +225,9 @@ class GalleryController
             $maxgallery = $this->galleryService->getListGallery($nbgal);
             return $this->view->render($response, 'gallery.twig', ['gallery' => $maxgallery]);
         }
-    }
+    }*/
+
+
 
     public function getListImageAtGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
