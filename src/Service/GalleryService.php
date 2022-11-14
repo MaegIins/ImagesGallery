@@ -42,6 +42,16 @@ class GalleryService
         $this->em->flush();
     }
 
+    // public function deleteGallery(int $id)
+    // {
+    //     $gallery = $this->em->getRepository(\App\Domain\Gallery::class)->find($id);
+    //     $this->em->remove($gallery);
+    //     $users = $gallery->getUsertoGallery();
+    //     $this->em->remove($users);
+    //     $images = $gallery->getImageToGallery();
+    //     $this->em->remove($images);
+    //     $this->em->flush();
+    // }
 
     public function getImageByGallery(int $id_gal)
     {
@@ -95,13 +105,6 @@ class GalleryService
         return $gallery;
     }
 
-    public function deleteGallery(int $id)
-    {
-        $gallery = $this->getGalleryById($id);
-        $this->em->remove($gallery);
-        $this->em->flush();
-    }
-
     public function getListImage(int $img): Paginator
     {
         $dql = "SELECT i FROM App\Domain\Image i";
@@ -124,31 +127,18 @@ class GalleryService
     public function getGalleryPrivate(): array
     {
         $galleryPrivate[] = "";
-        $user = $_SESSION['id_user'];
         $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => 1]);
+        foreach ($req as $gallery) {
+            $users = $gallery->getUserToGallery()->toArray();
+            foreach ($users as $user) {
+                if ($user->getId() === $_SESSION['id_user'] || $gallery->getUser_Creator()->getId() === $_SESSION['id_user']) {
+                    array_push($galleryPrivate, $gallery);
+                }
+            }
 
-/*
-        $entityManager = $this->em;
-        $query = $entityManager->createQuery(
-            'SELECT g
-            FROM App\Domain\Gallery g
-            '
 
-        );
-        $test= $query->getResult();
-        //var_dump($test);*/
-        return $req;
-
-       /*$entityManager = $this->em;
-        $query = $entityManager->createQueryBuilder();
-        $query->select('g')
-            ->from('App\Domain\Gallery', 'g')
-            ->innerJoin('App\Domain\UserToGallery', 'u', 'WITH', 'u.id_gal = g.id_gal')
-            ->where('u.id_user = :id_user')
-            ->setParameter('id_user', $user);
-        $galleryPrivate = $query->getQuery()->getResult();
-        return $galleryPrivate;*/
-
+        }
+        return $galleryPrivate;
     }
 
     public function connection()
