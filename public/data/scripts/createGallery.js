@@ -15,7 +15,7 @@ let buttonAddUser = document.getElementById("btnplus");
  * Function that add a new input for the tags after pressing the + button
  */
 buttonAddImage.addEventListener("click", function (evt) {
-    let html = '<label for="img">Image Location : </label> <div id="divimg"> <input type="file" id="img" name="img" placeholder="Image Location"></div><label for="Tags">Tag of the image (only one): </label><input type="text" id="tags" name="tag" placeholder="Tag">'
+    let html = '<label for="img">Image Location : </label> <div id="divimg"> <input type="file" id="img" name="img" placeholder="Image Location" accept=".png, .jpg, .jpeg" required></div><label for="Tags">Tag of the image (only one): </label><input type="text" id="tags" name="tag" placeholder="Tag" required>'
     tags.insertAdjacentHTML("afterend", html)
 
 })
@@ -26,7 +26,7 @@ buttonAddImage.addEventListener("click", function (evt) {
  */
 buttonAddUser.addEventListener("click", function (evt) {
     console.log("click")
-    let html = '<label for="newuser" id="labelUser">Add a new user : </label> <div id="divuser"> <input type="text" id="newuser" name="user[]" placeholder="New User"></div>'
+    let html = '<label for="newuser" id="labelUser">Add a new user : </label> <div id="divuser"> <input type="text" id="newuser" name="user[]" placeholder="New User" required></div>'
     adduser.insertAdjacentHTML("afterend", html)
 })
 

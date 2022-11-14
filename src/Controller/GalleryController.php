@@ -81,9 +81,16 @@ class GalleryController
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $private, $user_creator);
 
             $username = $args["user"];
-            $errorConnect = $this->galleryService->addUserPrivate($username);
-            var_dump($errorConnect);
-
+            $errorConnect = "OK";
+            if($private == true){
+                foreach($args["user"] as $u){
+                    $errorConnect = $this->galleryService->addUserPrivate($u);
+                    if($errorConnect != "OK"){
+                        break;
+                    }
+                }
+            }
+            
             foreach ($_FILES as $img) {
                 $id = rand(0, 2000);
                 move_uploaded_file($img['tmp_name'], '../public/data/img/'.$id.$img["name"]);
@@ -120,6 +127,7 @@ class GalleryController
             'error' => ""
         ]);
     }
+    
 
     public function addImagePOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {

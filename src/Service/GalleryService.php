@@ -74,17 +74,14 @@ class GalleryService
     {
         $id_gal = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(array(), ['id_gal' => 'DESC'], 1, 0);
         $collection = $id_gal[0]->getUserToGallery();
-        foreach ($username as $u) {
-            $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $u]);
-            if (!isset($id_user[0])){
+        $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $username]);
+            if (!isset($id_user[0])) {
                 $res = "Utilisateur introuvable";
-            }else {
+            }else{
                 $collection->set($id_gal[0]->getId_gal(), $id_user[0]);
                 $this->em->persist($id_gal[0]);
                 $res = "OK";
-            }
-
-        }
+            }   
         $this->em->flush();
         return $res;
     } 
