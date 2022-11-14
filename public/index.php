@@ -29,6 +29,7 @@ $app->post('/login', UserController::class . ':login');
 $app->post('/signup', UserController::class . ':signup');
 $app->get('/logout', UserController::class . ':logout');
 $app->get('/gallery/create', GalleryController::class . ':createGallery');
+// $app->get('/gallery/delete/{id}', GalleryController::class . ':deleteGallery');
 $app->get('/gallery/edit/{id}', GalleryController::class . ':editGallery');
 $app->post('/gallery/edit', GalleryController::class . ':editGalleryPOST');
 $app->get('/gallery/{id:[0-9]+}', GalleryController::class . ':getListGallery')->setName('maxgal');

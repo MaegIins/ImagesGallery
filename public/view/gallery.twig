@@ -17,11 +17,11 @@
 <div id="menu">
     <p id="title">Image Gallery</p>
     {% if conn %}
-        <a id="myGal" href="/gallery/submit">My gallery</a>
+        <a id="myGal" href="/gallery">My gallery</a>
     {% endif %}
     <div id="login">
         {% if conn %}
-            <a id="newGal" href="/newGallery">New Gallery</a>
+            <a id="newGal" href="/gallery/create">New Gallery</a>
             <input id="searchbar" type="text">
             <p>Hello {{ name }}</p>
 
