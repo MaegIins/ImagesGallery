@@ -23,7 +23,7 @@ $app = AppFactory::create();
 $app->add(TwigMiddleware::createFromContainer($app));
 
 
-$app->get('/', UserController::class . ':start');
+$app->get('/', GalleryController::class . ':affichage');
 $app->get('/affichage', GalleryController::class . ':affichage');
 $app->post('/login', UserController::class . ':login');
 $app->post('/signup', UserController::class . ':signup');
