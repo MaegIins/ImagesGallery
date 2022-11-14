@@ -32,12 +32,12 @@ class GalleryService
         $this->em->flush();
     }
 
-    public function editGallery(int $id, string $title, string $tag, bool $private)
+
+    public function editGallery(int $id, string $title, bool $private)
     {
-        $gallery = $this->em->getRepository(Gallery::class)->find($id);
+        $gallery = $this->em->getRepository(\App\Domain\Gallery::class)->find($id);;
         $gallery->setTitle($title);
-        $gallery->setTag($tag);
-        $gallery->setPrivate($private);
+        $gallery->setVisibility($private);
         $this->em->persist($gallery);
         $this->em->flush();
     }
