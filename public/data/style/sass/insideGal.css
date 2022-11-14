@@ -1,5 +1,4 @@
 #banner {
-  margin-top: 40px;
   border-bottom: #595959 1px solid;
   background: #f5f5f5;
   color: #595959;
@@ -24,6 +23,16 @@
 }
 #banner #buttons a:hover {
   background: #424242;
+}
+
+#popup2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+#popup2 #SLog #container {
+  margin-top: 100px;
 }
 
 #content {

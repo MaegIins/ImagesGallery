@@ -1,6 +1,24 @@
-console.log("script chargé")
 
-let buttonAddImage = document.getElementById("btAdd")
+document.getElementById("addUserBut").onclick = function () {
+    document.getElementById("popup2").style.display = "none";
+    document.getElementById("popup").style.display = "block";
+}
+
+document.getElementById("cancelLogin").onclick = function () {
+    document.getElementById("popup").style.display = "none";
+}
+
+document.getElementById("addImgBut").onclick = function () {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("popup2").style.display = "block";
+}
+
+document.getElementById("cancel").onclick = function () {
+    document.getElementById("popup2").style.display = "none";
+}
+
+
+let buttonAddImage = document.getElementById("btnAdd")
 
 
 
@@ -18,24 +36,8 @@ buttonAddImage.addEventListener("click", function (evt) {
 /**
  * Function that add a new input for the users after pressing the + button
  */
-document.getElementById("btAdd").onclick = function (evt) {
+document.getElementById("btnAdd").onclick = function (evt) {
     console.log("click")
     let html = '<label for="newuser" id="labelUser">Add a new user : </label> <div id="divuser"> <input type="text" id="newuser" name="user[]" placeholder="New User" required></div>'
     document.getElementById("moreUser").insertAdjacentHTML("afterend", html)
 }
-
-//ajoute add user quand le bouton radio priavte est select
-document.getElementById("priv").addEventListener("click", function (evt) {
-    document.getElementById("btAdd").hidden = false;
-    document.getElementById("newuser").hidden = false;
-    document.getElementById("labelUser").hidden = false
-})
-//rend le menu add user invisible quand c'est en publice
-document.getElementById("publ").addEventListener("click", function (evt) {
-
-    document.getElementById("newuser").hidden = true;
-    document.getElementById("btAdd").hidden = true;
-    document.getElementById("labelUser").hidden = true;
-})
-
-

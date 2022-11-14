@@ -112,7 +112,7 @@ class GalleryController
     public function createGalleryPOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getParsedBody();
-        if (isset($args["title"]) && isset($args["tag"]) && isset($args["groupe-radio"]) && isset($_FILES) && isset($args["user"])) {
+        if (isset($args["title"]) && isset($args["tag"]) && isset($args["groupe-radio"]) && isset($_FILES)) {
             $title = filter_var($args['title'], FILTER_UNSAFE_RAW);
             $tag = filter_var($args['tag'], FILTER_UNSAFE_RAW);
 
@@ -122,13 +122,21 @@ class GalleryController
                 $private = false;
             }
             $user = $_SESSION['id_user'];
-
             $user_creator = $this->userService->findUserById($user);
 
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $private, $user_creator);
-            var_dump($private);
+
             $username = $args["user"];
-            $this->galleryService->addUserPrivate($username);
+            $errorConnect = "OK";
+            if($private == true){
+                foreach($args["user"] as $u){
+                    $errorConnect = $this->galleryService->addUserPrivate($u);
+                    if($errorConnect != "OK"){
+                        break;
+                    }
+                }
+            }
+            
             foreach ($_FILES as $img) {
                 $id = rand(0, 2000);
                 move_uploaded_file($img['tmp_name'], '../public/data/img/'.$id.$img["name"]);
@@ -136,12 +144,25 @@ class GalleryController
                 $this->assignmentImageService->assignmentImage();
             }
         }
+            if($errorConnect  != "OK"){
+                return $this->view->render($response, 'createGal.twig', [
+                    'conn' => isset($_SESSION['id_user']),
+                    'name' => $_SESSION["name"] ?? "",
+                    'error' => "",
+                    'errorConnect' => $errorConnect
+                ]);
+    
+            }else {
+                return $this->view->render($response, 'galleryWithPhoto.twig', [
+                    'conn' => isset($_SESSION['id_user']),
+                    'name' => $_SESSION["name"] ?? "",
+                    'error' => "",
+                    'errorConnect' => $errorConnect
+                ]);
+    
+            }
+            
 
-        return $this->view->render($response, 'galleryWithPhoto.twig', [
-            'conn' => isset($_SESSION['id_user']),
-            'name' => $_SESSION["name"] ?? "",
-            'error' => ""
-        ]);
     }
 
     public function addImageForm(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -152,6 +173,7 @@ class GalleryController
             'error' => ""
         ]);
     }
+    
 
     public function addImagePOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
@@ -165,7 +187,7 @@ class GalleryController
             $this->assignmentImageService->assignmentImageWithIdGallery($id_gal);
         }
 
-        return $this->view->render($response, 'galleryWithPhoto.twig', [
+        return $this->view->render($response, 'gallery.twig', [
             'conn' => isset($_SESSION['id_user']),
             'name' => $_SESSION["name"] ?? "",
             'error' => ""
@@ -184,21 +206,32 @@ class GalleryController
 
             ]);
         } else {
+            //$image = $this->galleryService->getPhotoByGallery();
+            //var_dump($image);
             $galleryPublic = $this->galleryService->getGalleryPublic();
-
             $galleryPrivate = $this->galleryService->getGalleryPrivate();
+
             return $this->view->render($response, 'gallery.twig', [
                 'conn' => isset($_SESSION['id_user']),
                 'name' => $_SESSION["name"] ?? "",
                 'galleryPr' => $galleryPrivate,
-                'galleryPu' => $galleryPublic
+                'galleryPu' => $galleryPublic,
+
             ]);
         }
     }
 
+public function getImageByGallery(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
 
+        $id = $args['id'];
+        $image = $this->galleryService->getPhotoByGallery($id);
+        return $this->view->render($response, 'getImageByGallery.twig', [
+            'image' => $image
+        ]);
+    }
 
-    public function getListGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+   /* public function getListGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getQueryParams();
         if (isset($args["id_gal"])) {
@@ -206,7 +239,9 @@ class GalleryController
             $maxgallery = $this->galleryService->getListGallery($nbgal);
             return $this->view->render($response, 'gallery.twig', ['gallery' => $maxgallery]);
         }
-    }
+    }*/
+
+
 
     public function getListImageAtGallery(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {

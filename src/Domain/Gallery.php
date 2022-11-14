@@ -43,7 +43,7 @@ final class Gallery
     #[ManyToMany(targetEntity: User::class)]
     private Collection $groups1;
 
-    #[OneToMany(targetEntity: Gallery::class, mappedBy:'gallery')]
+    #[OneToMany(targetEntity: Image::class, mappedBy:'gallery')]
     private Collection $groups2;
 
 

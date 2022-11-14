@@ -24,3 +24,5 @@ if (document.getElementById("errorLog").value !== '') {
 if (document.getElementById("errorSign").value !== '') {
     document.getElementById("popup2").style.display = "block";
 }
+
+
