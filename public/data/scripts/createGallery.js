@@ -1,14 +1,8 @@
 console.log("script chargé")
 
 let buttonAddImage = document.getElementById("btAdd")
-let tags = document.getElementById("moreTags")
-let privatee = document.getElementById("priv")
-let publice = document.getElementById("publ")
-let adduser = document.getElementById("moreUser")
-let add = document.getElementById("newuser")
-let btnplus = document.getElementById("btnAdd")
-let label = document.getElementById("labelUser")
-let buttonAddUser = document.getElementById("btnAdd");
+
+
 
 
 /**
@@ -16,7 +10,7 @@ let buttonAddUser = document.getElementById("btnAdd");
  */
 buttonAddImage.addEventListener("click", function (evt) {
     let html = '<label for="img">Image Location : </label> <div id="divimg"> <input type="file" id="img" name="img" placeholder="Image Location" accept=".png, .jpg, .jpeg" required></div><label for="Tags">Tag of the image (only one): </label><input type="text" id="tags" name="tag" placeholder="Tag" required>'
-    tags.insertAdjacentHTML("afterend", html)
+    document.getElementById("moreTags").insertAdjacentHTML("afterend", html)
 
 })
 
@@ -24,24 +18,24 @@ buttonAddImage.addEventListener("click", function (evt) {
 /**
  * Function that add a new input for the users after pressing the + button
  */
-buttonAddUser.addEventListener("click", function (evt) {
+document.getElementById("btAdd").onclick = function (evt) {
     console.log("click")
     let html = '<label for="newuser" id="labelUser">Add a new user : </label> <div id="divuser"> <input type="text" id="newuser" name="user[]" placeholder="New User" required></div>'
-    adduser.insertAdjacentHTML("afterend", html)
-})
+    document.getElementById("moreUser").insertAdjacentHTML("afterend", html)
+}
 
-//ajoute add user quand le bouton radio priavte est select 
-privatee.addEventListener("click", function (evt) {
-    btnplus.hidden = false;
-    add.hidden = false;
-    label.hidden = false
+//ajoute add user quand le bouton radio priavte est select
+document.getElementById("priv").addEventListener("click", function (evt) {
+    document.getElementById("btAdd").hidden = false;
+    document.getElementById("newuser").hidden = false;
+    document.getElementById("labelUser").hidden = false
 })
 //rend le menu add user invisible quand c'est en publice
-publice.addEventListener("click", function (evt) {
+document.getElementById("publ").addEventListener("click", function (evt) {
 
-    add.hidden = true;
-    btnplus.hidden = true;
-    label.hidden = true;
+    document.getElementById("newuser").hidden = true;
+    document.getElementById("btAdd").hidden = true;
+    document.getElementById("labelUser").hidden = true;
 })
 
 
