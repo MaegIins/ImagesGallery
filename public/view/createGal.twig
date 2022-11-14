@@ -1,58 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Image Gallery</title>
-		<link rel="stylesheet" href="../data/style/sass/newGall.css">
-	</head>
-	<body>
+<head>
+	<meta charset="UTF-8">
+	<title>Image Gallery</title>
+	<link rel="stylesheet" href="../data/style/sass/newGall.css">
+</head>
+<body>
 
-		{# {% if conn %} #}
-
-
-		<!-- contenu de la page de création de gallerie si connecté  TRISTAN -->
-			<div id="container"> <div id="header">
-				<h1>Create a new Gallery</h1>
-				<form id="addImg" action="/gallery/submit" method="post" enctype="multipart/form-data">
-					<label for="name">Name of the gallery :
-					</label>
-					<input type="text" id="name" name="title" placeholder="Name" required>
-					<div id="radio">
-						<input type="radio" class="radio" name="groupe-radio" id="publ" value="public" checked>Public
-						<input type="radio" class="radio" name="groupe-radio" id="priv" value="private">Private
-					</div>
-
-					<label for="img2">Image Location :
-					</label>
-					<div id="divimg">
-						<input type="file" id="img" name="img2">
-						<input type="button" value="+" name="add_img" id="btAdd">
-					</div>
-					<label for="tags">Tag of the image (only one):
-					</label>
-					<input type="text" id="tags" name="tag" placeholder="Tag">
-					<div id='moreTags'></div>
-
-						<label for="newuser" id="labelUser" hidden>Add a new user :
-						</label>
-						<div id="divuser" hidden>
-							<input type="text" id="newuser" name="user" placeholder="New User" hidden>
-							<input type="button" id="btnplus" value="+" name="add_username" hidden>
-						</div>
-					<div id='moreUser'></div>
+{# {% if conn %} #}
 
 
-					<input type="submit" id="submit" value="Create">
-					<input type="button" id="cancel" value="Cancel">
-				</form>
-
+<!-- contenu de la page de création de gallerie si connecté  TRISTAN -->
+<div id="container"> <div id="header">
+		<h1>Create a new Gallery</h1>
+		<form id="addImg" action="/gallery/submit" method="post" enctype="multipart/form-data">
+			<label for="name">Name of the gallery :
+			</label>
+			<input type="text" id="name" name="title" placeholder="Name" required>
+			<div id="radio">
+				<input type="radio" class="radio" name="groupe-radio" id="publ" value="public" checked>Public
+				<input type="radio" class="radio" name="groupe-radio" id="priv" value="private">Private
 			</div>
-		</div>
 
-		{# {% else %} #}
+			<label for="img2">Image Location :
+			</label>
+			<div id="divimg">
+				<input type="file" id="img" name="img2">
+				<input type="button" value="+" name="add_img" id="btAdd">
+			</div>
+			<label for="tags">Tag of the image (only one):
+			</label>
+			<input type="text" id="tags" name="tag" placeholder="Tag">
+			<div id='moreTags'></div>
 
-		{# {% endif %} #}
-		<script src="../data/scripts/createGallery.js"></script>
-	</body>
+			<label for="newuser" id="labelUser" hidden>Add a new user :
+			</label>
+			<div id="divuser" hidden>
+				<input type="text" id="newuser" name="user" placeholder="New User" hidden>
+				<input type="button" id="btnplus" value="+" name="add_username" hidden>
+			</div>
+			<div id='moreUser'></div>
+
+
+			<input type="submit" id="submit" value="Create">
+			<input type="button" id="cancel" value="Cancel">
+		</form>
+
+	</div>
+</div>
+
+{# {% else %} #}
+
+{# {% endif %} #}
+<script src="../data/scripts/createGallery.js"></script>
+</body>
 
 </html>
