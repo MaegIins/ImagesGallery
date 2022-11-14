@@ -95,6 +95,20 @@ class GalleryController
     }
     
 
+    public function showGalleryById(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $id = $args['id'];
+        $gallery = $this->galleryService->getGalleryById($id);
+        $images = $this->imageService->getImagesByGallery($id);
+        return $this->view->render($response, 'gallery.twig', [
+            'conn' => isset($_SESSION['id_user']),
+            'name' => $_SESSION["name"] ?? "",
+            'error' => "",
+            'gal' => $gallery,
+            'images' => $images,
+        ]);
+    }
+
     public function createGalleryPOST(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $args = $request->getParsedBody();

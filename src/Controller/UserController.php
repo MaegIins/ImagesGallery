@@ -94,20 +94,9 @@ class UserController
         unset($_SESSION["name"]);
         $response = $response->withStatus(302);
         return $response->withHeader('Location', '/');
-    }//helloo aled
-
-    public function Adduser(ServerRequestInterface $request, ResponseInterface $response) : ResponseInterface
-    {
-        $this->userService->forTestAddUSer("Quentin", "Quent5", "abcde");
-        $this->userService->forTestAddUSer("Jean", "post85", "azerty");
-        $this->userService->forTestAddUSer("Lautre", "killer54", "123456");
-        $this->userService->forTestAddUSer("Lulu", "tata", "14789");
-        $this->userService->forTestAddUSer("Claude", "toto", "12369a");
-
-        $response = $response->withStatus(200);
-        return $response->withHeader('Location', '/');
-        
     }
+
+   
     public function displayAbout(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
     {
         return $this->view->render($response, 'about.twig');

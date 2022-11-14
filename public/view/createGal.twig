@@ -7,7 +7,7 @@
 </head>
 <body>
 
-{# {% if conn %} #}
+{% if conn %}
 
 
 
@@ -44,9 +44,14 @@
     </div>
 </div>
 
-{# {% else %} #}
-
-{# {% endif %} #}
+{% else %}
+    <div id="container">
+        <div id="header">
+            <h1>Gallery</h1>
+            <p>You must be connected to create a gallery</p>
+        </div>
+    </div>
+{% endif %}
 <script src="../data/scripts/createGallery.js"></script>
 </body>
 

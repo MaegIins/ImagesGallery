@@ -31,8 +31,20 @@ class ImageService
         $this->em->persist($gallery);
         $this->em->flush();
     }
-    public function getImageByUser(): array
+    public function getImageByUser(User $user)
     {
+        $this->logger->info("ImageService::getImageByUser()");
+        $query = $this->em->createQuery('SELECT i FROM App\Domain\Image i WHERE i.user = :user');
+        $query->setParameter('user', $user);
+        return $query->getResult();
+    }
 
+    public function getImagesByGallery(int $id): array
+    {
+        $this->logger->info("ImageService::getImagesByGallery()");
+        $query = $this->em->createQuery('SELECT i FROM App\Domain\Image i JOIN i.gallery g WHERE g.id = :id');
+        $query->setParameter('id', $id);
+        $images = $query->getResult();
+        return $images;
     }
 }
