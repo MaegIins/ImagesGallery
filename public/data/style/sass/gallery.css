@@ -87,7 +87,7 @@ body {
   #menu {
     font-size: 25px;
     flex-direction: column;
-    height: auto;
+    height: 200px;
   }
   #menu #myGal {
     margin-left: 0;
@@ -124,6 +124,14 @@ body {
   #menu #title {
     font-size: 2em;
     margin: 0;
+  }
+}
+@media (max-width: 256px) {
+  #menu {
+    height: 150px;
+  }
+  #menu #title {
+    font-size: 20px;
   }
 }
 

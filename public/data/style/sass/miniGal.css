@@ -6,7 +6,7 @@
   margin-top: 40px;
 }
 
-.minGallery {
+.galleryPr, .galleryPu {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,10 +17,29 @@
   margin: 10px;
   background: #ececec;
 }
-.minGallery img {
+.galleryPr img, .galleryPu img {
   max-width: 100%;
   border: #595959 1px solid;
   max-height: 400px;
+}
+
+@media (max-width: 920px) {
+  .minGallery {
+    min-width: 100%;
+    min-height: 100%;
+  }
+  #content {
+    margin-top: 200px;
+  }
+}
+@media (max-width: 256px) {
+  .minGallery {
+    min-width: 100%;
+    min-height: 100%;
+  }
+  #content {
+    margin-top: 150px;
+  }
 }
 
 /*# sourceMappingURL=miniGal.css.map */
