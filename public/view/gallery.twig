@@ -39,7 +39,7 @@
     {% if conn %}
         {% for GalleryPr in galleryPr %}
             <div class="galleryPr">
-                <a href="https://www.w3schools.com">
+                <a href="{{ Gallery.title }}">
                     <img src="{{ Gallery.img }}" alt="1">
                     <p>{{ GalleryPr.title }}</p>
                 </a>
