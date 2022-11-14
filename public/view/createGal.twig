@@ -7,6 +7,8 @@
 </head>
 <body>
 
+{% if conn %}
+
 <div id="container"> <div id="header">
 		<h1>Create a new Gallery</h1>
 		<form id="addImg" action="/gallery/submit" method="post" enctype="multipart/form-data">
@@ -48,6 +50,14 @@
 
 	</div>
 </div>
+{% else %}
+    <div id="container">
+        <div id="header">
+            <h1>Gallery</h1>
+            <p>You must be connected to create a gallery</p>
+        </div>
+    </div>
+{% endif %}
 
 <script src="../data/scripts/createGallery.js"></script>
 </body>

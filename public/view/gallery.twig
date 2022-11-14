@@ -39,19 +39,25 @@
     {% if conn %}
         {% for GalleryPr in galleryPr %}
             <div class="galleryPr">
-                <a href="{{ Gallery.title }}">
+                <a href="/gallery/{{ GalleryPr.id_gal }}">
                     <img src="{{ Gallery.img }}" alt="1">
                     <p>{{ GalleryPr.title }}</p>
                 </a>
+                {% if conn %}
+                <a href="gallery/edit/{{ GalleryPr.id_gal }}">Edit</a>
+                {% endif %}
             </div>
         {% endfor %}
         {% for GalleryPu in galleryPu %}
 
             <div class="galleryPu">
-                <a href="https://www.w3schools.com">
+                <a href="/gallery/{{ GalleryPu.id_gal }}">
                     <img src="{{ Gallery.img }}" alt="2" width="600" height="400">
                     <p>{{ GalleryPu.title }}</p>
                 </a>
+                {% if conn %}
+                <a href="gallery/edit/{{ GalleryPu.id_gal }}">Edit</a>
+                {% endif %}
             </div>
 
         {% endfor %}
@@ -60,14 +66,16 @@
     {% else %}
         {% for GalleryPu in galleryPublic %}
             <div class="galleryPu">
-                <a href="https://www.w3schools.com">
+                <a href="/gallery/{{ GalleryPu.id_gal }}">
                     <img src="{{ Gallery.img }}" alt="2" width="600" height="400">
                     <p>{{ GalleryPu.title }}</p>
                 </a>
+                {% if conn %}
+                    <a href="gallery/edit/{{ GalleryPu.id_gal }}">Edit</a>
+                {% endif %}
             </div>
         {% endfor %}
     {% endif %}
-
 
 </div>
 <div id="footer">

@@ -71,12 +71,6 @@ class UserService
         return $checkMdpAndName;
     }
 
-    public function forTestAddUSer(string $name, string $username, string $password){
-        $user = new User($name, $username, $password);
-        $this->em->persist($user);
-        $this->em->flush();
-    }
-
     public function findUserById($id_user):mixed{
         $user = $this->em->getRepository(User::class)->find($id_user);
         //$user_creator = $this->em->getRepository(\App\Domain\User::class)->findBy(['id_user' => 2]);

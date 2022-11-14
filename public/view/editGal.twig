@@ -8,7 +8,7 @@
 	</head>
 	<body>
 
-		{# {% if conn %} #}
+		 {% if conn %}
 		<div id="container">
 			<div id="header">
 				<h1>Edit Gallery «{{gal.title}}»</h1>
@@ -28,12 +28,16 @@
 					<input type="button" value="+" name="add_username">
 				</div>
 				<input type="submit" id="submit" value="Edit">
-                <input type="button" id="cancel" value="Cancel">
+                <input type="button" id="cancel" onclick="window.location.href = '/'" value="Cancel">
                 {# <input type="button" id="delete" onclick="window.location.href = '/gallery/delete/{{gal.id_gal}}';" value="Delete" /> #}
 			</form>
 
 		</div>
 	</body>
-</div>{# {% else %} #}{# {% endif %} #}<script src="../data/scripts/createGallery.js"></script>
+</div>
+{% else %}
+<p>Vous n'êtes pas connecté</p>
+{% endif %}
+<script src="../data/scripts/createGallery.js"></script>
 </body>
 </html>
