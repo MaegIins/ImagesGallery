@@ -91,7 +91,7 @@ class GalleryService
 
     public function getGalleryById(int $id): Gallery
     {
-        $gallery = $this->em->getRepository(Gallery::class)->find($id);
+        $gallery = $this->em->getRepository(\App\Domain\Gallery::class)->find($id);
         return $gallery;
     }
 
