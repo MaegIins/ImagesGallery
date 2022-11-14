@@ -63,35 +63,28 @@ class GalleryController
         ]);
     }
 
-    public function deleteGallery(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
-    {
-        $id = $args['id'];
-        $this->galleryService->deleteGallery($id);
-        return $response->withHeader('Location', '/gallery');
-    }
+    // public function deleteGallery(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    // {
+    //     $id = $args['id'];
+    //     $this->galleryService->deleteGallery($id);
+    //     return $response->withHeader('Location', '/')->withStatus(302);
+    // }
 
     public function editGalleryPOST(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $args = $request->getParsedBody();
-        if (isset($args["title"]) && isset($args["tag"]) && isset($args["groupe-radio"]) && isset($_FILES) && isset($args["user"])) {
+        if (isset($args["title"]) && isset($args["groupe-radio"]) && isset($args["user"])) {
             $title = filter_var($args['title'], FILTER_UNSAFE_RAW);
-            $tag = filter_var($args['tag'], FILTER_UNSAFE_RAW);
 
             if ($args['groupe-radio'] == "private") {
                 $private = true;
             } else {
                 $private = false;
             }
-            $id_gal = 1;
+            $id_gal = $args['id_gal'];
             $this->galleryService->editGallery($id_gal, $title, $private);
             $username = $args["user"];
             $this->galleryService->addUserPrivate($username);
-            foreach ($_FILES as $img) {
-                $id = rand(0, 2000);
-                move_uploaded_file($img['tmp_name'], '../public/data/img/'.$id.$img["name"]);
-                $this->imageService->createImage($args["tag"], '/public/data/img/'.$id.$img["name"]);
-                $this->assignmentImageService->assignmentImage();
-            }
         }
 
         return $this->view->render($response, 'galleryWithPhoto.twig', [
