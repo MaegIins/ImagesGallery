@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Poor+Story&display=swap");
+body {
+  font-family: "Poor Story", cursive;
+}
 body li {
   list-style-type: none;
 }
@@ -32,6 +36,10 @@ body h1 {
 }
 .button:active {
   color: black;
+}
+
+#logoGitHub {
+  margin-right: 3px;
 }
 
 #list {
