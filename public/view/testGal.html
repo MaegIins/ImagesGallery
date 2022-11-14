@@ -2,116 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Photo Gallery</title>
-    <link rel="stylesheet" href="../data/style/normalizer.css">
-    <link rel="stylesheet" href="../data/style/sass/gallery.css">
-    <link rel="stylesheet" href="../data/style/sass/log.css">
-    <link rel="stylesheet" href="../data/style/sass/sign.css">
-    <link rel="stylesheet" href="../data/style/sass/miniGal.css">
-    <link rel="stylesheet" href="../data/style/sass/insideGal.css">
-
+    <title>Images Gallery - About</title>
+    <link rel="stylesheet" href="../data/style/sass/about.css">
 </head>
 <body>
+<h1>Images Gallery</h1>
+<h2>About the project</h2>
+<p>This project is a web application that allows users to create and share their own image galleries. The application is
+    developed using the PHP framework SLIM, twig, Javascript, HTML and SASS.</p>
+<h2>Authors</h2>
+<p>Authors of this project are:</p>
+<ul id="list">
+    <li><a href="https://github.com/MaegIins"> Tristan BELMONT</a></li>
+    <li><a href="https://github.com/Quent5"> Quentin DAL BON</a></li>
+    <li><a href="https://github.com/lucasfarroni"> Lucas FARRONI</a></li>
+    <li><a href="https://github.com/lgyn57"> Axel LEGUYEN</a></li>
+    <li><a href="https://github.com/Alfiov"> Clément PERRIN</a></li>
+</ul>
 
-<div id="menu">
-    <p id="title">Image Gallery</p>
-    {% if conn %}
-    <a id="myGal" href="/myGal">My gallery</a>
-    {% endif %}
-    <div id="login">
-        {% if conn %}
-        <a id="newGal" href="/newGal">New Gallery</a>
-        <input id="searchbar" type="text">
-        <p>Hello {{ name }}</p>
-
-
-        <a id="logout" href="/logout">Logout</a>
-        {% endif %}
-    </div>
-</div>
-<div id="banner">
-    <h1 id="galName">{{ Gallery Name }}</h1>
-
-    <div id="tagGallery">
-        <div id="tag image"> {{ tags }}</div>
-    </div>
+<div id="ext">
 
 
-    <div id="buttons">
-        <a id="addUserBut">add User</a>
-        <a id="addImgBut">add Image</a>
-        <a id="setPrivateBut">set Private</a>
-    </div>
-</div>
+    <a class="button" href="../data/maquettes.zip">Download the models</a>
+    <a class="button" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Instantly get 10000$</a>
 
+    <a href="https://github.com/MaegIins/ImagesGallery" id="github">
+        <svg id="logoGitHub" height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true"
+             class="octicon octicon-mark-github v-align-middle">
+            <path fill-rule="evenodd"
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+        </svg>
+        Our Github Repo</a>
 
-<div id="content">
-    {% if conn %}
-    {% for image in galPublic %}
-
-    <div class="puGallery">
-        {# <img src="{{ gal.image }}" alt="gallery image"> #}
-        <p>{{ galPublic.image }}</p>
-    </div>
-
-    {% endfor %}
-    {% else %}
-    {% for galleryPr in gal %}
-    <a href="/gal/{{ gal.id }}">
-        <div class="prGallery">
-            {# <img src="{{ gal.image }}" alt="gallery image"> #}
-            <p>{{ gal.name }}</p>
-        </div>
-    </a>
-    {% endfor %}
-    {% for galleryPu in gal %}
-    <a href="/gal/{{ gal.id }}">
-        <div class="puGallery">
-            {# <img src="{{ gal.image }}" alt="gallery image"> #}
-            <p>{{ gal.name }}</p>
-        </div>
-    </a>
-    {% endfor %}
-    {% endif %}
-
+    <a href="https://fonts.google.com/specimen/Poor+Story">The font we used : Poor Story</a>
 
 </div>
-<div id="footer">
-    <p id="txtFooter">© ALED. All Rights Reserved. <a href="about.twig">About</a> </p>
-</div>
-
-
-<div id="popup" class="popup" hidden>
-    <div id="Llog">
-        <h1>autorize user</h1>
-
-        <form id="authUser" method="post" action="/addUserGallery<">
-            <input type="text" class="Ltxt" placeholder="userName" name="username"/>
-            <input type="submit" id="Lsubmit" class="Lsub" value="add User"/>
-            <input type="button" id="cancelLogin" class="Lsub" value="Cancel"/>
-        </form>
-
-        {% if errorLogin != "" %}
-        <div class="Lerror" id="errorLog">{{ errorLogin }}</div>
-        {% endif %}
-    </div>
-</div>
-
-<div id="popup2" class="popup" hidden>
-    <div id="Slog">
-        <h1>add image</h1>
-        <form id="addImage" method="post" action="/addImage">
-            <input class="Stxt" type="text" placeholder="tag" name="tag"/>
-            <input class="Stxt" type="password" placeholder="path" name="path"/>
-            <input type="submit" id="Ssubmit" class="Ssub" value="add an image"/>
-            <input type="button" id="cancelSignup" class="Ssub" value="Cancel"/>
-        </form>
-        {% if errorSignup != "" %}
-        <div class="Serror" id="errorSign">{{ errorSignup }}</div>
-        {% endif %}
-    </div>
-</div>
-
-
 </body>
 </html>
