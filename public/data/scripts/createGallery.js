@@ -26,7 +26,7 @@ buttonAddImage.addEventListener("click", function (evt) {
  */
 buttonAddUser.addEventListener("click", function (evt) {
     console.log("click")
-    let html = '<label for="newuser" id="labelUser">Add a new user : </label> <div id="divuser"> <input type="text" id="newuser" name="user" placeholder="New User"></div>'
+    let html = '<label for="newuser" id="labelUser">Add a new user : </label> <div id="divuser"> <input type="text" id="newuser" name="user[]" placeholder="New User"></div>'
     adduser.insertAdjacentHTML("afterend", html)
 })
 

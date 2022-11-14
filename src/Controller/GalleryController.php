@@ -76,16 +76,13 @@ class GalleryController
                 $private = false;
             }
             $user = $_SESSION['id_user'];
-
             $user_creator = $this->userService->findUserById($user);
 
             $this->galleryService->createGallery($title, date('l jS \of F Y h:i:s A'), $private, $user_creator);
 
-
             $username = $args["user"];
-            var_dump($args["user"]);
-            $this->galleryService->addUserPrivate($username);
-
+            $errorConnect = $this->galleryService->addUserPrivate($username);
+            var_dump($errorConnect);
 
             foreach ($_FILES as $img) {
                 $id = rand(0, 2000);
@@ -94,12 +91,25 @@ class GalleryController
                 $this->assignmentImageService->assignmentImage();
             }
         }
+            if($errorConnect  != "OK"){
+                return $this->view->render($response, 'createGal.twig', [
+                    'conn' => isset($_SESSION['id_user']),
+                    'name' => $_SESSION["name"] ?? "",
+                    'error' => "",
+                    'errorConnect' => $errorConnect
+                ]);
+    
+            }else {
+                return $this->view->render($response, 'galleryWithPhoto.twig', [
+                    'conn' => isset($_SESSION['id_user']),
+                    'name' => $_SESSION["name"] ?? "",
+                    'error' => "",
+                    'errorConnect' => $errorConnect
+                ]);
+    
+            }
+            
 
-        return $this->view->render($response, 'createGal.twig', [
-            'conn' => isset($_SESSION['id_user']),
-            'name' => $_SESSION["name"] ?? "",
-            'error' => ""
-        ]);
     }
 
     public function addImageForm(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface

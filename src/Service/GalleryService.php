@@ -26,7 +26,6 @@ class GalleryService
 
     public function createGallery(string $title, string $date, bool $private, User $user_creator)
     {
-
         $gallery = new Gallery($title, $date, $private, $user_creator);
         $this->em->persist($gallery);
         $this->em->flush();
@@ -71,16 +70,24 @@ class GalleryService
     }
 
 
-    public function addUserPrivate($username)
+    public function addUserPrivate($username): string  
     {
         $id_gal = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(array(), ['id_gal' => 'DESC'], 1, 0);
-        var_dump($username);
-        $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $username]);
         $collection = $id_gal[0]->getUserToGallery();
-        $collection->set($id_gal[0]->getId_gal(), $id_user[0]);
-        $this->em->persist($id_gal[0]);
+        foreach ($username as $u) {
+            $id_user = $this->em->getRepository(\App\Domain\User::class)->findBy(['username' => $u]);
+            if (!isset($id_user[0])){
+                $res = "Utilisateur introuvable";
+            }else {
+                $collection->set($id_gal[0]->getId_gal(), $id_user[0]);
+                $this->em->persist($id_gal[0]);
+                $res = "OK";
+            }
+
+        }
         $this->em->flush();
-    }
+        return $res;
+    } 
 
     public function addImageGalerie($id_gal, $id_img)
     {
