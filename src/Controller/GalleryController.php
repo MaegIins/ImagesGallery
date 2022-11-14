@@ -133,8 +133,7 @@ class GalleryController
             $gallery = $this->galleryService->getGalleryPublic();
 
             return $this->view->render($response, 'gallery.twig', [
-                //'conn' => isset($_SESSION['id_user']),
-
+                'conn' => isset($_SESSION['id_user']),
                 'galleryPublic' => $gallery,
 
             ]);

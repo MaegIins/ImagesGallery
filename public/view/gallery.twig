@@ -35,16 +35,26 @@
 
 <div id="content">
 
-    {% for GalleryPu in galleryPublic %}
-        <div class="gallery">
+    {% if conn %}
+        {% for GalleryPr in galleryPr %}
+            <div class="gallery">
+                <p>{{ GalleryPr.title }}</p>
+            </div>
+        {% endfor %}
+        {% for GalleryPu in galleryPu %}
+            <div class="gallery">
+                <p>{{ GalleryPu.title }}</p>
+            </div>
+        {% endfor %}
 
 
-
-
-            <p>{{ GalleryPu.title }}</p>
-        </div>
-    {% endfor %}
-
+    {% else %}
+        {% for GalleryPu in galleryPublic %}
+            <div class="gallery">
+                <p>{{ GalleryPu.title }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
 
 
 </div>
