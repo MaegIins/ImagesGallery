@@ -124,16 +124,31 @@ class GalleryService
     public function getGalleryPrivate(): array
     {
         $galleryPrivate[] = "";
+        $user = $_SESSION['id_user'];
         $req = $this->em->getRepository(\App\Domain\Gallery::class)->findBy(['private' => 1]);
-        foreach ($req as $gallery) {
-            $users = $gallery->getUserToGallery();
-            $this->logger->info(print_r($users->contains($_SESSION["id_user"], true)));
-            var_dump($users);die;
-            if ($users->contains($_SESSION["id_user"]) || ($gallery->getUser_Creator()->getId() == $_SESSION["id_user"])) {
-                array_push($galleryPrivate, $gallery);
-            }
-        }
-        return $galleryPrivate;
+
+/*
+        $entityManager = $this->em;
+        $query = $entityManager->createQuery(
+            'SELECT g
+            FROM App\Domain\Gallery g
+            '
+
+        );
+        $test= $query->getResult();
+        //var_dump($test);*/
+        return $req;
+
+       /*$entityManager = $this->em;
+        $query = $entityManager->createQueryBuilder();
+        $query->select('g')
+            ->from('App\Domain\Gallery', 'g')
+            ->innerJoin('App\Domain\UserToGallery', 'u', 'WITH', 'u.id_gal = g.id_gal')
+            ->where('u.id_user = :id_user')
+            ->setParameter('id_user', $user);
+        $galleryPrivate = $query->getQuery()->getResult();
+        return $galleryPrivate;*/
+
     }
 
     public function connection()
