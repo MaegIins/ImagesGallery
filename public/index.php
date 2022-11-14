@@ -33,6 +33,8 @@ $app->get('/gallery/edit/{id}', GalleryController::class . ':editGallery');
 $app->get('/gallery/{id:[0-9]+}', GalleryController::class . ':getListGallery')->setName('maxgal');
 $app->get('/gallery/{id:[0-9]+}/image/{id_img:[0-9]+}', GalleryController::class . ':getListImage')->setName('maximg');
 $app->post('/gallery/submit', GalleryController::class . ':createGalleryPOST');
+$app->get('/image/add', GalleryController::class . ':addImageForm');
+$app->post('/image/submit', GalleryController::class . ':addImagePOST');
 $app->get('/user/create', UserController::class . ':Adduser');
 $app->get('/about', UserController::class . ':displayAbout');
 $app->get('/newGallery', UserController::class . ':newGallery');
